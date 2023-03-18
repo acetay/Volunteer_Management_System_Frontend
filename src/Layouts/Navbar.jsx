@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom';
+
 import { SiGooglefit } from 'react-icons/si';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { MdOutlineMailLock } from 'react-icons/md';
-
 import { BsFacebook } from 'react-icons/bs';
 import { AiFillTwitterCircle } from 'react-icons/ai';
 import { AiFillInstagram } from 'react-icons/ai';
@@ -32,13 +33,34 @@ function Navbar() {
 
         {/* 2nd Column */}
         <div className="min-w-full shadow-2xl px-8 py-6 ">
-          <div className="flex">
+          <div className="flex items-center">
             {/* Logo */}
-            <div className="logo flex justify-center items-center space-x-2">
-              <SiGooglefit size={32} color={'red'} />
-              <h1 className="font-bold text-blue-600 text-2xl tracking-wider">
-                Hope For Life
-              </h1>
+            <Link to="/">
+              <div className="logo flex justify-center items-center space-x-2">
+                <SiGooglefit size={32} color={'red'} />
+                <h1 className="font-bold text-blue-600 text-3xl tracking-wider">
+                  Hope For Life
+                </h1>
+              </div>
+            </Link>
+            {/* Main menu */}
+            <div className="flex justify-between items-center w-[75vw] pl-8">
+              <div className="flex space-x-3">
+                <Link className="font-semibold hover:text-blue-400" to="/about">
+                  About Us
+                </Link>
+                <Link className="font-semibold hover:text-blue-400" to="/about">
+                  Organizations
+                </Link>
+                <Link className="font-semibold hover:text-blue-400" to="/about">
+                  Contact
+                </Link>
+              </div>
+              <div className="flex space-x-3">
+                <Link to="/about">Login</Link>
+                <Link to="/about">Signup</Link>
+                <Link to="/about">Donate</Link>
+              </div>
             </div>
           </div>
         </div>
