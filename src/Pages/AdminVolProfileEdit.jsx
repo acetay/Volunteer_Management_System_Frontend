@@ -1,7 +1,7 @@
 import React from 'react';
 
-function AdminProfileEdit() {
+function AdminVolProfileEdit() {
   return <div>Volunteer profile edit for Administrator</div>;
 }
 
-export default AdminProfileEdit;
+export default AdminVolProfileEdit;
