@@ -16,7 +16,7 @@ function Navbar() {
           <div className="flex space-x-6">
             <div className="flex items-center">
               <BsFillTelephoneFill color={'white'} />
-              <p className="ml-2 text-sm">+65 61234567</p>
+              <p className="ml-2 text-sm">+65 612 34567</p>
             </div>
             <div className="flex items-center">
               <MdOutlineMailLock color={'white'} />
@@ -56,10 +56,12 @@ function Navbar() {
                   Contact
                 </Link>
               </div>
-              <div className="flex space-x-3">
+              <div className="flex justify-center items-center space-x-3">
                 <Link to="/about">Login</Link>
                 <Link to="/about">Signup</Link>
-                <Link to="/about">Donate</Link>
+                <div className="p-1 px-2 bg-red-500 text-white font-semibold">
+                  <Link to="/about">Donate</Link>
+                </div>
               </div>
             </div>
           </div>
