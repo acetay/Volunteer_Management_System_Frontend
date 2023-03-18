@@ -1,7 +1,12 @@
-import React from 'react';
+import Navbar from './Navbar';
 
 function Layout({ children }) {
-  return <div>{children}</div>;
+  return (
+    <div className="min-h-screen h-auto">
+      <Navbar />
+      {children}
+    </div>
+  );
 }
 
 export default Layout;

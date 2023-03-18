@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
+import Layout from './Layouts/Layout';
 import Home from './Pages/Home';
 import About from './Pages/About';
 import VolunteerSignUp from './Pages/VolunteerSignUp';
@@ -16,7 +17,7 @@ function App() {
   return (
     <>
       <Router>
-        <Routes>
+        <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -41,7 +42,7 @@ function App() {
               element={<AdminVolProfileEdit />}
             />
           </Routes>
-        </Routes>
+        </Layout>
       </Router>
     </>
   );
