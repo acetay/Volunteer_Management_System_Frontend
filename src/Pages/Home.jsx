@@ -1,7 +1,7 @@
-import React from 'react';
+// import Footer from '../Layouts/Footer';
 
 function Home() {
-  return <div></div>;
+  return <></>;
 }
 
 export default Home;
