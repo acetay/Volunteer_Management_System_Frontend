@@ -6,7 +6,7 @@ function VolunteerSignUp() {
 
   return (
     <div className="h-full px-40 py-4 mt-2">
-      <h1 className="font-bold text-xl tracking-widest text-blue-700">
+      <h1 className="font-bold text-2xl tracking-widest text-blue-700">
         Volunteer Registration
       </h1>
       {/* Form Container */}
