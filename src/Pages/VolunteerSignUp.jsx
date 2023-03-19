@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function VolunteerSignUp() {
   const [form, setForm] = useState({});
 
   return (
-    <div className="h-full px-40 py-4">
-      <h1 className="font-bold text-lg tracking-wider text-gray-700">
+    <div className="h-full px-40 py-4 mt-2">
+      <h1 className="font-bold text-xl tracking-widest text-blue-700">
         Volunteer Registration
       </h1>
       {/* Form Container */}
@@ -83,7 +84,7 @@ function VolunteerSignUp() {
           </div>
         </div>
         {/* 3rd Row Inputs */}
-        <div className="flex space-x-8 mt-5">
+        <div className="flex space-x-12 mt-5">
           <div className="flex flex-col">
             <label
               className="pb-2 pl-2 font-semibold text-sm"
@@ -197,7 +198,13 @@ function VolunteerSignUp() {
           </div>
         </div>
       </div>
-      <div className="flex justify-end items-center mt-4 pr-6">
+      <div className="flex justify-end items-center mt-4 pr-6 space-x-8">
+        <p className="text-sm text-blue-600">
+          Already have an account?{' '}
+          <Link to="/volunteers/signin" className="underline">
+            Sign in.
+          </Link>
+        </p>
         <button className="btn btn-primary btn-sm">Signup!</button>
       </div>
     </div>
