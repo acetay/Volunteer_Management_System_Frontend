@@ -12,7 +12,7 @@ function Navbar() {
     <nav classname="min-w-full sticky top-0 z-20">
       <div className="flex flex-col">
         {/* 1st Column */}
-        <div className="min-w-full flex justify-between bg-blue-600 px-12 py-2 text-white font-semibold space-x-8">
+        <div className="min-w-full flex justify-between bg-blue-600 px-20 py-2 text-white font-semibold space-x-8">
           <div className="flex space-x-6">
             <div className="flex items-center">
               <BsFillTelephoneFill color={'white'} />
@@ -58,7 +58,7 @@ function Navbar() {
               </div>
               <div className="flex justify-center items-center space-x-3">
                 <Link to="/about">Login</Link>
-                <Link to="/about">Signup</Link>
+                <Link to="/volunteers/signup">Signup</Link>
                 <div className="p-1 px-2 bg-red-500 text-white font-semibold">
                   <Link to="/about">Donate</Link>
                 </div>
