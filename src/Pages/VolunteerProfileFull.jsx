@@ -1,8 +1,32 @@
-import ProfilePhoto1 from '../Assets/Sample_images/profilephoto1.png';
+import { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
+// import ProfilePhoto1 from '../Assets/Sample_images/profilephoto1.png';
+import axios from 'axios';
+
 import { MdAddAPhoto } from 'react-icons/md';
-import { FaAddressBook } from 'react-icons/fa';
+
+// TODO - BREAKUP AND TRANSFER TO COMPONENTS FOLDER
 
 function VolunteerProfileFull() {
+  const { id } = useParams();
+  const [user, setUser] = useState({});
+
+  // Get User by Id
+  const getVolunteerById = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/admin/volunteers/${id}`
+      );
+      setUser(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    setUser(getVolunteerById(id));
+  }, []);
+
   return (
     <div className="h-full w-[100%] flex">
       {/* Column 1 */}
@@ -11,14 +35,14 @@ function VolunteerProfileFull() {
         <div className="relative">
           <img
             className="w-[180px] h-[180px] rounded-full mt-6"
-            src={ProfilePhoto1}
+            src="https://st4.depositphotos.com/4329009/19956/v/450/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg"
             alt="profile"
           />
-          <MdAddAPhoto size={30} className="bottom-0 right-4 absolute" />
+          <MdAddAPhoto size={30} className="bottom-0 right-6 absolute" />
         </div>
 
         <h1 className="text-2xl font-semibold pt-4 tracking-wider">
-          Katherine Ong
+          {user.name}
         </h1>
         <p className="text-sm text-gray-700">Member since 1 Jan 2010</p>
         <div className="w-[100%] min-h-full h-[40vh] flex flex-col justify-center items-center">
@@ -32,6 +56,7 @@ function VolunteerProfileFull() {
       </div>
       {/* Column 2 */}
       <div className="h-full w-[65%] flex flex-col">
+        {/* PERSONAL INFO */}
         <div className="pt-8 px-12">
           <h1 className="text-2xl font-semibold tracking-wider pb-2 text-gray-500">
             Personal Information
@@ -41,27 +66,28 @@ function VolunteerProfileFull() {
             <tbody>
               <tr>
                 <td className="w-[50%] py-2 font-semibold">Contact: </td>
-                <td className="text-blue-700">+65 9123 4567</td>
+                <td className="text-blue-700">{user.contact}</td>
               </tr>
               <tr>
                 <td className="w-[50%] py-2 font-semibold">Email: </td>
-                <td className="text-blue-700">CatherineOng@gmail.com</td>
+                <td className="text-blue-700">{user.email}</td>
               </tr>
               <tr>
                 <td className="w-[50%] py-2 font-semibold">Address: </td>
-                <td className="text-blue-700">234, Bishan Ave 2, #02-355</td>
+                <td className="text-blue-700">{user.address}</td>
               </tr>
               <tr>
                 <td className="w-[50%] py-2 font-semibold">Education: </td>
-                <td className="text-blue-700">Master Degree</td>
+                <td className="text-blue-700">{user.education}</td>
               </tr>
               <tr>
                 <td className="w-[50%] py-2 font-semibold">Occupation: </td>
-                <td className="text-blue-700">Primary School Teacher</td>
+                <td className="text-blue-700"></td>
               </tr>
             </tbody>
           </table>
         </div>
+        {/* PROFILE AND EXP */}
         <div className="pt-8 px-12">
           <h1 className="text-2xl font-semibold tracking-wider pb-2 text-gray-500">
             Profile & Experience
@@ -70,19 +96,16 @@ function VolunteerProfileFull() {
           <table class="table-auto">
             <tbody>
               <tr>
-                <td className="w-[27%] py-2 font-semibold">Languages:</td>
-                <td className="text-blue-700">English, Chinese, Malay</td>
+                <td className="w-[70%] py-2 font-semibold">Languages:</td>
+                <td className="text-blue-700">{user.language}</td>
               </tr>
               <tr>
-                <td className="w-[27%] py-2 font-semibold">Interests: </td>
-                <td className="text-blue-700">Yoga, Children's welfare</td>
+                <td className="w-[70%] py-2 font-semibold">Interests: </td>
+                <td className="text-blue-700"></td>
               </tr>
               <tr>
-                <td className="w-[27%] py-2 font-semibold">Experience: </td>
-                <td className="text-blue-700">
-                  Grassroot volunteer for Bishan GRC, Meals-On-Wheels with
-                  Touching Hearts
-                </td>
+                <td className="w-[70%] py-2 font-semibold">Experience: </td>
+                <td className="text-blue-700">{user.pastExperience}</td>
               </tr>
             </tbody>
           </table>
@@ -94,7 +117,11 @@ function VolunteerProfileFull() {
           </button>
           <button className="btn btn-primary text-white">Past Records</button>
           <button className="btn btn-accent text-white">Feedback</button>
-          <button className="btn btn-secondary text-white">Edit Profile</button>
+          <Link to={`/volunteers/profile/${id}/edit`}>
+            <button className="btn btn-secondary text-white">
+              Edit Profile
+            </button>
+          </Link>
         </div>
       </div>
     </div>

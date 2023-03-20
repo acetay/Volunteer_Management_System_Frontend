@@ -1,8 +1,43 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
+
+// TODO - BREAKUP AND TRANSFER TO COMPONENTS FOLDER
+
+const initialState = {
+  name: '',
+  dateOfBirth: '',
+  contact: '',
+  email: '',
+  education: '',
+  address: '',
+  pastExperience: '',
+  language: '',
+  referrerName: '',
+  referrerContact: '',
+  hasCriminalRecord: false,
+};
 
 function VolunteerSignUp() {
-  const [form, setForm] = useState({});
+  const { signupVolunteer, currentUser } = useGlobalVolunteerContext();
+  const redirect = useNavigate();
+
+  const [form, setForm] = useState(initialState);
+
+  const changeHandler = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const signupHandler = () => {
+    signupVolunteer(form);
+    setForm(initialState);
+  };
+
+  useEffect(() => {
+    if (currentUser.id) {
+      redirect(`/volunteers/profile/${currentUser.id}`);
+    }
+  }, [currentUser]);
 
   return (
     <div className="h-full px-40 py-4 mt-2">
@@ -20,6 +55,8 @@ function VolunteerSignUp() {
             <input
               id="name"
               name="name"
+              value={form.name}
+              onChange={changeHandler}
               placeholder="Your full name"
               type="text"
               className="input input-bordered input-info w-[35vw] input-md"
@@ -35,6 +72,8 @@ function VolunteerSignUp() {
             <input
               id="email"
               name="email"
+              value={form.email}
+              onChange={changeHandler}
               placeholder="Your personnal email address"
               type="email"
               className="input input-bordered input-info w-[35vw] input-md"
@@ -56,6 +95,8 @@ function VolunteerSignUp() {
             <input
               id="contact"
               name="contact"
+              value={form.contact}
+              onChange={changeHandler}
               type="text"
               placeholder="Your contact number"
               className="input input-bordered input-info w-[35vw] input-md"
@@ -74,6 +115,8 @@ function VolunteerSignUp() {
             <input
               id="address"
               name="address"
+              value={form.address}
+              onChange={changeHandler}
               type="text"
               placeholder="Your residential address"
               className="input input-bordered input-info w-[35vw] input-md"
@@ -88,13 +131,16 @@ function VolunteerSignUp() {
           <div className="flex flex-col">
             <label
               className="pb-2 pl-2 font-semibold text-sm"
-              htmlFor="birthday"
+              htmlFor="dateOfBirth"
             >
-              Date of Birth:
+              Birthday:
             </label>
             <input
-              id="birthday"
-              name="birthday"
+              id="dateOfBirth"
+              name="dateOfBirth"
+              // value={form.age}
+              onChange={changeHandler}
+              // placeholder="current yr age"
               type="date"
               className="input input-bordered input-info input-sm"
             />
@@ -106,10 +152,12 @@ function VolunteerSignUp() {
             >
               Education:
             </label>
-            <select className="select select-info w-full max-w-xs select-sm text-sm font-normal">
-              <option disabled selected>
-                Highest Education
-              </option>
+            <select
+              name="education"
+              onChange={changeHandler}
+              className="select select-info w-full max-w-xs select-sm text-sm font-normal"
+            >
+              <option defaultValue>Highest Education</option>
               <option>Degree or higher</option>
               <option>Diploma</option>
               <option>A Levels</option>
@@ -123,27 +171,64 @@ function VolunteerSignUp() {
           <div className="flex flex-col">
             <label
               className="pb-2 pl-2 font-semibold text-sm"
-              htmlFor="education"
+              htmlFor="hasCriminalRecord"
             >
               Criminal Records:
             </label>
-            <select className="select select-info w-full max-w-xs select-sm text-sm font-normal">
-              <option disabled selected>
-                Past Offender?
-              </option>
-              <option>Yes</option>
-              <option>No</option>
+            <select
+              name="hasCriminalRecord"
+              onChange={changeHandler}
+              className="select select-info w-full max-w-xs select-sm text-sm font-normal"
+            >
+              <option defaultValue>Past Offender?</option>
+              <option value={true}>Yes</option>
+              <option value={false}>No</option>
             </select>
+          </div>
+          <div className="flex flex-col">
+            <label
+              className="pb-2 pl-2 font-semibold text-sm"
+              htmlFor="referrerName"
+            >
+              Referral, if any:
+            </label>
+            <input
+              id="referrerName"
+              name="referrerName"
+              value={form.referrerName}
+              onChange={changeHandler}
+              type="text"
+              placeholder="Referral Name"
+              className="input input-bordered input-info input-sm"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label
+              className="pb-2 pl-2 font-semibold text-sm"
+              htmlFor="referrerContact"
+            >
+              Referral contact:
+            </label>
+            <input
+              id="referrerContact"
+              name="referrerContact"
+              value={form.referrerContact}
+              onChange={changeHandler}
+              placeholder="Referral Contact"
+              className="input input-bordered input-info input-sm"
+            />
           </div>
         </div>
         {/* 4th Row Inputs */}
         <h1 className="pl-2 font-semibold text-sm mt-6">Languages (spoken):</h1>
         <div className="flex space-x-8 mt-2">
           <div className="flex flex-col">
-            <select className="select select-info w-full max-w-xs select-sm text-sm font-normal">
-              <option disabled selected>
-                1st choice
-              </option>
+            <select
+              name="language"
+              onChange={changeHandler}
+              className="select select-info w-full max-w-xs select-sm text-sm font-normal"
+            >
+              <option defaultValue>1st choice</option>
               <option>English</option>
               <option>Chinese</option>
               <option>Hokkien</option>
@@ -155,9 +240,7 @@ function VolunteerSignUp() {
           </div>
           <div className="flex flex-col">
             <select className="select select-info w-full max-w-xs select-sm text-sm font-normal">
-              <option disabled selected>
-                2nd choice
-              </option>
+              <option defaultValue>2nd choice</option>
               <option>English</option>
               <option>Chinese</option>
               <option>Hokkien</option>
@@ -169,9 +252,7 @@ function VolunteerSignUp() {
           </div>
           <div className="flex flex-col">
             <select className="select select-info w-full max-w-xs select-sm text-sm font-normal">
-              <option disabled selected>
-                3rd choice
-              </option>
+              <option defaultValue>3rd choice</option>
               <option>English</option>
               <option>Chinese</option>
               <option>Hokkien</option>
@@ -192,6 +273,9 @@ function VolunteerSignUp() {
               Past Experience:
             </label>
             <textarea
+              name="pastExperience"
+              id="pastExperience"
+              onChange={changeHandler}
               className="textarea textarea-info w-full textarea-md"
               placeholder="Tell us about your past volunteering experience, if any."
             ></textarea>
@@ -205,7 +289,9 @@ function VolunteerSignUp() {
             Sign in.
           </Link>
         </p>
-        <button className="btn btn-primary btn-sm">Signup!</button>
+        <button onClick={signupHandler} className="btn btn-primary btn-sm">
+          Signup!
+        </button>
       </div>
     </div>
   );
