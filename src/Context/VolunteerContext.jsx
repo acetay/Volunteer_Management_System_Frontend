@@ -6,6 +6,7 @@ const VolunteerContext = createContext();
 function VolunteerContextProvider({ children }) {
   const [volunteers, setVolunteers] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
+  const [editForm, setEditForm] = useState({});
 
   useEffect(() => {
     getAllVolunteers();
@@ -48,9 +49,7 @@ function VolunteerContextProvider({ children }) {
       const newList = volunteers.map((person) =>
         person.id === id ? volunteer : person
       );
-      setVolunteers(newList);
-      console.log(response.data);
-      getAllVolunteers();
+      setVolunteers([...newList]);
     } catch (err) {
       console.log(err);
     }
@@ -62,6 +61,8 @@ function VolunteerContextProvider({ children }) {
     signupVolunteer,
     currentUser,
     editVolunteer,
+    setEditForm,
+    editForm,
   };
 
   return (

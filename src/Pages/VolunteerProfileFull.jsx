@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 // import ProfilePhoto1 from '../Assets/Sample_images/profilephoto1.png';
 import axios from 'axios';
+import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
 
 import { MdAddAPhoto } from 'react-icons/md';
 
 // TODO - BREAKUP AND TRANSFER TO COMPONENTS FOLDER
 
 function VolunteerProfileFull() {
+  const redirect = useNavigate();
+  const { setEditForm } = useGlobalVolunteerContext();
   const { id } = useParams();
   const [user, setUser] = useState({});
 
@@ -23,8 +26,13 @@ function VolunteerProfileFull() {
     }
   };
 
+  const goToEdit = () => {
+    setEditForm(user);
+    redirect(`/volunteers/profile/${user.id}/edit`);
+  };
+
   useEffect(() => {
-    setUser(getVolunteerById(id));
+    getVolunteerById(id);
   }, []);
 
   return (
@@ -117,11 +125,11 @@ function VolunteerProfileFull() {
           </button>
           <button className="btn btn-primary text-white">Past Records</button>
           <button className="btn btn-accent text-white">Feedback</button>
-          <Link to={`/volunteers/profile/${id}/edit`}>
-            <button className="btn btn-secondary text-white">
-              Edit Profile
-            </button>
-          </Link>
+          {/* <Link to={`/volunteers/profile/${id}/edit`}> */}
+          <button onClick={goToEdit} className="btn btn-secondary text-white">
+            Edit Profile
+          </button>
+          {/* </Link> */}
         </div>
       </div>
     </div>

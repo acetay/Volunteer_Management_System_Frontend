@@ -3,12 +3,14 @@ import { useState, useEffect } from 'react';
 import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
 
 function VolunteerProfileEdit() {
-  const { volunteers, editVolunteer } = useGlobalVolunteerContext();
+  const { volunteers, editVolunteer, editForm } = useGlobalVolunteerContext();
   const redirect = useNavigate();
   const { id } = useParams();
-  const person = volunteers?.find((item) => item.id === Number(id));
-  const [form, setForm] = useState(person);
-  console.log(person);
+
+  // console.log(id);
+  // console.log(volunteers);
+
+  const [form, setForm] = useState(editForm);
 
   const changeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
