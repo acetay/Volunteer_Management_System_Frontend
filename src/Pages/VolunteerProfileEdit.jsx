@@ -1,9 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
 
 function VolunteerProfileEdit() {
-  const { volunteers, editVolunteer, editForm } = useGlobalVolunteerContext();
+  const { editVolunteer, editForm } = useGlobalVolunteerContext();
   const redirect = useNavigate();
   const { id } = useParams();
 

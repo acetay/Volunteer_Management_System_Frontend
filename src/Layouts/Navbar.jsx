@@ -59,7 +59,7 @@ function Navbar() {
               <div className="flex justify-center items-center space-x-3">
                 <Link to="/admin/signin">Admin</Link>
                 <Link to="/volunteers/profile/1">MyProfile</Link>
-                <Link to="/volunteers/signin">Login</Link>
+                <Link to="/volunteers/signin">Signin</Link>
                 <Link to="/volunteers/signup">Signup</Link>
                 <div className="p-1 px-2 bg-red-500 text-white font-semibold">
                   <Link to="/about">Donate</Link>

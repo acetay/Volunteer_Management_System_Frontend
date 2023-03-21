@@ -1,5 +1,3 @@
-// import Footer from '../Layouts/Footer';
-
 function Home() {
   return <></>;
 }

@@ -5,7 +5,9 @@ const VolunteerContext = createContext();
 
 function VolunteerContextProvider({ children }) {
   const [volunteers, setVolunteers] = useState([]);
+  // This will be replaced by JWT Access Token
   const [currentUser, setCurrentUser] = useState({});
+
   const [editForm, setEditForm] = useState({});
 
   useEffect(() => {
