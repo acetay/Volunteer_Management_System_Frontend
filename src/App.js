@@ -12,6 +12,7 @@ import AdminSignIn from './Pages/AdminSignIn';
 import AdminMainPanel from './Pages/AdminMainPanel';
 import AdminVolProfileEdit from './Pages/AdminVolProfileEdit';
 import ProgrammeListing from './Pages/ProgrammeListing';
+import Login from './Pages/Login';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/volunteers/signup" element={<VolunteerSignUp />} />
             <Route path="/volunteers/signin" element={<VolunteerSignIn />} />
+            <Route path="/volunteers/login" element={<Login />} />
             <Route
               path="/volunteers/profile/:id"
               element={<VolunteerProfileFull />}
