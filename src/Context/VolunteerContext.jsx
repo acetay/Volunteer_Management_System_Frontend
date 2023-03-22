@@ -16,17 +16,16 @@ import {
 const VolunteerContext = createContext();
 
 function VolunteerContextProvider({ children }) {
-  const [user, setUser] = useState({});
+  const [authUser, setAuthUser] = useState({});
   const [volunteers, setVolunteers] = useState([]);
-  // This will be replaced by JWT Access Token
-  const [currentUser, setCurrentUser] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [editForm, setEditForm] = useState({});
 
   useEffect(() => {
     const listenToAuth = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      // console.log(currentUser);
+      setAuthUser(currentUser);
+      console.log(currentUser.accessToken);
     });
     return () => {
       listenToAuth();
@@ -58,7 +57,7 @@ function VolunteerContextProvider({ children }) {
         volunteer
       );
       console.log(response.data);
-      setCurrentUser(response.data);
+      setAuthUser(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -80,6 +79,19 @@ function VolunteerContextProvider({ children }) {
     }
   };
 
+  // Sign-in a Volunteer
+  const signInVolunteer = async (uid) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/api/signin`,
+        uid
+      );
+      setAuthUser({ ...authUser, profile: response.data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // 1. Firebase = Create new user
 
   const createUserWithPwAndEmail = (email, password) => {
@@ -90,6 +102,7 @@ function VolunteerContextProvider({ children }) {
   const signInUserWithPwAndEmail = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
+
   // 3. Firebase = sign in with Google - with redirect
   const googleSigninWithRedirect = () => {
     const provider = new GoogleAuthProvider();
@@ -105,7 +118,6 @@ function VolunteerContextProvider({ children }) {
     volunteers,
     setVolunteers,
     signupVolunteer,
-    currentUser,
     editVolunteer,
     setEditForm,
     editForm,
@@ -113,6 +125,10 @@ function VolunteerContextProvider({ children }) {
     createUserWithPwAndEmail,
     googleSigninWithRedirect,
     signout,
+    isLoggedIn,
+    setIsLoggedIn,
+    authUser,
+    signInVolunteer,
   };
 
   return (

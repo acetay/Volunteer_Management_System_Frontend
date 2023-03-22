@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 
 function Layout({ children }) {
   return (
-    <div className="min-h-screen h-auto relative">
+    <div className="min-h-full flex flex-col h-screen justify-between">
       <Navbar />
       {children}
       <Footer />

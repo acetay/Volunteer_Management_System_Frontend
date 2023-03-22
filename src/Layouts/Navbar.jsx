@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
+
 import { SiGooglefit } from 'react-icons/si';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { MdOutlineMailLock } from 'react-icons/md';
@@ -8,11 +10,12 @@ import { AiFillTwitterCircle } from 'react-icons/ai';
 import { AiFillInstagram } from 'react-icons/ai';
 
 function Navbar() {
+  const { authUser } = useGlobalVolunteerContext();
   return (
-    <nav classname="min-w-full sticky top-0 z-20">
+    <nav classname="min-w-full w-auto sticky top-0 z-20">
       <div className="flex flex-col">
         {/* 1st Column */}
-        <div className="min-w-full flex justify-between bg-blue-600 px-20 py-2 text-white font-semibold space-x-8">
+        <div className="flex justify-between bg-blue-600 px-20 py-2 text-white font-semibold space-x-8">
           <div className="flex space-x-6">
             <div className="flex items-center">
               <BsFillTelephoneFill color={'white'} />
@@ -57,11 +60,31 @@ function Navbar() {
                 </Link>
               </div>
               <div className="flex justify-center items-center space-x-3">
-                <Link to="/admin/signin">Admin</Link>
-                <Link to="/volunteers/profile/1">MyProfile</Link>
-                <Link to="/volunteers/signin">Signin</Link>
-                <Link to="/volunteers/login">login</Link>
-                <Link to="/volunteers/signup">Signup</Link>
+                {authUser ? (
+                  <>
+                    <Link
+                      className="hover:text-blue-600 hover:underline"
+                      to="/admin/signin"
+                    >
+                      Admin
+                    </Link>
+                    <Link
+                      className="hover:text-blue-600 hover:underline"
+                      to="/volunteers/profile/1"
+                    >
+                      MyProfile
+                    </Link>
+                    <p className="hover:text-blue-600 hover:underline cursor-pointer">
+                      SignOut
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/volunteers/signin">Signin</Link>
+                    <Link to="/volunteers/signup">Signup</Link>
+                  </>
+                )}
+
                 <div className="p-1 px-2 bg-red-500 text-white font-semibold">
                   <Link to="/about">Donate</Link>
                 </div>

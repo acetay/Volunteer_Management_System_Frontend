@@ -12,7 +12,7 @@ import { MdAddAPhoto } from 'react-icons/md';
 
 function VolunteerProfileFull() {
   const redirect = useNavigate();
-  const { setEditForm } = useGlobalVolunteerContext();
+  const { setEditForm, authUser } = useGlobalVolunteerContext();
   const { id } = useParams();
   const [user, setUser] = useState({});
   const [date, setDate] = useState(new Date());
@@ -21,7 +21,12 @@ function VolunteerProfileFull() {
   const getVolunteerById = async (id) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/admin/volunteers/${id}`
+        `http://localhost:8080/admin/volunteers/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${authUser.accessToken}`,
+          },
+        }
       );
       setUser(response.data);
     } catch (err) {
@@ -39,13 +44,13 @@ function VolunteerProfileFull() {
   }, []);
 
   return (
-    <div className="h-full w-[100%] flex">
+    <div className="w-[100%] flex">
       {/* Column 1 */}
-      <div className="h-full w-[35%] flex flex-col justify-center items-center">
+      <div className="w-[35%] h-[40vh] mt-28 flex flex-col justify-center items-center">
         {/* <h1 className="text-lg font-bold text-blue-800 pt-2">Volunteer</h1> */}
-        <div className="relative">
+        <div className=" relative mt-4">
           <img
-            className="w-[170px] h-[170px] rounded-full mt-6"
+            className="w-[170px] h-[170px] rounded-full"
             src={ProfilePhoto1}
             // src="https://st4.depositphotos.com/4329009/19956/v/450/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg"
             alt="profile"
@@ -60,9 +65,9 @@ function VolunteerProfileFull() {
         <h1 className="text-2xl font-semibold pt-1 tracking-wider">
           {user.name}
         </h1>
-        <p className="text-sm text-gray-700 pb-2">Member since 1 Jan 2010</p>
-        <div className="w-[100%] min-h-full h-[40vh] flex flex-col justify-center items-center">
-          <h2 className="pb-1 tracking-widest text-md font-semibold text-red-500 underline">
+        <p className="text-sm text-gray-700">Member since 1 Jan 2010</p>
+        <div className="w-[100%] flex flex-col justify-center items-center">
+          <h2 className="tracking-widest text-md font-semibold text-red-500 underline">
             My Availability Scheduler
           </h2>
           <div className="h-[75%] w-[78%] p-2 mt-3  flex justify-center items-center text-black rounded-md">
@@ -70,7 +75,7 @@ function VolunteerProfileFull() {
               <Calendar onChange={setDate} value={date} />
             </div>
           </div>
-          <div className="pt-4">
+          <div className="pt-3">
             <p>
               <span className="font-bold text-blue-800">Selected Date: </span>{' '}
               {date.toDateString()}
@@ -81,7 +86,7 @@ function VolunteerProfileFull() {
       {/* Column 2 */}
       <div className="h-full w-[65%] flex flex-col">
         {/* PERSONAL INFO */}
-        <div className="pt-8 px-12">
+        <div className="pt-3 px-12">
           <h1 className="text-2xl font-semibold tracking-wider pb-2 text-gray-500">
             Personal Information
           </h1>
@@ -120,15 +125,15 @@ function VolunteerProfileFull() {
           <table class="table-auto">
             <tbody>
               <tr>
-                <td className="w-[70%] py-2 font-semibold">Languages:</td>
+                <td className="w-[50%] py-2 font-semibold">Languages:</td>
                 <td className="text-blue-700">{user.language}</td>
               </tr>
               <tr>
-                <td className="w-[70%] py-2 font-semibold">Interests: </td>
+                <td className="w-[50%] py-2 font-semibold">Interests: </td>
                 <td className="text-blue-700"></td>
               </tr>
               <tr>
-                <td className="w-[70%] py-2 font-semibold">Experience: </td>
+                <td className="w-[50%] py-2 font-semibold">Experience: </td>
                 <td className="text-blue-700">{user.pastExperience}</td>
               </tr>
             </tbody>
