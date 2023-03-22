@@ -18,13 +18,13 @@ function VolunteerSignIn() {
   });
 
   useEffect(() => {
-    if (authUser.uid && isLoggedIn) {
+    if (authUser?.uid && isLoggedIn) {
       signInVolunteer({ uid: authUser.uid });
     }
   }, [isLoggedIn]);
 
   useEffect(() => {
-    if (authUser.profile) {
+    if (authUser?.profile) {
       const id = authUser.profile.volunteer.id;
       redirect(`/volunteers/profile/${id}`);
     }

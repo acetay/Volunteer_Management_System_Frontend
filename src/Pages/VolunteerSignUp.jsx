@@ -34,7 +34,7 @@ function VolunteerSignUp() {
   };
 
   useEffect(() => {
-    if (currentUser.id) {
+    if (currentUser?.id) {
       redirect(`/volunteers/profile/${currentUser.id}`);
     }
   }, [currentUser]);

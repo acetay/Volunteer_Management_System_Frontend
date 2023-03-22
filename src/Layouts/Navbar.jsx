@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
 
@@ -10,7 +10,15 @@ import { AiFillTwitterCircle } from 'react-icons/ai';
 import { AiFillInstagram } from 'react-icons/ai';
 
 function Navbar() {
-  const { authUser } = useGlobalVolunteerContext();
+  const redirect = useNavigate();
+  const { authUser, signout, setIsLoggedIn } = useGlobalVolunteerContext();
+
+  const logout = () => {
+    signout();
+    setIsLoggedIn(false);
+    redirect('/');
+  };
+
   return (
     <nav classname="min-w-full w-auto sticky top-0 z-20">
       <div className="flex flex-col">
@@ -63,18 +71,21 @@ function Navbar() {
                 {authUser ? (
                   <>
                     <Link
-                      className="hover:text-blue-600 hover:underline"
+                      className="hover:text-blue-600 hover:underline tracking-wider"
                       to="/admin/signin"
                     >
                       Admin
                     </Link>
                     <Link
-                      className="hover:text-blue-600 hover:underline"
+                      className="hover:text-blue-600 hover:underline tracking-wider"
                       to="/volunteers/profile/1"
                     >
                       MyProfile
                     </Link>
-                    <p className="hover:text-blue-600 hover:underline cursor-pointer">
+                    <p
+                      onClick={logout}
+                      className="hover:text-blue-600 hover:underline cursor-pointer tracking-wider"
+                    >
                       SignOut
                     </p>
                   </>
