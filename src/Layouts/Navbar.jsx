@@ -11,10 +11,12 @@ import { AiFillInstagram } from 'react-icons/ai';
 
 function Navbar() {
   const redirect = useNavigate();
-  const { authUser, signout, setIsLoggedIn } = useGlobalVolunteerContext();
+  const { authUser, signout, setIsLoggedIn, signOutVolunteer } =
+    useGlobalVolunteerContext();
 
   const logout = () => {
     signout();
+    signOutVolunteer({ uid: authUser.uid });
     setIsLoggedIn(false);
     redirect('/');
   };
@@ -72,12 +74,6 @@ function Navbar() {
                   <>
                     <Link
                       className="hover:text-blue-600 hover:underline tracking-wider"
-                      to="/admin/signin"
-                    >
-                      Admin
-                    </Link>
-                    <Link
-                      className="hover:text-blue-600 hover:underline tracking-wider"
                       to="/volunteers/profile/1"
                     >
                       MyProfile
@@ -91,7 +87,13 @@ function Navbar() {
                   </>
                 ) : (
                   <>
-                    <Link to="/volunteers/signin">Signin</Link>
+                    <Link
+                      className="hover:text-blue-600 hover:underline tracking-wider"
+                      to="/admin/signin"
+                    >
+                      Admin
+                    </Link>
+                    <Link to="/volunteers/signin">SignIn</Link>
                     <Link to="/volunteers/signup">Signup</Link>
                   </>
                 )}

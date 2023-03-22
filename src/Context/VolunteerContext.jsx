@@ -92,6 +92,18 @@ function VolunteerContextProvider({ children }) {
     }
   };
 
+  // Sign-out a Volunteer
+  const signOutVolunteer = async (uid) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/api/signout`,
+        uid
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // 1. Firebase = Create new user
 
   const createUserWithPwAndEmail = (email, password) => {
@@ -103,13 +115,7 @@ function VolunteerContextProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  // 3. Firebase = sign in with Google - with redirect
-  const googleSigninWithRedirect = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider);
-  };
-
-  // 4. Logout
+  // 3. Logout
   const signout = () => {
     signOut(auth);
   };
@@ -123,12 +129,12 @@ function VolunteerContextProvider({ children }) {
     editForm,
     signInUserWithPwAndEmail,
     createUserWithPwAndEmail,
-    googleSigninWithRedirect,
     signout,
     isLoggedIn,
     setIsLoggedIn,
     authUser,
     signInVolunteer,
+    signOutVolunteer,
   };
 
   return (
