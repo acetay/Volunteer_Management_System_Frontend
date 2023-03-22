@@ -94,23 +94,23 @@ function VolunteerProfileFull() {
           <table class="table-auto">
             <tbody>
               <tr>
-                <td className="w-[50%] py-2 font-semibold">Contact: </td>
+                <td className="w-[220px] py-2 font-semibold">Contact: </td>
                 <td className="text-blue-700">{user.contact}</td>
               </tr>
               <tr>
-                <td className="w-[50%] py-2 font-semibold">Email: </td>
+                <td className="w-[220px] py-2 font-semibold">Email: </td>
                 <td className="text-blue-700">{user.email}</td>
               </tr>
               <tr>
-                <td className="w-[50%] py-2 font-semibold">Address: </td>
+                <td className="w-[220px] py-2 font-semibold">Address: </td>
                 <td className="text-blue-700">{user.address}</td>
               </tr>
               <tr>
-                <td className="w-[50%] py-2 font-semibold">Education: </td>
+                <td className="w-[220px] py-2 font-semibold">Education: </td>
                 <td className="text-blue-700">{user.education}</td>
               </tr>
               <tr>
-                <td className="w-[50%] py-2 font-semibold">Occupation: </td>
+                <td className="w-[220px] py-2 font-semibold">Occupation: </td>
                 <td className="text-blue-700"></td>
               </tr>
             </tbody>
@@ -125,15 +125,15 @@ function VolunteerProfileFull() {
           <table class="table-auto">
             <tbody>
               <tr>
-                <td className="w-[50%] py-2 font-semibold">Languages:</td>
+                <td className="w-[220px] py-2 font-semibold">Languages:</td>
                 <td className="text-blue-700">{user.language}</td>
               </tr>
               <tr>
-                <td className="w-[50%] py-2 font-semibold">Interests: </td>
-                <td className="text-blue-700"></td>
+                <td className="w-[220px] py-2 font-semibold">Interests: </td>
+                <td className=" text-blue-700">None</td>
               </tr>
               <tr>
-                <td className="w-[50%] py-2 font-semibold">Experience: </td>
+                <td className="w-[220px] py-2 font-semibold">Experience: </td>
                 <td className="text-blue-700">{user.pastExperience}</td>
               </tr>
             </tbody>
