@@ -5,8 +5,7 @@ import Swal from 'sweetalert2';
 // TODO - BREAKUP AND TRANSFER TO COMPONENTS FOLDER
 
 function VolunteerSignUp() {
-  const { signupVolunteer, tempForm, setTempForm, initialState } =
-    useGlobalVolunteerContext();
+  const { tempForm, setTempForm } = useGlobalVolunteerContext();
   const redirect = useNavigate();
 
   const changeHandler = (e) => {
@@ -23,28 +22,13 @@ function VolunteerSignUp() {
         title: 'Incompletion',
         text: 'You need to complete at least the name, email and contact fields',
       });
+      return;
     }
     redirect('/volunteers/signup/password');
   };
 
-  // const signupHandler = () => {
-  //   signupVolunteer(form);
-  //   setForm(initialState);
-  // };
-
-  // useEffect(() => {
-  //   if (currentUser?.id) {
-  //     redirect(`/volunteers/profile/${currentUser.id}`);
-  //   }
-  // }, [currentUser]);
-
   return (
     <div>
-      {/* // <div className="h-full px-40 py-4 mt-2"> */}
-      {/* <h1 className="font-bold text-2xl tracking-widest text-blue-700">
-        Volunteer Registration
-      </h1> */}
-
       <div className="flex flex-col mt-4">
         {/* 1st Row Inputs */}
         <div className="flex space-x-8">

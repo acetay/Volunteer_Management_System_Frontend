@@ -9,6 +9,8 @@ import { BsFacebook } from 'react-icons/bs';
 import { AiFillTwitterCircle } from 'react-icons/ai';
 import { AiFillInstagram } from 'react-icons/ai';
 
+import Swal from 'sweetalert2';
+
 function Navbar() {
   const redirect = useNavigate();
   const { authUser, signout, setIsLoggedIn, signOutVolunteer } =
@@ -18,6 +20,11 @@ function Navbar() {
     signout();
     signOutVolunteer({ uid: authUser.uid });
     setIsLoggedIn(false);
+    Swal.fire({
+      title: 'Incompletion',
+      text: 'You have signed out successfully!',
+      icon: 'success',
+    });
     redirect('/volunteers/signin');
   };
 

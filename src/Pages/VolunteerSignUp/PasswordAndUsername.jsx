@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { BsFillSkipBackwardBtnFill } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalVolunteerContext } from '../../Context/VolunteerContext';
-
+import Swal from 'sweetalert2';
 
 function PasswordAndUsername() {
   const redirect = useNavigate();
@@ -58,6 +58,11 @@ function PasswordAndUsername() {
     if (uid !== '') {
       signupVolunteer(tempForm, uid);
       setTempForm(initialState);
+      Swal.fire({
+        title: 'Successful signup',
+        text: 'Welcome to the Family!',
+        icon: 'success',
+      });
       redirect('/volunteers/signin');
     }
     return () => {
