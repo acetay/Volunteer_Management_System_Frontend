@@ -19,11 +19,13 @@ function VolunteerContextProvider({ children }) {
 
   // States created for testing only - to remove once stable
   const [authUser, setAuthUser] = useState({});
-  const [singleUser, setSingleUser] = useState({});
+  const [singleUser, setSingleUser] = useState(null);
   const [editForm, setEditForm] = useState({});
 
   // Temp signup Form - To be refactored
   const [tempForm, setTempForm] = useState(initialState);
+
+  let userStorage = JSON.parse(localStorage.getItem('authUser'));
 
   // Get access Info from firebase
   useEffect(() => {
@@ -112,7 +114,7 @@ function VolunteerContextProvider({ children }) {
         `http://localhost:8080/api/signout`,
         uid
       );
-      setSingleUser({});
+      setSingleUser(null);
       localStorage.clear();
     } catch (err) {
       console.log(err);
@@ -155,6 +157,7 @@ function VolunteerContextProvider({ children }) {
     initialState,
     singleUser,
     setSingleUser,
+    userStorage,
   };
 
   return (

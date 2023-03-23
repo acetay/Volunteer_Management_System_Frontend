@@ -2,9 +2,9 @@ import { Navigate } from 'react-router-dom';
 import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
 
 function ProtectedRoute({ children }) {
-  const { authUser } = useGlobalVolunteerContext();
+  const { userStorage } = useGlobalVolunteerContext();
 
-  if (!authUser) {
+  if (!userStorage) {
     return <Navigate to="/volunteers/signin" />;
   }
 

@@ -13,11 +13,11 @@ import Swal from 'sweetalert2';
 
 function Navbar() {
   const redirect = useNavigate();
-  const { authUser, signout, setIsLoggedIn, signOutVolunteer } =
+  const { singleUser, signout, setIsLoggedIn, signOutVolunteer } =
     useGlobalVolunteerContext();
 
   const logout = () => {
-    const uid = JSON.parse(localStorage.getItem('authUser')).uid;
+    const uid = JSON.parse(localStorage.getItem('authUser'))?.uid;
     signout();
     signOutVolunteer({ uid: uid });
     setIsLoggedIn(false);
@@ -84,7 +84,7 @@ function Navbar() {
                 </Link>
               </div>
               <div className="flex justify-center items-center space-x-3">
-                {authUser ? (
+                {singleUser ? (
                   <>
                     <Link
                       className="hover:text-blue-600 hover:underline tracking-wider"
