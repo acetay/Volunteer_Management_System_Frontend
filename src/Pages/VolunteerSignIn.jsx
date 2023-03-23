@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
+import { SiGooglefit } from 'react-icons/si';
 import Swal from 'sweetalert2';
 
 function VolunteerSignIn() {
@@ -61,7 +62,7 @@ function VolunteerSignIn() {
         <h1 className="text-3xl font-bold text-blue-600 tracking-wider">
           Volunteer Sign in
         </h1>
-        <p className="text-blue-700">
+        <p className="text-blue-800">
           Don't have an account yet?{' '}
           <Link to="/volunteers/signup" className="underline">
             Sign up.
@@ -111,6 +112,10 @@ function VolunteerSignIn() {
               </button>
             </div>
           </form>
+          <div className="flex justify-center items-center pt-6 space-x-2">
+            <SiGooglefit size={32} color={'red'} />
+            <h1 className="font-bold text-2xl text-blue-800">HopeForLife</h1>
+          </div>
         </div>
       </div>
     </div>

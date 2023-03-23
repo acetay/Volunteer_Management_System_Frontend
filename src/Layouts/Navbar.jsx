@@ -69,10 +69,16 @@ function Navbar() {
                 <Link className="font-semibold hover:text-blue-400" to="/about">
                   About Us
                 </Link>
-                <Link className="font-semibold hover:text-blue-400" to="/about">
+                <Link
+                  to="/programmes"
+                  className="font-semibold hover:text-blue-400"
+                >
                   Programmes
                 </Link>
-                <Link className="font-semibold hover:text-blue-400" to="/about">
+                <Link
+                  className="font-semibold hover:text-blue-400"
+                  to="/contact"
+                >
                   Contact
                 </Link>
               </div>

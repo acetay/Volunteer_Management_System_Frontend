@@ -7,9 +7,7 @@ function VolunteerProfileEdit() {
   const redirect = useNavigate();
   const { id } = useParams();
 
-  // console.log(id);
-  // console.log(volunteers);
-
+  // Inject values from editForm via Global Context
   const [form, setForm] = useState(editForm);
 
   const changeHandler = (e) => {

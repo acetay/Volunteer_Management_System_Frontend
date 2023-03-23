@@ -87,8 +87,8 @@ function PasswordAndUsername() {
             />
           </div>
           <div>
-            <h1 className="font-semibold text-lg pb-4 pl-2 text-gray-500">
-              Let's impact lives for the better future!
+            <h1 className="font-semibold text-lg pb-4 pl-2 text-gray-500 text-center">
+              Impacting lives for the better future!
             </h1>
             <div className="border border-gray-300 rounded-md shadow-lg px-8 py-5 flex flex-col w-[25vw]">
               <label className="font-bold">Username:</label>

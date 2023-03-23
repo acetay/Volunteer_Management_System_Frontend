@@ -1,11 +1,11 @@
 import React from 'react';
 
-function ProgrammeListing() {
+function Contact() {
   return (
     <div className="flex flex-col h-auto justify-center items-center">
-      Listing of programmes by categories
+      Contact us Page
     </div>
   );
 }
 
-export default ProgrammeListing;
+export default Contact;
