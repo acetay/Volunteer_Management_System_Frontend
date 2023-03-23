@@ -45,9 +45,6 @@ function VolunteerSignUp() {
               type="text"
               className="input input-bordered input-info w-[35vw] input-md"
             />
-            {/* <p className="text-[12px] pl-2 pt-1 text-gray-400 font-semibold tracking-wider">
-              Name as per your nric
-            </p> */}
           </div>
           <div className="flex flex-col">
             <label className="pb-2 pl-2 font-semibold text-sm" htmlFor="email">
@@ -85,9 +82,6 @@ function VolunteerSignUp() {
               placeholder="Your contact number"
               className="input input-bordered input-info w-[35vw] input-md"
             />
-            {/* <p className="text-[12px] pl-2 pt-1 text-gray-400 font-semibold tracking-wider">
-              Please provide a mobile number
-            </p> */}
           </div>
           <div className="flex flex-col">
             <label
@@ -105,9 +99,6 @@ function VolunteerSignUp() {
               placeholder="Your residential address"
               className="input input-bordered input-info w-[35vw] input-md"
             />
-            {/* <p className="text-[12px] pl-2 pt-1 text-gray-400 font-semibold tracking-wider">
-              For emergency purpose
-            </p> */}
           </div>
         </div>
         {/* 3rd Row Inputs */}
