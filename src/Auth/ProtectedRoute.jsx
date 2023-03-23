@@ -5,7 +5,7 @@ function ProtectedRoute({ children }) {
   const { authUser } = useGlobalVolunteerContext();
 
   if (!authUser) {
-    return <Navigate to="/" />;
+    return <Navigate to="/volunteers/signin" />;
   }
 
   return children;
