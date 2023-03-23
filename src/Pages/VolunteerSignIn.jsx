@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
+import Swal from 'sweetalert2';
 
 function VolunteerSignIn() {
   const redirect = useNavigate();
@@ -44,7 +45,13 @@ function VolunteerSignIn() {
       );
       setIsLoggedIn(true);
     } catch (err) {
+      Swal.fire({
+        title: 'Invalid',
+        text: 'You have entered the wrong credentials. Please check again!',
+        icon: 'error',
+      });
       console.log(err.message);
+      setForm({ email: '', password: '' });
     }
   };
 
