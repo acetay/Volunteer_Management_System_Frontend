@@ -83,6 +83,7 @@ function PasswordAndUsername() {
                 value={form.email}
                 placeholder="Enter your username"
                 className="input input-bordered input-info w-full max-w-lg mt-2"
+                autocomplete="off"
               />
               <label className="font-bold pt-3">Password:</label>
               <input
@@ -92,6 +93,7 @@ function PasswordAndUsername() {
                 value={form.password}
                 placeholder="Enter your password"
                 className="input input-bordered input-info w-full max-w-lg mt-2"
+                autocomplete="off"
               />
               <div className="flex justify-between items-center mt-2">
                 <div className="form-group form-check">
