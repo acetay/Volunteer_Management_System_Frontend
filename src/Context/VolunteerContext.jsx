@@ -22,10 +22,19 @@ function VolunteerContextProvider({ children }) {
   // Temp signup Form - To be refactored
   const [tempForm, setTempForm] = useState(initialState);
 
+  // useEffect(() => {
+  //   localStorage.setItem('authUser', JSON.stringify(authUser));
+  // }, [authUser]);
+
+  // useEffect(() => {
+  //   localStorage.setItem('singleUser', JSON.stringify(singleUser));
+  // }, [singleUser]);
+
   // Get access Info from firebase
   useEffect(() => {
     const listenToAuth = onAuthStateChanged(auth, (currentUser) => {
       setAuthUser(currentUser);
+      localStorage.setItem('authUser', JSON.stringify(currentUser));
       // console.log(currentUser.accessToken);
     });
     return () => {
@@ -76,7 +85,9 @@ function VolunteerContextProvider({ children }) {
           },
         }
       );
+      const editedUser = { ...singleUser, volunteer: volunteer };
       setSingleUser({ ...singleUser, volunteer: volunteer });
+      localStorage.setItem('singleUser', JSON.stringify(editedUser));
     } catch (err) {
       console.log(err);
     }
@@ -90,6 +101,7 @@ function VolunteerContextProvider({ children }) {
         uid
       );
       setSingleUser(response.data);
+      localStorage.setItem('singleUser', JSON.stringify(response.data));
     } catch (err) {
       console.log(err);
     }
@@ -103,6 +115,7 @@ function VolunteerContextProvider({ children }) {
         uid
       );
       setSingleUser({});
+      localStorage.clear();
     } catch (err) {
       console.log(err);
     }

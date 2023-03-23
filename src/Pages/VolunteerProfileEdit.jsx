@@ -7,9 +7,9 @@ function VolunteerProfileEdit() {
   const { editVolunteer, editForm } = useGlobalVolunteerContext();
   const redirect = useNavigate();
   const { id } = useParams();
-
+  const user = JSON.parse(localStorage.getItem('singleUser'))?.volunteer;
   // Inject values from editForm via Global Context
-  const [form, setForm] = useState(editForm);
+  const [form, setForm] = useState(user);
 
   const changeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });

@@ -12,11 +12,12 @@ import { MdAddAPhoto } from 'react-icons/md';
 
 function VolunteerProfileFull() {
   const redirect = useNavigate();
-  const { setEditForm, authUser, singleUser } = useGlobalVolunteerContext();
+  const { setEditForm, singleUser } = useGlobalVolunteerContext();
   const { id } = useParams();
   // const [user, setUser] = useState({});
   const [date, setDate] = useState(new Date());
-  let volunteer = singleUser.volunteer;
+  // let volunteer = singleUser.volunteer;
+  let volunteer = JSON.parse(localStorage.getItem('singleUser'))?.volunteer;
 
   // Get User by Id - Redun
   // const getVolunteerById = async (id) => {
