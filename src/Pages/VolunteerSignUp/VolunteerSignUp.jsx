@@ -19,8 +19,9 @@ function VolunteerSignUp() {
       tempForm.contact === ''
     ) {
       Swal.fire({
-        title: 'Incompletion',
+        title: 'Incomplete fields',
         text: 'You need to complete at least the name, email and contact fields',
+        icon: 'error',
       });
       return;
     }
