@@ -4,6 +4,7 @@ import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
 import Swal from 'sweetalert2';
 
 function VolunteerProfileEdit() {
+  // To remove edit Form - for testing only
   const { editVolunteer, editForm } = useGlobalVolunteerContext();
   const redirect = useNavigate();
   const { id } = useParams();

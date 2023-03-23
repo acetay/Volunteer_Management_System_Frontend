@@ -14,21 +14,16 @@ import {
 const VolunteerContext = createContext();
 
 function VolunteerContextProvider({ children }) {
-  const [authUser, setAuthUser] = useState({});
-  const [singleUser, setSingleUser] = useState({});
   const [volunteers, setVolunteers] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // States created for testing only - to remove once stable
+  const [authUser, setAuthUser] = useState({});
+  const [singleUser, setSingleUser] = useState({});
   const [editForm, setEditForm] = useState({});
+
   // Temp signup Form - To be refactored
   const [tempForm, setTempForm] = useState(initialState);
-
-  // useEffect(() => {
-  //   localStorage.setItem('authUser', JSON.stringify(authUser));
-  // }, [authUser]);
-
-  // useEffect(() => {
-  //   localStorage.setItem('singleUser', JSON.stringify(singleUser));
-  // }, [singleUser]);
 
   // Get access Info from firebase
   useEffect(() => {
