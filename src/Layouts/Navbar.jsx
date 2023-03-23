@@ -112,7 +112,7 @@ function Navbar() {
                 )}
 
                 <div className="p-1 px-2 bg-red-500 text-white font-semibold">
-                  <Link to="/about">Donate</Link>
+                  <Link to="/donate">Donate</Link>
                 </div>
               </div>
             </div>
