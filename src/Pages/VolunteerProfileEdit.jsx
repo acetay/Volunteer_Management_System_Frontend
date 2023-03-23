@@ -34,6 +34,10 @@ function VolunteerProfileEdit() {
     }
   };
 
+  const cancelEdit = () => {
+    redirect(`/volunteers/profile/${id}`);
+  };
+
   return (
     <div className="h-full px-40 py-4 mt-2">
       <h1 className="font-bold text-2xl tracking-widest text-blue-700">
@@ -273,7 +277,12 @@ function VolunteerProfileEdit() {
         </div>
       </div>
       <div className="flex justify-end items-center mt-4 pr-6 space-x-8">
-        <button className="btn btn-error btn-sm text-white">Cancel</button>
+        <button
+          onClick={cancelEdit}
+          className="btn btn-error btn-sm text-white"
+        >
+          Cancel
+        </button>
         <button onClick={editHandler} className="btn btn-primary btn-sm">
           Edit
         </button>
