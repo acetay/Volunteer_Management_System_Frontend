@@ -94,7 +94,7 @@ function Navbar() {
                       Admin
                     </Link>
                     <Link to="/volunteers/signin">SignIn</Link>
-                    <Link to="/volunteers/signup">Signup</Link>
+                    <Link to="/volunteers/signup">SignUp</Link>
                   </>
                 )}
 

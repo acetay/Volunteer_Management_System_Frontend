@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalVolunteerContext } from '../../Context/VolunteerContext';
+import Swal from 'sweetalert2';
 
 // TODO - BREAKUP AND TRANSFER TO COMPONENTS FOLDER
 
@@ -14,6 +14,16 @@ function VolunteerSignUp() {
   };
 
   const redirectToPasswordPage = () => {
+    if (
+      tempForm.name === '' ||
+      tempForm.email === '' ||
+      tempForm.contact === ''
+    ) {
+      Swal.fire({
+        title: 'Incompletion',
+        text: 'You need to complete at least the name, email and contact fields',
+      });
+    }
     redirect('/volunteers/signup/password');
   };
 

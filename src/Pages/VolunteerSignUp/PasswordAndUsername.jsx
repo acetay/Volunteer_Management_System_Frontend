@@ -1,9 +1,9 @@
 import signupPhoto from '../../Assets/Sample_images/family.jpg';
 import { useState, useEffect } from 'react';
 import { BsFillSkipBackwardBtnFill } from 'react-icons/bs';
-import { BiShow } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalVolunteerContext } from '../../Context/VolunteerContext';
+
 
 function PasswordAndUsername() {
   const redirect = useNavigate();
@@ -21,6 +21,17 @@ function PasswordAndUsername() {
   const onChangeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
+  // Guarding of route
+  useEffect(() => {
+    if (
+      tempForm.name === '' ||
+      tempForm.email === '' ||
+      tempForm.contact === ''
+    ) {
+      redirect('/volunteers/signup');
+    }
+  }, []);
 
   // Signup and create user in Firebase
   const signup = async () => {
@@ -72,7 +83,7 @@ function PasswordAndUsername() {
           </div>
           <div>
             <h1 className="font-semibold text-lg pb-4 pl-2 text-gray-500">
-              Let's impact lives for the better!
+              Let's impact lives for the better future!
             </h1>
             <div className="border border-gray-300 rounded-md shadow-lg px-8 py-5 flex flex-col w-[25vw]">
               <label className="font-bold">Username:</label>
