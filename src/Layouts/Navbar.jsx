@@ -18,7 +18,7 @@ function Navbar() {
     signout();
     signOutVolunteer({ uid: authUser.uid });
     setIsLoggedIn(false);
-    redirect('/');
+    redirect('/volunteers/signin');
   };
 
   return (
