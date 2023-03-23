@@ -71,12 +71,15 @@ function VolunteerContextProvider({ children }) {
   // Edit a Volunteer
   const editVolunteer = async (id, volunteer) => {
     try {
+      const accessToken = JSON.parse(localStorage.getItem('authUser'))
+        .stsTokenManager.accessToken;
+
       const response = await axios.put(
         `http://localhost:8080/admin/volunteers/${id}`,
         volunteer,
         {
           headers: {
-            Authorization: `Bearer ${authUser.accessToken}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );

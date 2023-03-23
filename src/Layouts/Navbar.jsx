@@ -17,8 +17,9 @@ function Navbar() {
     useGlobalVolunteerContext();
 
   const logout = () => {
+    const uid = JSON.parse(localStorage.getItem('authUser')).uid;
     signout();
-    signOutVolunteer({ uid: authUser.uid });
+    signOutVolunteer({ uid: uid });
     setIsLoggedIn(false);
     Swal.fire({
       title: 'Incompletion',
