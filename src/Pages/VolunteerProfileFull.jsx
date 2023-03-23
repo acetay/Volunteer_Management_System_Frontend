@@ -12,36 +12,37 @@ import { MdAddAPhoto } from 'react-icons/md';
 
 function VolunteerProfileFull() {
   const redirect = useNavigate();
-  const { setEditForm, authUser } = useGlobalVolunteerContext();
+  const { setEditForm, authUser, singleUser } = useGlobalVolunteerContext();
   const { id } = useParams();
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
   const [date, setDate] = useState(new Date());
+  let volunteer = singleUser.volunteer;
 
-  // Get User by Id
-  const getVolunteerById = async (id) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/admin/volunteers/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${authUser.accessToken}`,
-          },
-        }
-      );
-      setUser(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // Get User by Id - Redun
+  // const getVolunteerById = async (id) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:8080/admin/volunteers/${id}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${authUser.accessToken}`,
+  //         },
+  //       }
+  //     );
+  //     setUser(response.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const goToEdit = () => {
-    setEditForm(user);
-    redirect(`/volunteers/profile/${user.id}/edit`);
+    setEditForm(volunteer);
+    redirect(`/volunteers/profile/${volunteer.id}/edit`);
   };
 
-  useEffect(() => {
-    getVolunteerById(id);
-  }, []);
+  // useEffect(() => {
+  //   getVolunteerById(id);
+  // }, []);
 
   return (
     <div className="w-[100%] flex">
@@ -63,7 +64,7 @@ function VolunteerProfileFull() {
         </div>
 
         <h1 className="text-2xl font-semibold pt-1 tracking-wider">
-          {user.name}
+          {volunteer?.name}
         </h1>
         <p className="text-sm text-gray-700">Member since 1 Jan 2010</p>
         <div className="w-[100%] flex flex-col justify-center items-center">
@@ -95,19 +96,19 @@ function VolunteerProfileFull() {
             <tbody>
               <tr>
                 <td className="w-[220px] py-2 font-semibold">Contact: </td>
-                <td className="text-blue-700">{user.contact}</td>
+                <td className="text-blue-700">{volunteer?.contact}</td>
               </tr>
               <tr>
                 <td className="w-[220px] py-2 font-semibold">Email: </td>
-                <td className="text-blue-700">{user.email}</td>
+                <td className="text-blue-700">{volunteer?.email}</td>
               </tr>
               <tr>
                 <td className="w-[220px] py-2 font-semibold">Address: </td>
-                <td className="text-blue-700">{user.address}</td>
+                <td className="text-blue-700">{volunteer?.address}</td>
               </tr>
               <tr>
                 <td className="w-[220px] py-2 font-semibold">Education: </td>
-                <td className="text-blue-700">{user.education}</td>
+                <td className="text-blue-700">{volunteer?.education}</td>
               </tr>
               <tr>
                 <td className="w-[220px] py-2 font-semibold">Occupation: </td>
@@ -126,7 +127,7 @@ function VolunteerProfileFull() {
             <tbody>
               <tr>
                 <td className="w-[220px] py-2 font-semibold">Languages:</td>
-                <td className="text-blue-700">{user.language}</td>
+                <td className="text-blue-700">{volunteer?.language}</td>
               </tr>
               <tr>
                 <td className="w-[220px] py-2 font-semibold">Interests: </td>
@@ -134,7 +135,7 @@ function VolunteerProfileFull() {
               </tr>
               <tr>
                 <td className="w-[220px] py-2 font-semibold">Experience: </td>
-                <td className="text-blue-700">{user.pastExperience}</td>
+                <td className="text-blue-700">{volunteer?.pastExperience}</td>
               </tr>
             </tbody>
           </table>

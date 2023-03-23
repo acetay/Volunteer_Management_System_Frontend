@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
+import Swal from 'sweetalert2';
 
 function VolunteerProfileEdit() {
   const { editVolunteer, editForm } = useGlobalVolunteerContext();
@@ -15,8 +16,22 @@ function VolunteerProfileEdit() {
   };
 
   const editHandler = () => {
-    editVolunteer(id, form);
-    redirect(`/volunteers/profile/${id}`);
+    try {
+      editVolunteer(id, form);
+      Swal.fire({
+        title: 'Success',
+        text: 'Profile successfully edited!',
+        icon: 'success',
+      });
+      redirect(`/volunteers/profile/${id}`);
+    } catch (err) {
+      console.log(err.message);
+      Swal.fire({
+        title: 'Something went wrong!',
+        text: err.message,
+        icon: 'error',
+      });
+    }
   };
 
   return (
@@ -58,9 +73,6 @@ function VolunteerProfileEdit() {
               type="email"
               className="input input-bordered input-info w-[35vw] input-md"
             />
-            {/* <p className="text-[12px] pl-2 pt-1 text-gray-400 font-semibold tracking-wider">
-              Latest updates will be sent via this email
-            </p> */}
           </div>
         </div>
         {/* 2nd Row Inputs */}
@@ -81,9 +93,6 @@ function VolunteerProfileEdit() {
               placeholder="Your contact number"
               className="input input-bordered input-info w-[35vw] input-md"
             />
-            {/* <p className="text-[12px] pl-2 pt-1 text-gray-400 font-semibold tracking-wider">
-              Please provide a mobile number
-            </p> */}
           </div>
           <div className="flex flex-col">
             <label
@@ -101,9 +110,6 @@ function VolunteerProfileEdit() {
               placeholder="Your residential address"
               className="input input-bordered input-info w-[35vw] input-md"
             />
-            {/* <p className="text-[12px] pl-2 pt-1 text-gray-400 font-semibold tracking-wider">
-              For emergency purpose
-            </p> */}
           </div>
         </div>
         {/* 3rd Row Inputs */}

@@ -12,6 +12,7 @@ function VolunteerSignIn() {
     isLoggedIn,
     signInVolunteer,
     authUser,
+    singleUser,
   } = useGlobalVolunteerContext();
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({
@@ -26,8 +27,8 @@ function VolunteerSignIn() {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    if (authUser?.profile) {
-      const id = authUser.profile.volunteer.id;
+    if (singleUser?.volunteer) {
+      const id = singleUser?.volunteer.id;
       redirect(`/volunteers/profile/${id}`);
     }
   }, [signInVolunteer]);

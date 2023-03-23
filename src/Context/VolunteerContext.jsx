@@ -15,12 +15,14 @@ const VolunteerContext = createContext();
 
 function VolunteerContextProvider({ children }) {
   const [authUser, setAuthUser] = useState({});
+  const [singleUser, setSingleUser] = useState({});
   const [volunteers, setVolunteers] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [editForm, setEditForm] = useState({});
   // Temp signup Form - To be refactored
   const [tempForm, setTempForm] = useState(initialState);
 
+  // Get access Info from firebase
   useEffect(() => {
     const listenToAuth = onAuthStateChanged(auth, (currentUser) => {
       setAuthUser(currentUser);
@@ -67,12 +69,14 @@ function VolunteerContextProvider({ children }) {
     try {
       const response = await axios.put(
         `http://localhost:8080/admin/volunteers/${id}`,
-        volunteer
+        volunteer,
+        {
+          headers: {
+            Authorization: `Bearer ${authUser.accessToken}`,
+          },
+        }
       );
-      const newList = volunteers.map((person) =>
-        person.id === id ? volunteer : person
-      );
-      setVolunteers([...newList]);
+      setSingleUser({ ...singleUser, volunteer: volunteer });
     } catch (err) {
       console.log(err);
     }
@@ -85,7 +89,7 @@ function VolunteerContextProvider({ children }) {
         `http://localhost:8080/api/signin`,
         uid
       );
-      setAuthUser({ ...authUser, profile: response.data });
+      setSingleUser(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -98,6 +102,7 @@ function VolunteerContextProvider({ children }) {
         `http://localhost:8080/api/signout`,
         uid
       );
+      setSingleUser({});
     } catch (err) {
       console.log(err);
     }
@@ -137,6 +142,8 @@ function VolunteerContextProvider({ children }) {
     tempForm,
     setTempForm,
     initialState,
+    singleUser,
+    setSingleUser,
   };
 
   return (
