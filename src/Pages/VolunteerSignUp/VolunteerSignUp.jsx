@@ -1,51 +1,41 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
+import { useGlobalVolunteerContext } from '../../Context/VolunteerContext';
 
 // TODO - BREAKUP AND TRANSFER TO COMPONENTS FOLDER
 
-const initialState = {
-  name: '',
-  dateOfBirth: '',
-  contact: '',
-  email: '',
-  education: '',
-  address: '',
-  pastExperience: '',
-  language: '',
-  referrerName: '',
-  referrerContact: '',
-  hasCriminalRecord: false,
-};
-
 function VolunteerSignUp() {
-  const { signupVolunteer, currentUser } = useGlobalVolunteerContext();
+  const { signupVolunteer, tempForm, setTempForm, initialState } =
+    useGlobalVolunteerContext();
   const redirect = useNavigate();
 
-  const [form, setForm] = useState(initialState);
-
   const changeHandler = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setTempForm({ ...tempForm, [e.target.name]: e.target.value });
   };
 
-  const signupHandler = () => {
-    signupVolunteer(form);
-    setForm(initialState);
+  const redirectToPasswordPage = () => {
+    redirect('/volunteers/signup/password');
   };
 
-  useEffect(() => {
-    if (currentUser?.id) {
-      redirect(`/volunteers/profile/${currentUser.id}`);
-    }
-  }, [currentUser]);
+  // const signupHandler = () => {
+  //   signupVolunteer(form);
+  //   setForm(initialState);
+  // };
+
+  // useEffect(() => {
+  //   if (currentUser?.id) {
+  //     redirect(`/volunteers/profile/${currentUser.id}`);
+  //   }
+  // }, [currentUser]);
 
   return (
-    <div className="h-full px-40 py-4 mt-2">
-      <h1 className="font-bold text-2xl tracking-widest text-blue-700">
+    <div>
+      {/* // <div className="h-full px-40 py-4 mt-2"> */}
+      {/* <h1 className="font-bold text-2xl tracking-widest text-blue-700">
         Volunteer Registration
-      </h1>
-      {/* Form Container */}
-      <div className="container flex flex-col mt-4">
+      </h1> */}
+
+      <div className="flex flex-col mt-4">
         {/* 1st Row Inputs */}
         <div className="flex space-x-8">
           <div className="flex flex-col">
@@ -55,7 +45,7 @@ function VolunteerSignUp() {
             <input
               id="name"
               name="name"
-              value={form.name}
+              value={tempForm.name}
               onChange={changeHandler}
               placeholder="Your full name"
               type="text"
@@ -72,7 +62,7 @@ function VolunteerSignUp() {
             <input
               id="email"
               name="email"
-              value={form.email}
+              value={tempForm.email}
               onChange={changeHandler}
               placeholder="Your personnal email address"
               type="email"
@@ -95,7 +85,7 @@ function VolunteerSignUp() {
             <input
               id="contact"
               name="contact"
-              value={form.contact}
+              value={tempForm.contact}
               onChange={changeHandler}
               type="text"
               placeholder="Your contact number"
@@ -115,7 +105,7 @@ function VolunteerSignUp() {
             <input
               id="address"
               name="address"
-              value={form.address}
+              value={tempForm.address}
               onChange={changeHandler}
               type="text"
               placeholder="Your residential address"
@@ -195,7 +185,7 @@ function VolunteerSignUp() {
             <input
               id="referrerName"
               name="referrerName"
-              value={form.referrerName}
+              value={tempForm.referrerName}
               onChange={changeHandler}
               type="text"
               placeholder="Referral Name"
@@ -212,7 +202,7 @@ function VolunteerSignUp() {
             <input
               id="referrerContact"
               name="referrerContact"
-              value={form.referrerContact}
+              value={tempForm.referrerContact}
               onChange={changeHandler}
               placeholder="Referral Contact"
               className="input input-bordered input-info input-sm"
@@ -289,8 +279,11 @@ function VolunteerSignUp() {
             Sign in.
           </Link>
         </p>
-        <button onClick={signupHandler} className="btn btn-primary btn-sm">
-          Signup!
+        <button
+          onClick={redirectToPasswordPage}
+          className="btn btn-primary btn-sm"
+        >
+          Next
         </button>
       </div>
     </div>

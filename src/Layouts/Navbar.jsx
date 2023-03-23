@@ -22,7 +22,7 @@ function Navbar() {
   };
 
   return (
-    <nav classname="min-w-full w-auto sticky top-0 z-20">
+    <nav className="min-w-full w-auto sticky top-0 z-20">
       <div className="flex flex-col">
         {/* 1st Column */}
         <div className="flex justify-between bg-blue-600 px-20 py-2 text-white font-semibold space-x-8">
@@ -63,7 +63,7 @@ function Navbar() {
                   About Us
                 </Link>
                 <Link className="font-semibold hover:text-blue-400" to="/about">
-                  Organizations
+                  Programmes
                 </Link>
                 <Link className="font-semibold hover:text-blue-400" to="/about">
                   Contact

@@ -56,7 +56,7 @@ function VolunteerSignIn() {
         </h1>
         <p className="text-blue-700">
           Don't have an account yet?{' '}
-          <Link to="/signup" className="underline">
+          <Link to="/volunteers/signup" className="underline">
             Sign up.
           </Link>
         </p>
@@ -89,14 +89,6 @@ function VolunteerSignIn() {
               </button>
             </div>
           </form>
-          {/* <div className="flex justify-center items-center mt-10">
-            <GoogleButton onClick={googleSignin} />
-          </div> */}
-          {/* <div className="mt-4">
-            <button onClick={signout} className="btn btn-primary">
-              Signout
-            </button>
-          </div> */}
         </div>
       </div>
     </div>

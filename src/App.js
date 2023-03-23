@@ -4,7 +4,7 @@ import './App.css';
 import Layout from './Layouts/Layout';
 import Home from './Pages/Home';
 import About from './Pages/About';
-import VolunteerSignUp from './Pages/VolunteerSignUp';
+import VolunteerSignUp from './Pages/VolunteerSignUp/VolunteerSignUp';
 import VolunteerSignIn from './Pages/VolunteerSignIn';
 import VolunteerProfileFull from './Pages/VolunteerProfileFull';
 import VolunteerProfileEdit from './Pages/VolunteerProfileEdit';
@@ -12,6 +12,8 @@ import AdminSignIn from './Pages/AdminSignIn';
 import AdminMainPanel from './Pages/AdminMainPanel';
 import AdminVolProfileEdit from './Pages/AdminVolProfileEdit';
 import ProgrammeListing from './Pages/ProgrammeListing';
+import SignUpPageContainer from './Pages/VolunteerSignUp/VolSignUpPageContainer';
+import PasswordAndUsername from './Pages/VolunteerSignUp/PasswordAndUsername';
 import ProtectedRoute from './Auth/ProtectedRoute';
 
 function App() {
@@ -22,7 +24,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/volunteers/signup" element={<VolunteerSignUp />} />
+
+            <Route path="/volunteers/signup" element={<SignUpPageContainer />}>
+              <Route index element={<VolunteerSignUp />} />
+              <Route path="password" element={<PasswordAndUsername />} />
+            </Route>
+
             <Route path="/volunteers/signin" element={<VolunteerSignIn />} />
 
             <Route

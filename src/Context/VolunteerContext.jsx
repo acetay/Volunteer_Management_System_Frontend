@@ -1,14 +1,12 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { initialState } from './InitialStates';
 
 import { auth } from '../FirebaseConfiguration/Firebase';
 
 import {
   createUserWithEmailAndPassword, // signup new user
   signInWithEmailAndPassword, // signin and receive jwt token from firebase
-  GoogleAuthProvider, // google signin
-  signInWithRedirect, // optional route
-  signInWithPopup, // optional route
   onAuthStateChanged, // recceive user jwt and details after signin
   signOut,
 } from 'firebase/auth';
@@ -19,13 +17,14 @@ function VolunteerContextProvider({ children }) {
   const [authUser, setAuthUser] = useState({});
   const [volunteers, setVolunteers] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const [editForm, setEditForm] = useState({});
+  // Temp signup Form - To be refactored
+  const [tempForm, setTempForm] = useState(initialState);
 
   useEffect(() => {
     const listenToAuth = onAuthStateChanged(auth, (currentUser) => {
       setAuthUser(currentUser);
-      console.log(currentUser.accessToken);
+      // console.log(currentUser.accessToken);
     });
     return () => {
       listenToAuth();
@@ -36,6 +35,7 @@ function VolunteerContextProvider({ children }) {
     // getAllVolunteers();
   }, []);
 
+  // SPRINGBOOT APIs - *****TO BE REFACTORED
   // Get All Volunteers
   const getAllVolunteers = async () => {
     try {
@@ -50,14 +50,13 @@ function VolunteerContextProvider({ children }) {
   };
 
   // Create a new volunteer
-  const signupVolunteer = async (volunteer) => {
+  const signupVolunteer = async (volunteer, uid) => {
     try {
       const response = await axios.post(
-        'http://localhost:8080/admin/newvolunteer',
+        `http://localhost:8080/api/signup?uid=${uid}`,
         volunteer
       );
-      console.log(response.data);
-      setAuthUser(response.data);
+      console.log(response);
     } catch (err) {
       console.log(err);
     }
@@ -104,8 +103,8 @@ function VolunteerContextProvider({ children }) {
     }
   };
 
+  // FIREBASE APIs - ****TO BE REFACTORED
   // 1. Firebase = Create new user
-
   const createUserWithPwAndEmail = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -135,6 +134,9 @@ function VolunteerContextProvider({ children }) {
     authUser,
     signInVolunteer,
     signOutVolunteer,
+    tempForm,
+    setTempForm,
+    initialState,
   };
 
   return (
