@@ -30,7 +30,7 @@ function VolunteerContextProvider({ children }) {
 
   // Get access Info from firebase
   useEffect(() => {
-    // if (singleUser) {
+    // if (isLoggedIn) {
     const listenToAuth = onAuthStateChanged(auth, (currentUser) => {
       setAuthUser(currentUser);
       localStorage.setItem('authUser', JSON.stringify(currentUser));
@@ -40,7 +40,7 @@ function VolunteerContextProvider({ children }) {
       listenToAuth();
     };
     // }
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     // getAllVolunteers();
