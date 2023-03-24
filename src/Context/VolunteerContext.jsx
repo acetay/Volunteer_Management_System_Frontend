@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { initialState } from './InitialStates';
+import Swal from 'sweetalert2';
 
 import { auth } from '../FirebaseConfiguration/Firebase';
 
@@ -106,6 +107,11 @@ function VolunteerContextProvider({ children }) {
       localStorage.setItem('singleUser', JSON.stringify(response.data));
     } catch (err) {
       console.log(err);
+      Swal.fire({
+        title: 'Error',
+        text: err.message,
+        icon: 'error',
+      });
     }
   };
 

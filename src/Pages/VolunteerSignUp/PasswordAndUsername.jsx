@@ -13,7 +13,6 @@ function PasswordAndUsername() {
     initialState,
     tempForm,
     setTempForm,
-    signout,
   } = useGlobalVolunteerContext();
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
