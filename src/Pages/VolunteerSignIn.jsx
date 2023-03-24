@@ -56,6 +56,7 @@ function VolunteerSignIn() {
       });
       console.log(err.message);
       setForm({ email: '', password: '' });
+      setIsLoggedIn(false);
     }
   };
 

@@ -9,6 +9,7 @@ import ProfileImage from '../Components/VolunteerProfile_Components/ProfileImage
 import HeaderAndBorder from '../Components/VolunteerProfile_Components/HeaderAndBorder';
 import PersonInfoTable from '../Components/VolunteerProfile_Components/PersonInfoTable';
 import ProfileAndExpTable from '../Components/VolunteerProfile_Components/ProfileAndExpTable';
+import CalendarModal from '../Components/VolunteerProfile_Components/CalendarModal';
 
 // TODO - BREAKUP AND TRANSFER TO COMPONENTS FOLDER
 
@@ -42,11 +43,17 @@ function VolunteerProfileFull() {
               <Calendar onChange={setDate} value={date} />
             </div>
           </div>
-          <div className="pt-3">
+          <div className="pt-3 flex space-x-2">
             <p>
               <span className="font-bold text-blue-800">Selected Date: </span>{' '}
               {date.toDateString()}
             </p>
+            <label
+              htmlFor="my-modal-6"
+              className="btn btn-xs btn-success text-white text-xs"
+            >
+              Set Avail
+            </label>
           </div>
         </div>
       </div>
@@ -75,6 +82,8 @@ function VolunteerProfileFull() {
           </button>
         </div>
       </div>
+      {/* MODAL POPOUT */}
+      <CalendarModal date={date} />
     </div>
   );
 }

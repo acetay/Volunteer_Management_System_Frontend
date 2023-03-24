@@ -42,36 +42,23 @@ function VolunteerContextProvider({ children }) {
     // }
   }, [isLoggedIn]);
 
-  useEffect(() => {
-    // getAllVolunteers();
-  }, []);
+  // useEffect(() => {
+  //   getAllVolunteers();
+  // }, []);
 
   // SPRINGBOOT APIs - *****TO BE REFACTORED
   // Get All Volunteers
-  const getAllVolunteers = async () => {
-    try {
-      const response = await axios.get(
-        'http://localhost:8080/admin/volunteers'
-      );
-      console.log(response.data);
-      setVolunteers(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  // Create a new volunteer
-  const signupVolunteer = async (volunteer, uid) => {
-    try {
-      const response = await axios.post(
-        `http://localhost:8080/api/signup?uid=${uid}`,
-        volunteer
-      );
-      console.log(response);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const getAllVolunteers = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       'http://localhost:8080/admin/volunteers'
+  //     );
+  //     console.log(response.data);
+  //     setVolunteers(response.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   // Edit a Volunteer
   const editVolunteer = async (id, volunteer) => {
@@ -106,6 +93,7 @@ function VolunteerContextProvider({ children }) {
       setSingleUser(response.data);
       localStorage.setItem('singleUser', JSON.stringify(response.data));
     } catch (err) {
+      setIsLoggedIn(false);
       console.log(err);
       Swal.fire({
         title: 'Error',
@@ -125,6 +113,19 @@ function VolunteerContextProvider({ children }) {
       setSingleUser(null);
       setAuthUser({});
       localStorage.clear();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Create a new volunteer
+  const signupVolunteer = async (volunteer, uid) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/api/signup?uid=${uid}`,
+        volunteer
+      );
+      console.log(response);
     } catch (err) {
       console.log(err);
     }

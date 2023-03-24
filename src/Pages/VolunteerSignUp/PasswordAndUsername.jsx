@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { BsFillSkipBackwardBtnFill } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalVolunteerContext } from '../../Context/VolunteerContext';
+import HeartLoading from '../../Assets/Sample_images/Heart.gif';
 import Swal from 'sweetalert2';
 
 function PasswordAndUsername() {
@@ -56,15 +57,17 @@ function PasswordAndUsername() {
   // create volunteer in Springboot with uid and redirect to signin page
   useEffect(() => {
     if (uid !== '') {
-      signupVolunteer(tempForm, uid);
-      setTempForm(initialState);
-      setUid(() => '');
-      Swal.fire({
-        title: 'Successful signup',
-        text: 'Welcome to the Family!',
-        icon: 'success',
-      });
-      redirect('/volunteers/signin');
+      setTimeout(() => {
+        signupVolunteer(tempForm, uid);
+        setTempForm(initialState);
+        setUid(() => '');
+        Swal.fire({
+          title: 'Successful signup',
+          text: 'Welcome to the Family!',
+          icon: 'success',
+        });
+        redirect('/volunteers/signin');
+      }, 1500);
     }
     return () => {
       setUid('');
@@ -77,6 +80,7 @@ function PasswordAndUsername() {
         <h1 className="text-gray-600 text-lg tracking-widest font-semibold pl-2">
           Username and Password Registration
         </h1>
+        {/* <img src={HeartLoading} alt="heart" /> */}
         <div className="flex w-full p-8 space-x-20">
           <div>
             <img
