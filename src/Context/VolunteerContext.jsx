@@ -25,10 +25,11 @@ function VolunteerContextProvider({ children }) {
   // Temp signup Form - To be refactored
   const [tempForm, setTempForm] = useState(initialState);
 
-  let userStorage = JSON.parse(localStorage.getItem('authUser'));
+  let userStorage = JSON.parse(localStorage.getItem('singleUser'));
 
   // Get access Info from firebase
   useEffect(() => {
+    // if (singleUser) {
     const listenToAuth = onAuthStateChanged(auth, (currentUser) => {
       setAuthUser(currentUser);
       localStorage.setItem('authUser', JSON.stringify(currentUser));
@@ -37,6 +38,7 @@ function VolunteerContextProvider({ children }) {
     return () => {
       listenToAuth();
     };
+    // }
   }, []);
 
   useEffect(() => {
@@ -115,6 +117,7 @@ function VolunteerContextProvider({ children }) {
         uid
       );
       setSingleUser(null);
+      setAuthUser({});
       localStorage.clear();
     } catch (err) {
       console.log(err);

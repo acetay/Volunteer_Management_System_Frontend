@@ -13,6 +13,7 @@ function PasswordAndUsername() {
     initialState,
     tempForm,
     setTempForm,
+    signout,
   } = useGlobalVolunteerContext();
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -58,6 +59,7 @@ function PasswordAndUsername() {
     if (uid !== '') {
       signupVolunteer(tempForm, uid);
       setTempForm(initialState);
+      setUid(() => '');
       Swal.fire({
         title: 'Successful signup',
         text: 'Welcome to the Family!',
