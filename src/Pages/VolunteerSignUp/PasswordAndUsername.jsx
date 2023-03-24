@@ -45,9 +45,15 @@ function PasswordAndUsername() {
         form.email,
         form.password
       );
+      localStorage.setItem('uid', JSON.stringify(response.user.uid));
       setUid(response.user.uid);
     } catch (err) {
       console.log(err.message);
+      Swal.fire({
+        title: 'Error signing up',
+        text: 'Error encountered in firebase!',
+        icon: 'error',
+      });
     }
   };
 
@@ -60,9 +66,10 @@ function PasswordAndUsername() {
 
   // create volunteer in Springboot with uid and redirect to signin page
   useEffect(() => {
+    const uidFromStorage = JSON.parse(localStorage.getItem('uid'));
     if (uid !== '') {
       setTimeout(() => {
-        signupVolunteer(tempForm, uid);
+        signupVolunteer(tempForm, uidFromStorage);
         setTempForm(initialState);
         setUid(() => '');
         setIsLoading(false);
@@ -71,6 +78,7 @@ function PasswordAndUsername() {
           text: 'Welcome to the Family!',
           icon: 'success',
         });
+        localStorage.clear();
         redirect('/volunteers/signin');
       }, 1500);
     }
