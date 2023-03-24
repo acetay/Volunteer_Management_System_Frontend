@@ -5,11 +5,10 @@ import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
+import ProfileImage from '../Components/VolunteerProfile_Components/ProfileImage';
 import HeaderAndBorder from '../Components/VolunteerProfile_Components/HeaderAndBorder';
 import PersonInfoTable from '../Components/VolunteerProfile_Components/PersonInfoTable';
 import ProfileAndExpTable from '../Components/VolunteerProfile_Components/ProfileAndExpTable';
-
-import { MdAddAPhoto } from 'react-icons/md';
 
 // TODO - BREAKUP AND TRANSFER TO COMPONENTS FOLDER
 
@@ -29,27 +28,11 @@ function VolunteerProfileFull() {
 
   return (
     <div className="w-[100%] flex">
-      {/* Column 1 */}
+      {/* COLUMN 1 */}
       <div className="w-[35%] h-[40vh] mt-28 flex flex-col justify-center items-center">
-        {/* <h1 className="text-lg font-bold text-blue-800 pt-2">Volunteer</h1> */}
-        <div className=" relative mt-4">
-          <img
-            className="w-[170px] h-[170px] rounded-full"
-            src={ProfilePhoto1}
-            // src="https://st4.depositphotos.com/4329009/19956/v/450/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg"
-            alt="profile"
-          />
-          <MdAddAPhoto
-            size={30}
-            color={'darkblue'}
-            className="bottom-0 right-6 absolute"
-          />
-        </div>
-
-        <h1 className="text-2xl font-semibold pt-1 tracking-wider">
-          {volunteer?.name}
-        </h1>
-        <p className="text-sm text-gray-700">Member since 1 Jan 2010</p>
+        {/* PROFILE IMAGE */}
+        <ProfileImage photo={ProfilePhoto1} name={volunteer?.name} />
+        {/* CALENDAR SCHEDULE */}
         <div className="w-[100%] flex flex-col justify-center items-center">
           <h2 className="tracking-widest text-md font-semibold text-red-500 underline">
             My Availability Scheduler
@@ -68,7 +51,7 @@ function VolunteerProfileFull() {
         </div>
       </div>
 
-      {/* Column 2 */}
+      {/* COLUMN 2 */}
       <div className="h-full w-[65%] flex flex-col">
         {/* PERSONAL INFO */}
         <div className="pt-3 px-12">
