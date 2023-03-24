@@ -22,7 +22,7 @@ function Navbar() {
     signOutVolunteer({ uid: uid });
     setIsLoggedIn(false);
     Swal.fire({
-      title: 'Incompletion',
+      title: 'logout',
       text: 'You have signed out successfully!',
       icon: 'success',
     });
