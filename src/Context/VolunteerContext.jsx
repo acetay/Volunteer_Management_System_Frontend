@@ -68,7 +68,7 @@ function VolunteerContextProvider({ children }) {
         .stsTokenManager.accessToken;
 
       const response = await axios.put(
-        `http://localhost:8080/admin/volunteers/${id}`,
+        `http://localhost:8080/volunteers/${id}`,
         volunteer,
         {
           headers: {

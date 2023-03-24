@@ -50,7 +50,7 @@ function VolunteerProfileFull() {
             </p>
             <label
               htmlFor="my-modal-6"
-              className="btn btn-xs btn-success text-white text-xs"
+              className="btn btn-xs btn-error text-white text-xs"
             >
               Set Avail
             </label>
