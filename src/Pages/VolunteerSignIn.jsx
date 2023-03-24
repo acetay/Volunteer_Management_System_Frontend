@@ -20,8 +20,10 @@ function VolunteerSignIn() {
     password: '',
   });
 
+  // Orginal condition
+  // authUser?.uid
   useEffect(() => {
-    if (authUser?.uid && isLoggedIn) {
+    if (isLoggedIn) {
       signInVolunteer({ uid: authUser.uid });
     }
   }, [isLoggedIn]);
