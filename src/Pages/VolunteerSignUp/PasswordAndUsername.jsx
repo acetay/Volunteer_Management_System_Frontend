@@ -80,9 +80,9 @@ function PasswordAndUsername() {
 
   if (isLoading) {
     return (
-      <div className="h-[50vh] flex justify-center items-center">
+      <div className="backdrop-opacity-10 backdrop-invert bg-black/30 z-50 m-0 h-[100vh] top-0 bottom-0 left-0 right-0 absolute flex justify-center items-center">
         <img
-          className="mix-blend-multiply z-50 left-[40%] top-[35%]"
+          className="mix-blend-multiply z-100 left-[40%] top-[35%]"
           src={CubeLoader}
           alt="Loading..."
         />
