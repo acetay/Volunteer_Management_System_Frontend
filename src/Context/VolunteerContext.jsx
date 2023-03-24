@@ -28,7 +28,7 @@ function VolunteerContextProvider({ children }) {
   const [tempForm, setTempForm] = useState(initialState);
 
   let userStorage = JSON.parse(localStorage.getItem('singleUser'));
-
+  console.log(authUser?.accessToken);
   // Get access Info from firebase
   useEffect(() => {
     // if (isLoggedIn) {
