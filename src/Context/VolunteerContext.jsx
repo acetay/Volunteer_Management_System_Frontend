@@ -17,6 +17,7 @@ const VolunteerContext = createContext();
 function VolunteerContextProvider({ children }) {
   const [volunteers, setVolunteers] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // States created for testing only - to remove once stable
   const [authUser, setAuthUser] = useState({});
@@ -168,6 +169,8 @@ function VolunteerContextProvider({ children }) {
     singleUser,
     setSingleUser,
     userStorage,
+    isLoading,
+    setIsLoading,
   };
 
   return (

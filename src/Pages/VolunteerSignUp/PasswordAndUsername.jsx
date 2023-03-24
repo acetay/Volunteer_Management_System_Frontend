@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { BsFillSkipBackwardBtnFill } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalVolunteerContext } from '../../Context/VolunteerContext';
-import HeartLoading from '../../Assets/Sample_images/Heart.gif';
+import CubeLoader from '../../Assets/Sample_images/CubeLoader.gif';
 import Swal from 'sweetalert2';
 
 function PasswordAndUsername() {
@@ -14,6 +14,8 @@ function PasswordAndUsername() {
     initialState,
     tempForm,
     setTempForm,
+    setIsLoading,
+    isLoading,
   } = useGlobalVolunteerContext();
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -37,6 +39,7 @@ function PasswordAndUsername() {
   // Signup and create user in Firebase
   const signup = async () => {
     try {
+      setIsLoading(true);
       const response = await createUserWithPwAndEmail(
         form.email,
         form.password
@@ -61,6 +64,7 @@ function PasswordAndUsername() {
         signupVolunteer(tempForm, uid);
         setTempForm(initialState);
         setUid(() => '');
+        setIsLoading(false);
         Swal.fire({
           title: 'Successful signup',
           text: 'Welcome to the Family!',
@@ -73,6 +77,18 @@ function PasswordAndUsername() {
       setUid('');
     };
   }, [uid]);
+
+  if (isLoading) {
+    return (
+      <div className="h-[50vh] flex justify-center items-center">
+        <img
+          className="mix-blend-multiply z-50 left-[40%] top-[35%]"
+          src={CubeLoader}
+          alt="Loading..."
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col">
