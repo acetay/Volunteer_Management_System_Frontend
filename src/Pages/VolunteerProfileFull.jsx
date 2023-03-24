@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProfilePhoto1 from '../Assets/Sample_images/profilephoto1.png';
-import axios from 'axios';
 import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+
+import HeaderAndBorder from '../Components/VolunteerProfile_Components/HeaderAndBorder';
+import PersonInfoTable from '../Components/VolunteerProfile_Components/PersonInfoTable';
+import ProfileAndExpTable from '../Components/VolunteerProfile_Components/ProfileAndExpTable';
 
 import { MdAddAPhoto } from 'react-icons/md';
 
@@ -13,38 +16,16 @@ import { MdAddAPhoto } from 'react-icons/md';
 function VolunteerProfileFull() {
   const redirect = useNavigate();
   // To remove singleUser - for testing only
-  const { setEditForm, singleUser } = useGlobalVolunteerContext();
-  const { id } = useParams();
-  // const [user, setUser] = useState({});
+  const { setEditForm } = useGlobalVolunteerContext();
+
   const [date, setDate] = useState(new Date());
   let volunteer = JSON.parse(localStorage.getItem('singleUser'))?.volunteer;
-
-  // Get User by Id - Redun
-  // const getVolunteerById = async (id) => {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost:8080/admin/volunteers/${id}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${authUser.accessToken}`,
-  //         },
-  //       }
-  //     );
-  //     setUser(response.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   const goToEdit = () => {
     // To remove setEditForm - for testing only
     setEditForm(volunteer);
     redirect(`/volunteers/profile/${volunteer.id}/edit`);
   };
-
-  // useEffect(() => {
-  //   getVolunteerById(id);
-  // }, []);
 
   return (
     <div className="w-[100%] flex">
@@ -86,61 +67,18 @@ function VolunteerProfileFull() {
           </div>
         </div>
       </div>
+
       {/* Column 2 */}
       <div className="h-full w-[65%] flex flex-col">
         {/* PERSONAL INFO */}
         <div className="pt-3 px-12">
-          <h1 className="text-2xl font-semibold tracking-wider pb-2 text-gray-500">
-            Personal Information
-          </h1>
-          <hr className="border border-gray-300 w-[90%] mb-4" />
-          <table class="table-auto">
-            <tbody>
-              <tr>
-                <td className="w-[220px] py-2 font-semibold">Contact: </td>
-                <td className="text-blue-700">{volunteer?.contact}</td>
-              </tr>
-              <tr>
-                <td className="w-[220px] py-2 font-semibold">Email: </td>
-                <td className="text-blue-700">{volunteer?.email}</td>
-              </tr>
-              <tr>
-                <td className="w-[220px] py-2 font-semibold">Address: </td>
-                <td className="text-blue-700">{volunteer?.address}</td>
-              </tr>
-              <tr>
-                <td className="w-[220px] py-2 font-semibold">Education: </td>
-                <td className="text-blue-700">{volunteer?.education}</td>
-              </tr>
-              <tr>
-                <td className="w-[220px] py-2 font-semibold">Occupation: </td>
-                <td className="text-blue-700"></td>
-              </tr>
-            </tbody>
-          </table>
+          <HeaderAndBorder title={'Personal Information'} />
+          <PersonInfoTable volunteer={volunteer} />
         </div>
         {/* PROFILE AND EXP */}
         <div className="pt-8 px-12">
-          <h1 className="text-2xl font-semibold tracking-wider pb-2 text-gray-500">
-            Profile & Experience
-          </h1>
-          <hr className="border border-gray-300 w-[90%] mb-4" />
-          <table class="table-auto">
-            <tbody>
-              <tr>
-                <td className="w-[220px] py-2 font-semibold">Languages:</td>
-                <td className="text-blue-700">{volunteer?.language}</td>
-              </tr>
-              <tr>
-                <td className="w-[220px] py-2 font-semibold">Interests: </td>
-                <td className=" text-blue-700">None</td>
-              </tr>
-              <tr>
-                <td className="w-[220px] py-2 font-semibold">Experience: </td>
-                <td className="text-blue-700">{volunteer?.pastExperience}</td>
-              </tr>
-            </tbody>
-          </table>
+          <HeaderAndBorder title={'Profile & Experience'} />
+          <ProfileAndExpTable volunteer={volunteer} />
         </div>
         {/* Buttons */}
         <div className="flex pt-8 space-x-4 pl-12">
@@ -149,11 +87,9 @@ function VolunteerProfileFull() {
           </button>
           <button className="btn btn-primary text-white">Past Records</button>
           <button className="btn btn-accent text-white">Feedback</button>
-          {/* <Link to={`/volunteers/profile/${id}/edit`}> */}
           <button onClick={goToEdit} className="btn btn-secondary text-white">
             Edit Profile
           </button>
-          {/* </Link> */}
         </div>
       </div>
     </div>

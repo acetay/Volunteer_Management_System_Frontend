@@ -20,7 +20,7 @@ function VolunteerSignIn() {
     password: '',
   });
 
-  // Orginal condition
+  // Orginal condition - to remove once stable
   // authUser?.uid
   useEffect(() => {
     if (isLoggedIn) {
