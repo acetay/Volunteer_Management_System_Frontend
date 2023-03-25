@@ -100,7 +100,7 @@ function Navbar() {
         </div>
 
         {/* 2nd Column */}
-        <div className="min-w-full shadow-2xl px-4 md:px-12 py-5 ">
+        <div className="min-w-full shadow-2xl px-4 md:px-12 py-5 bg-white">
           <div className="flex items-center">
             {/* Logo */}
             <Link to="/">
