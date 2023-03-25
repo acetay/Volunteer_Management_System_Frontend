@@ -13,6 +13,7 @@ function VolunteerSignIn() {
     signInVolunteer,
     authUser,
     singleUser,
+    setAuthUser,
   } = useGlobalVolunteerContext();
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({
@@ -25,6 +26,16 @@ function VolunteerSignIn() {
   useEffect(() => {
     if (isLoggedIn) {
       signInVolunteer({ uid: authUser.uid });
+      setForm({ ...form, email: '', password: '' });
+    } else {
+      setForm({ ...form, email: '', password: '' });
+      const userRecord = JSON.parse(localStorage.getItem('singleUser'));
+      setTimeout(() => {
+        if (userRecord === null) {
+          localStorage.clear();
+          setAuthUser({});
+        }
+      }, 3000);
     }
   }, [isLoggedIn]);
 
@@ -43,10 +54,7 @@ function VolunteerSignIn() {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await signInUserWithPwAndEmail(
-        form.email,
-        form.password
-      );
+      await signInUserWithPwAndEmail(form.email, form.password);
       setIsLoggedIn(true);
     } catch (err) {
       Swal.fire({

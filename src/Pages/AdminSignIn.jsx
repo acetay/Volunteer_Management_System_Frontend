@@ -11,6 +11,7 @@ function AdminSignIn() {
     setIsLoggedIn,
     setSingleUser,
     authUser,
+    setAuthUser,
   } = useGlobalVolunteerContext();
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -47,6 +48,7 @@ function AdminSignIn() {
       localStorage.setItem('singleUser', JSON.stringify(response.data));
     } catch (err) {
       setIsLoggedIn(false);
+
       console.log(err);
       Swal.fire({
         title: 'Error',
@@ -59,7 +61,20 @@ function AdminSignIn() {
   // Listener to trigger sign-in to springboot after receiving uid
   useEffect(() => {
     if (isLoggedIn) {
+      setForm({ ...form, email: '', password: '' });
       signInAdmin({ uid: authUser.uid });
+    } else {
+      setForm({ ...form, email: '', password: '' });
+      const userRecord = JSON.parse(localStorage.getItem('singleUser'));
+      const timer = setTimeout(() => {
+        if (userRecord === null) {
+          localStorage.clear();
+          setAuthUser({});
+        }
+      }, 3000);
+      return () => {
+        clearInterval(timer);
+      };
     }
   }, [isLoggedIn]);
 
@@ -79,7 +94,7 @@ function AdminSignIn() {
                 type="text"
                 onChange={onChangeHandler}
                 name="email"
-                value={form.email}
+                value={form?.email}
                 placeholder="Email"
                 className="input input-bordered input-info w-[40vw] lg:w-[70vw] max-w-xs"
               />
@@ -87,7 +102,7 @@ function AdminSignIn() {
                 type={`${showPassword ? 'text' : 'password'}`}
                 onChange={onChangeHandler}
                 name="password"
-                value={form.password}
+                value={form?.password}
                 placeholder="Password"
                 className="input input-bordered input-info  w-[40vw] lg:w-[70vw] max-w-xs"
               />

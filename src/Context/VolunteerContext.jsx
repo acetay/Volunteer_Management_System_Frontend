@@ -95,7 +95,6 @@ function VolunteerContextProvider({ children }) {
       localStorage.setItem('singleUser', JSON.stringify(response.data));
     } catch (err) {
       setIsLoggedIn(false);
-      console.log(err);
       Swal.fire({
         title: 'Error',
         text: err.message,
@@ -171,6 +170,7 @@ function VolunteerContextProvider({ children }) {
     userStorage,
     isLoading,
     setIsLoading,
+    setAuthUser,
   };
 
   return (
