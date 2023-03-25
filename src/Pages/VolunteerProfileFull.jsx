@@ -52,7 +52,7 @@ function VolunteerProfileFull() {
               {date.toDateString()}
             </p>
             <label
-              htmlFor="my-modal-6"
+              htmlFor="my-modal-4"
               className="btn btn-xs btn-error text-white text-xs"
             >
               Set Avail

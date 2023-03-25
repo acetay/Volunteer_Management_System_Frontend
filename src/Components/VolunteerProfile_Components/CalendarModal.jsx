@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function CalendarModal({ date, id }) {
   // Spring boot variables
-  const [avail, setAvail] = useState(false);
+  //   const [avail, setAvail] = useState(false);
   const [timeslot, setTimeslot] = useState('');
-  const jwtToken = JSON.parse(localStorage.getItem('authUser')).stsTokenManager
+  const jwtToken = JSON.parse(localStorage.getItem('authUser'))?.stsTokenManager
     .accessToken;
 
   let newdate = new Date(date);
@@ -27,16 +28,17 @@ function CalendarModal({ date, id }) {
   let today = new Date();
   //   console.log(today > newdate);
 
-  const availOnChange = (e) => {
-    setAvail(e.target.value);
-  };
+  //   const availOnChange = (e) => {
+  //     setAvail(e.target.value);
+  //   };
 
   const timeSlotChangeHandler = (e) => {
     setTimeslot(e.target.value);
   };
 
+  // API
   const updateAvailability = async () => {
-    if (displayDate !== '' && avail !== false && timeslot !== '') {
+    if (displayDate !== '' && timeslot !== '') {
       console.log(displayDate);
       try {
         const response = await axios.post(
@@ -49,8 +51,23 @@ function CalendarModal({ date, id }) {
           }
         );
         console.log(response);
+        setTimeslot('');
+        Swal.fire({
+          title: 'Date has been set!',
+          text:
+            'Your availability has been set on ' +
+            displayDate +
+            ' for ' +
+            timeslot,
+          icon: 'success',
+        });
       } catch (err) {
-        console.log(err.message);
+        console.log(err);
+        Swal.fire({
+          title: 'Unable to set avail date',
+          text: err.response?.data.msg,
+          icon: 'error',
+        });
       }
     } else {
       alert('some fields are missing');
@@ -60,7 +77,7 @@ function CalendarModal({ date, id }) {
   if (today > newdate) {
     return (
       <>
-        <input type="checkbox" id="my-modal-6" className="modal-toggle" />
+        <input type="checkbox" id="my-modal-4" className="modal-toggle" />
         <div className="modal modal-bottom sm:modal-middle">
           <div className="modal-box">
             <h3 className="font-bold text-lg text-red-600">
@@ -71,7 +88,7 @@ function CalendarModal({ date, id }) {
               tomorrow.
             </p>
             <div className="modal-action">
-              <label htmlFor="my-modal-6" className="btn btn-primary">
+              <label htmlFor="my-modal-4" className="btn btn-primary">
                 Ok, got it!
               </label>
             </div>
@@ -83,7 +100,7 @@ function CalendarModal({ date, id }) {
 
   return (
     <>
-      <input type="checkbox" id="my-modal-6" className="modal-toggle" />
+      <input type="checkbox" id="my-modal-4" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box h-[60vh] flex flex-col justify-center items-center px-8 text-center">
           <h1 className="text-3xl font-semibold pb-4">Your availability</h1>
@@ -94,7 +111,7 @@ function CalendarModal({ date, id }) {
             {displayDate}
           </h3>
           {/* SELECT AVAIL OR UNAVAIL */}
-          <div className="flex justify-center items-center space-x-8 p-2 mt-2">
+          {/* <div className="flex justify-center items-center space-x-8 p-2 mt-2">
             <div className="flex justify-center items-center space-x-2">
               <input
                 type="radio"
@@ -113,7 +130,7 @@ function CalendarModal({ date, id }) {
               />
               <p>Unavailable</p>
             </div>
-          </div>
+          </div> */}
 
           {/* SELECT PREFERRED TIME SLOTS */}
           <h2 className="font-bold pt-2">Preferred Time Slots:</h2>
@@ -156,20 +173,34 @@ function CalendarModal({ date, id }) {
             </label>
           </div>
 
+          <div className="form-control flex justify-between w-[180px]">
+            <label className="label cursor-pointer">
+              <span className="label-text">Whole day</span>
+              <input
+                type="radio"
+                name="radio-10"
+                value="whole day"
+                onChange={timeSlotChangeHandler}
+                className="radio checked:bg-green-500"
+              />
+            </label>
+          </div>
+
           {/* BUTTONS */}
           <div className="modal-action">
             <label
-              htmlFor="my-modal-6"
+              htmlFor="my-modal-4"
               className="btn btn-error text-white btn-sm"
             >
               Cancel
             </label>
-            <button
+            <label
+              htmlFor="my-modal-4"
               onClick={updateAvailability}
               className="btn btn-primary btn-sm text-white px-4"
             >
-              Set as avail
-            </button>
+              Set
+            </label>
           </div>
         </div>
       </div>
