@@ -55,6 +55,12 @@ function Navbar() {
         >
           MyAdmin
         </Link>
+        <Link
+          className="hover:text-blue-600 hover:underline tracking-wider"
+          to="/admin/main/editvolunteer"
+        >
+          VolunteerMgt
+        </Link>
         <p
           onClick={logout}
           className="hover:text-blue-600 hover:underline cursor-pointer tracking-wider"
