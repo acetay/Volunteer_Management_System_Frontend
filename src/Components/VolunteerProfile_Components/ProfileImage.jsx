@@ -13,7 +13,7 @@ function ProfileImage({ photo, name }) {
         <MdAddAPhoto
           size={30}
           color={'darkblue'}
-          className="bottom-0 right-6 absolute"
+          className="bottom-0 right-6 absolute cursor-pointer"
         />
       </div>
       <h1 className="text-2xl font-semibold pt-1 tracking-wider">{name}</h1>

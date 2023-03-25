@@ -6,6 +6,7 @@ export const initialState = {
   education: '',
   address: '',
   pastExperience: '',
+  occupation: '',
   language: '',
   language2: '',
   language3: '',

@@ -1,7 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SiGooglefit } from 'react-icons/si';
+import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
+import Swal from 'sweetalert2';
+import axios from 'axios';
 
 function AdminSignIn() {
+  const {
+    signInUserWithPwAndEmail,
+    isLoggedIn,
+    setIsLoggedIn,
+    setSingleUser,
+    authUser,
+  } = useGlobalVolunteerContext();
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -9,10 +19,49 @@ function AdminSignIn() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Sign in with email and password
+  // Sign in with email and password to Firebase
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    try {
+      await signInUserWithPwAndEmail(form.email, form.password);
+      setIsLoggedIn(true);
+    } catch (err) {
+      console.log(err.message);
+      setIsLoggedIn(false);
+      Swal.fire({
+        title: 'Error',
+        text: err.message,
+        icon: 'error',
+      });
+    }
   };
+
+  // Sign-in a Admin to Springboot after receiving uid from firebase
+  const signInAdmin = async (uid) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/api/admin/signin`,
+        uid
+      );
+      setSingleUser(response.data);
+      localStorage.setItem('singleUser', JSON.stringify(response.data));
+    } catch (err) {
+      setIsLoggedIn(false);
+      console.log(err);
+      Swal.fire({
+        title: 'Error',
+        text: err.message,
+        icon: 'error',
+      });
+    }
+  };
+
+  // Listener to trigger sign-in to springboot after receiving uid
+  useEffect(() => {
+    if (isLoggedIn) {
+      signInAdmin({ uid: authUser.uid });
+    }
+  }, [isLoggedIn]);
 
   return (
     <div className="flex flex-col h-auto justify-center items-center">

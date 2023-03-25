@@ -246,6 +246,16 @@ function VolunteerSignUp() {
               <option>Hindi</option>
             </select>
           </div>
+          <div className="flex flex-col">
+            <input
+              id="occupation"
+              name="occupation"
+              value={tempForm.occupation}
+              onChange={changeHandler}
+              placeholder="Your occupation"
+              className="input input-bordered input-info input-sm"
+            />
+          </div>
         </div>
         {/* 5th row Inputs */}
         <div className="flex space-x-8 mt-4">
