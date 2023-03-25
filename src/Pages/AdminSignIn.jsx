@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { SiGooglefit } from 'react-icons/si';
 import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
 function AdminSignIn() {
+  const redirect = useNavigate();
   const {
     signInUserWithPwAndEmail,
     isLoggedIn,
@@ -63,6 +65,7 @@ function AdminSignIn() {
     if (isLoggedIn) {
       setForm({ ...form, email: '', password: '' });
       signInAdmin({ uid: authUser.uid });
+      redirect('/admin/main');
     } else {
       setForm({ ...form, email: '', password: '' });
       const userRecord = JSON.parse(localStorage.getItem('singleUser'));
