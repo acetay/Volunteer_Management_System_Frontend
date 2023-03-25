@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ProfilePhoto1 from '../Assets/Sample_images/profilephoto1.png';
 import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
 import Calendar from 'react-calendar';
@@ -14,6 +14,7 @@ import CalendarModal from '../Components/VolunteerProfile_Components/CalendarMod
 // TODO - BREAKUP AND TRANSFER TO COMPONENTS FOLDER
 
 function VolunteerProfileFull() {
+  const { id } = useParams();
   const redirect = useNavigate();
   // To remove singleUser - for testing only
   const { setEditForm } = useGlobalVolunteerContext();
@@ -43,7 +44,7 @@ function VolunteerProfileFull() {
               <Calendar onChange={setDate} value={date} />
             </div>
           </div>
-          <div className="w-[220px] pt-4 flex flex-col justify-center items-center md:flex-row space-x-2">
+          <div className="w-[220px] pt-4 flex flex-col justify-center items-center md:flex-row space-x-2 md:w-[350px]">
             <p className="text-center">
               <span className="font-bold text-blue-800 text-center">
                 Selected Date:{' '}
@@ -92,7 +93,7 @@ function VolunteerProfileFull() {
         </div>
       </div>
       {/* MODAL POPOUT */}
-      <CalendarModal date={date} />
+      <CalendarModal date={date} id={id} />
     </div>
   );
 }
