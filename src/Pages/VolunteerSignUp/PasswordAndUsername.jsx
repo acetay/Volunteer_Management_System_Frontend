@@ -100,27 +100,27 @@ function PasswordAndUsername() {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex h-full flex-col">
       <div className="pt-2 w-full">
-        <h1 className="text-gray-600 text-lg tracking-widest font-semibold pl-2">
+        <h1 className="text-gray-600 text-lg tracking-widest font-semibold">
           Username and Password Registration
         </h1>
-        {/* <img src={HeartLoading} alt="heart" /> */}
-        <div className="flex w-full p-8 space-x-20">
+
+        <div className="flex flex-col justify-center items-center flex-wrap md:flex-row md:justify-start w-full p-8 space-x-20">
           <div>
             <img
-              className={`h-[45vh] max-w-lg rounded-tl-extraLarge transition-all duration-3000 cursor-pointer filter grayscale hover:grayscale-0 ${
+              className={`h-[45vh] w-[75vw] md:max-w-lg rounded-tl-extraLarge transition-all duration-3000 cursor-pointer filter grayscale hover:grayscale-0 ${
                 form.email.length > 0 ? 'grayscale-0' : ''
               }`}
               src={signupPhoto}
               alt="signup"
             />
           </div>
-          <div>
-            <h1 className="font-semibold text-lg pb-4 pl-2 text-gray-500 text-center">
+          <div className="flex flex-col justify-center items-center">
+            <h1 className="font-semibold text-lg pb-4 md:pl-2 text-gray-500 text-center">
               Impacting lives for the better future!
             </h1>
-            <div className="border border-gray-300 rounded-md shadow-lg px-8 py-5 flex flex-col w-[25vw]">
+            <div className="border border-gray-300 rounded-md shadow-lg px-8 py-5 flex flex-col justify-center items-center w-[50vw] md:w-[25vw]">
               <label className="font-bold">Username:</label>
               <input
                 onChange={onChangeHandler}

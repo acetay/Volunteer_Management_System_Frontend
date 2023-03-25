@@ -61,7 +61,7 @@ function VolunteerSignIn() {
   };
 
   return (
-    <div className="flex flex-col h-auto justify-center items-center">
+    <div className="flex flex-col h-auto md:h-screen justify-center items-center">
       <div className="flex flex-col justify-center items-center lg:mt-8 space-y-4 p-6 py-10 px-12 border border-gray-200 rounded-md shadow-lg">
         <h1 className="text-3xl font-bold text-blue-600 tracking-wider">
           Volunteer Sign in
