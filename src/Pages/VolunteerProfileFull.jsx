@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import ProfilePhoto1 from '../Assets/Sample_images/profilephoto1.png';
 import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
@@ -14,11 +15,13 @@ import CalendarModal from '../Components/VolunteerProfile_Components/CalendarMod
 // TODO - BREAKUP AND TRANSFER TO COMPONENTS FOLDER
 
 function VolunteerProfileFull() {
+  const jwtToken = JSON.parse(localStorage.getItem('authUser'))?.stsTokenManager
+    .accessToken;
   const { id } = useParams();
   const redirect = useNavigate();
   // To remove singleUser - for testing only
   const { setEditForm } = useGlobalVolunteerContext();
-
+  const [availabilities, setAvailabilities] = useState([]);
   const [date, setDate] = useState(new Date());
   let volunteer = JSON.parse(localStorage.getItem('singleUser'))?.volunteer;
 
@@ -27,6 +30,27 @@ function VolunteerProfileFull() {
     setEditForm(volunteer);
     redirect(`/volunteers/profile/${volunteer.id}/edit`);
   };
+
+  // Get Availabilities of a volunteer
+  const getAvailabilities = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/volunteers/availabilities/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      );
+      setAvailabilities(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getAvailabilities(id);
+  }, []);
 
   return (
     <div className="w-[100%] mt-12 flex flex-col justify-center items-center space-y-2 sm:mt-50 md:mt-4 md:mb-4 lg:flex-row">
@@ -82,7 +106,7 @@ function VolunteerProfileFull() {
             Past Records
           </button>
           <button className="w-[80%] md:w-[20%] btn btn-accent text-white">
-            Feedback
+            Your availability
           </button>
           <button
             onClick={goToEdit}
@@ -93,7 +117,12 @@ function VolunteerProfileFull() {
         </div>
       </div>
       {/* MODAL POPOUT */}
-      <CalendarModal date={date} id={id} />
+      <CalendarModal
+        date={date}
+        id={id}
+        getAvailabilities={getAvailabilities}
+        availabilities={availabilities}
+      />
     </div>
   );
 }

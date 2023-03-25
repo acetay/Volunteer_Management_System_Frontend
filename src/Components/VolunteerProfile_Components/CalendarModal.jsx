@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-function CalendarModal({ date, id }) {
+function CalendarModal({ date, id, getAvailabilities, availabilities }) {
+  const radio = useRef(null);
+
   // Spring boot variables
-  //   const [avail, setAvail] = useState(false);
   const [timeslot, setTimeslot] = useState('');
+
   const jwtToken = JSON.parse(localStorage.getItem('authUser'))?.stsTokenManager
     .accessToken;
 
@@ -21,22 +23,18 @@ function CalendarModal({ date, id }) {
   // Spring boot varialbe String - "DD-MM-YYYY"
   const selectedDate = formatDate(newdate);
 
+  // Need this to compare
   const displayDate = new Date(newdate)
     .toLocaleDateString('en-SG')
     .replaceAll('/', '-');
 
   let today = new Date();
-  //   console.log(today > newdate);
-
-  //   const availOnChange = (e) => {
-  //     setAvail(e.target.value);
-  //   };
 
   const timeSlotChangeHandler = (e) => {
     setTimeslot(e.target.value);
   };
 
-  // API
+  // API to Set new availabilities
   const updateAvailability = async () => {
     if (displayDate !== '' && timeslot !== '') {
       console.log(displayDate);
@@ -50,8 +48,9 @@ function CalendarModal({ date, id }) {
             },
           }
         );
-        console.log(response);
+        getAvailabilities(id);
         setTimeslot('');
+        radio.current.checked = false;
         Swal.fire({
           title: 'Date has been set!',
           text:
@@ -73,6 +72,29 @@ function CalendarModal({ date, id }) {
       alert('some fields are missing');
     }
   };
+
+  const findDate = availabilities.find((avail) => avail.date === displayDate);
+
+  if (findDate) {
+    return (
+      <>
+        <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+        <div className="modal modal-bottom sm:modal-middle">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg text-red-600">{findDate.date}</h3>
+            <p className="py-4">
+              You have already marked this date. Do you want to change it?
+            </p>
+            <div className="modal-action">
+              <label htmlFor="my-modal-4" className="btn btn-primary">
+                Ok, got it!
+              </label>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   if (today > newdate) {
     return (
@@ -110,27 +132,6 @@ function CalendarModal({ date, id }) {
           <h3 className="font-bold text-2xl tracking-wider underline">
             {displayDate}
           </h3>
-          {/* SELECT AVAIL OR UNAVAIL */}
-          {/* <div className="flex justify-center items-center space-x-8 p-2 mt-2">
-            <div className="flex justify-center items-center space-x-2">
-              <input
-                type="radio"
-                name="radio-7"
-                value={true}
-                onChange={availOnChange}
-                className="radio radio-info"
-              />
-              <p>Available</p>
-              <input
-                type="radio"
-                name="radio-7"
-                value={false}
-                onChange={availOnChange}
-                className="radio radio-info checked:bg-red-500"
-              />
-              <p>Unavailable</p>
-            </div>
-          </div> */}
 
           {/* SELECT PREFERRED TIME SLOTS */}
           <h2 className="font-bold pt-2">Preferred Time Slots:</h2>
@@ -143,6 +144,7 @@ function CalendarModal({ date, id }) {
                 value="0900hrs - 1200hrs"
                 onClick={timeSlotChangeHandler}
                 className="radio checked:bg-green-500"
+                ref={radio}
               />
             </label>
           </div>
@@ -156,6 +158,7 @@ function CalendarModal({ date, id }) {
                 value="1300hrs - 1800hrs"
                 onClick={timeSlotChangeHandler}
                 className="radio checked:bg-green-500"
+                ref={radio}
               />
             </label>
           </div>
@@ -169,6 +172,7 @@ function CalendarModal({ date, id }) {
                 value="1900hrs - 2200hrs"
                 onChange={timeSlotChangeHandler}
                 className="radio checked:bg-green-500"
+                ref={radio}
               />
             </label>
           </div>
@@ -182,6 +186,7 @@ function CalendarModal({ date, id }) {
                 value="whole day"
                 onChange={timeSlotChangeHandler}
                 className="radio checked:bg-green-500"
+                ref={radio}
               />
             </label>
           </div>
