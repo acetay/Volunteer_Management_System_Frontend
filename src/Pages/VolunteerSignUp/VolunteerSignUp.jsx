@@ -215,7 +215,11 @@ function VolunteerSignUp() {
             </select>
           </div>
           <div className="flex flex-col">
-            <select className="select select-info w-full max-w-xs select-sm text-sm font-normal">
+            <select
+              name="language2"
+              onChange={changeHandler}
+              className="select select-info w-full max-w-xs select-sm text-sm font-normal"
+            >
               <option defaultValue>2nd choice</option>
               <option>English</option>
               <option>Chinese</option>
@@ -227,7 +231,11 @@ function VolunteerSignUp() {
             </select>
           </div>
           <div className="flex flex-col">
-            <select className="select select-info w-full max-w-xs select-sm text-sm font-normal">
+            <select
+              name="language3"
+              onChange={changeHandler}
+              className="select select-info w-full max-w-xs select-sm text-sm font-normal"
+            >
               <option defaultValue>3rd choice</option>
               <option>English</option>
               <option>Chinese</option>
