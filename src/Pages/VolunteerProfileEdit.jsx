@@ -5,11 +5,11 @@ import Swal from 'sweetalert2';
 
 function VolunteerProfileEdit() {
   // To remove edit Form - for testing only
-  const { editVolunteer, editForm } = useGlobalVolunteerContext();
+  const { editVolunteer } = useGlobalVolunteerContext();
   const redirect = useNavigate();
   const { id } = useParams();
   const user = JSON.parse(localStorage.getItem('singleUser'))?.volunteer;
-  // Inject values from editForm via Global Context
+  // Inject values from editForm via localstorage
   const [form, setForm] = useState(user);
 
   const changeHandler = (e) => {
@@ -233,7 +233,12 @@ function VolunteerProfileEdit() {
             </select>
           </div>
           <div className="flex flex-col">
-            <select className="select select-info w-full max-w-xs select-sm text-sm font-normal">
+            <select
+              name="language2"
+              value={form?.language2}
+              onChange={changeHandler}
+              className="select select-info w-full max-w-xs select-sm text-sm font-normal"
+            >
               <option defaultValue>2nd choice</option>
               <option>English</option>
               <option>Chinese</option>
@@ -245,7 +250,12 @@ function VolunteerProfileEdit() {
             </select>
           </div>
           <div className="flex flex-col">
-            <select className="select select-info w-full max-w-xs select-sm text-sm font-normal">
+            <select
+              name="language3"
+              value={form?.language3}
+              onChange={changeHandler}
+              className="select select-info w-full max-w-xs select-sm text-sm font-normal"
+            >
               <option defaultValue>3rd choice</option>
               <option>English</option>
               <option>Chinese</option>
