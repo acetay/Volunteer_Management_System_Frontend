@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
 
 import { SiGooglefit } from 'react-icons/si';
-import { BsFillTelephoneFill } from 'react-icons/bs';
 import { MdOutlineMailLock } from 'react-icons/md';
 import { BsFacebook } from 'react-icons/bs';
 import { AiFillTwitterCircle } from 'react-icons/ai';
@@ -13,7 +12,7 @@ import Swal from 'sweetalert2';
 
 function Navbar() {
   const redirect = useNavigate();
-  const { userStorage, signout, setIsLoggedIn, signOutVolunteer } =
+  const { credentials, signout, setIsLoggedIn, signOutVolunteer, userStorage } =
     useGlobalVolunteerContext();
 
   const logout = () => {
@@ -27,6 +26,43 @@ function Navbar() {
       icon: 'success',
     });
     redirect('/volunteers/signin');
+  };
+
+  const checkForCredentials = () => {
+    if (credentials?.role === 'USER') {
+      return (
+        <>
+          <Link
+            className="hover:text-blue-600 hover:underline tracking-wider"
+            to="/volunteers/profile/1"
+          >
+            MyProfile
+          </Link>
+          <p
+            onClick={logout}
+            className="hover:text-blue-600 hover:underline cursor-pointer tracking-wider"
+          >
+            SignOut
+          </p>
+        </>
+      );
+    }
+    return (
+      <>
+        <Link
+          className="hover:text-blue-600 hover:underline tracking-wider"
+          to="/admin/main"
+        >
+          MyAdmin
+        </Link>
+        <p
+          onClick={logout}
+          className="hover:text-blue-600 hover:underline cursor-pointer tracking-wider"
+        >
+          SignOut
+        </p>
+      </>
+    );
   };
 
   return (
@@ -85,20 +121,7 @@ function Navbar() {
               </div>
               <div className="hidden md:flex md:justify-center items-center space-x-3">
                 {userStorage ? (
-                  <>
-                    <Link
-                      className="hover:text-blue-600 hover:underline tracking-wider"
-                      to="/volunteers/profile/1"
-                    >
-                      MyProfile
-                    </Link>
-                    <p
-                      onClick={logout}
-                      className="hover:text-blue-600 hover:underline cursor-pointer tracking-wider"
-                    >
-                      SignOut
-                    </p>
-                  </>
+                  checkForCredentials()
                 ) : (
                   <>
                     <Link

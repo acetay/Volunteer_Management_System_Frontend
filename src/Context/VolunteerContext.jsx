@@ -29,6 +29,8 @@ function VolunteerContextProvider({ children }) {
 
   let userStorage = JSON.parse(localStorage.getItem('singleUser'));
   console.log(authUser?.accessToken);
+  let credentials = JSON.parse(localStorage.getItem('userCredentials'));
+  // console.log(authUser?.accessToken);
   // Get access Info from firebase
   useEffect(() => {
     // if (isLoggedIn) {
@@ -93,6 +95,10 @@ function VolunteerContextProvider({ children }) {
       );
       setSingleUser(response.data);
       localStorage.setItem('singleUser', JSON.stringify(response.data));
+      localStorage.setItem(
+        'userCredentials',
+        JSON.stringify(response.data?.userCredentials)
+      );
     } catch (err) {
       setIsLoggedIn(false);
       Swal.fire({
@@ -171,6 +177,7 @@ function VolunteerContextProvider({ children }) {
     isLoading,
     setIsLoading,
     setAuthUser,
+    credentials,
   };
 
   return (

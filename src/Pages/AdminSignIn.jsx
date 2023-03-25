@@ -48,6 +48,8 @@ function AdminSignIn() {
       );
       setSingleUser(response.data);
       localStorage.setItem('singleUser', JSON.stringify(response.data));
+      localStorage.setItem('userCredentials', JSON.stringify(response.data));
+      redirect('/admin/main');
     } catch (err) {
       setIsLoggedIn(false);
 
@@ -65,7 +67,6 @@ function AdminSignIn() {
     if (isLoggedIn) {
       setForm({ ...form, email: '', password: '' });
       signInAdmin({ uid: authUser.uid });
-      redirect('/admin/main');
     } else {
       setForm({ ...form, email: '', password: '' });
       const userRecord = JSON.parse(localStorage.getItem('singleUser'));
