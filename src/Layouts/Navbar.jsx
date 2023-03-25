@@ -16,6 +16,7 @@ function Navbar() {
     useGlobalVolunteerContext();
 
   const logout = () => {
+    const role = credentials.role;
     const uid = JSON.parse(localStorage.getItem('authUser'))?.uid;
     signout();
     signOutVolunteer({ uid: uid });
@@ -25,7 +26,11 @@ function Navbar() {
       text: 'You have signed out successfully!',
       icon: 'success',
     });
-    redirect('/volunteers/signin');
+    if (role === 'ADMIN') {
+      redirect('/admin/signin');
+    } else {
+      redirect('/volunteers/signin');
+    }
   };
 
   const checkForCredentials = () => {
