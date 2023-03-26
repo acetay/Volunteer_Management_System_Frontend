@@ -5,20 +5,13 @@ import {
   useEffect,
   useReducer,
 } from 'react';
-import { adminReducer } from './AdminReducer';
+import { adminReducer, initialState } from './AdminReducer';
 import { useGlobalVolunteerContext } from './VolunteerContext';
 import axios from 'axios';
 
 const AdminContext = createContext();
 
 function AdminContextProvider({ children }) {
-  const initialState = {
-    volunteers: [],
-    programs: [],
-    enrolments: [],
-    availabilities: [],
-    isLoading: false,
-  };
   const [state, dispatch] = useReducer(adminReducer, initialState);
   const { userUid } = useGlobalVolunteerContext();
   const [volunteers, setVolunteers] = useState([]);
