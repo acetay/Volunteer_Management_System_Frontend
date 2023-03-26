@@ -14,6 +14,7 @@ function VolunteerSignIn() {
     authUser,
     singleUser,
     setAuthUser,
+    userUid,
   } = useGlobalVolunteerContext();
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({
@@ -25,7 +26,7 @@ function VolunteerSignIn() {
   // authUser?.uid
   useEffect(() => {
     if (isLoggedIn) {
-      signInVolunteer({ uid: authUser.uid });
+      signInVolunteer({ uid: userUid });
       setForm({ ...form, email: '', password: '' });
     } else {
       setForm({ ...form, email: '', password: '' });

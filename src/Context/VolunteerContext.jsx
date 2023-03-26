@@ -23,22 +23,20 @@ function VolunteerContextProvider({ children }) {
   const [authUser, setAuthUser] = useState({});
   const [singleUser, setSingleUser] = useState(null);
   const [editForm, setEditForm] = useState({});
-  const [AdminUid, setAdminUid] = useState('');
+  const [userUid, setUserUid] = useState('');
 
   // Temp signup Form - To be refactored
   const [tempForm, setTempForm] = useState(initialState);
 
   let userStorage = JSON.parse(localStorage.getItem('singleUser'));
-  console.log(authUser?.accessToken);
   let credentials = JSON.parse(localStorage.getItem('userCredentials'));
 
-  // console.log(authUser?.accessToken);
   // Get access Info from firebase
   useEffect(() => {
     // if (isLoggedIn) {
     const listenToAuth = onAuthStateChanged(auth, (currentUser) => {
       setAuthUser(currentUser);
-      setAdminUid(currentUser.uid);
+      setUserUid(currentUser?.uid);
       localStorage.setItem('authUser', JSON.stringify(currentUser));
       // console.log(currentUser.accessToken);
     });
@@ -47,24 +45,6 @@ function VolunteerContextProvider({ children }) {
     };
     // }
   }, [isLoggedIn]);
-
-  // useEffect(() => {
-  //   getAllVolunteers();
-  // }, []);
-
-  // SPRINGBOOT APIs - *****TO BE REFACTORED
-  // Get All Volunteers
-  // const getAllVolunteers = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       'http://localhost:8080/admin/volunteers'
-  //     );
-  //     console.log(response.data);
-  //     setVolunteers(response.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   // Edit a Volunteer
   const editVolunteer = async (id, volunteer) => {
@@ -120,7 +100,7 @@ function VolunteerContextProvider({ children }) {
         uid
       );
       setSingleUser(null);
-      setAdminUid(() => '');
+      setUserUid(() => '');
       setAuthUser({});
       localStorage.clear();
     } catch (err) {
@@ -182,7 +162,7 @@ function VolunteerContextProvider({ children }) {
     setIsLoading,
     setAuthUser,
     credentials,
-    AdminUid,
+    userUid,
   };
 
   return (

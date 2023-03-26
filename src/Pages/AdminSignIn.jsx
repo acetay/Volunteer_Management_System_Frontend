@@ -12,9 +12,8 @@ function AdminSignIn() {
     isLoggedIn,
     setIsLoggedIn,
     setSingleUser,
-    authUser,
     setAuthUser,
-    AdminUid,
+    userUid,
   } = useGlobalVolunteerContext();
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -66,7 +65,7 @@ function AdminSignIn() {
   useEffect(() => {
     if (isLoggedIn) {
       setForm({ ...form, email: '', password: '' });
-      signInAdmin({ uid: AdminUid });
+      signInAdmin({ uid: userUid });
     } else {
       setForm({ ...form, email: '', password: '' });
       const userRecord = JSON.parse(localStorage.getItem('singleUser'));

@@ -1,6 +1,6 @@
 function PersonInfoTable({ volunteer }) {
   return (
-    <table class="table-auto">
+    <table className="table-auto">
       <tbody>
         <tr>
           <td className="w-[100px] md:w-[220px] py-2 font-semibold">
