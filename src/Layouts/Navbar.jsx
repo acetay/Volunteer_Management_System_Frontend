@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
+import { useGlobalAdminContext } from '../Context/AdminContext';
 
 import { SiGooglefit } from 'react-icons/si';
 import { MdOutlineMailLock } from 'react-icons/md';
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 
 function Navbar() {
   const redirect = useNavigate();
+  const { setVolunteers } = useGlobalAdminContext();
   const { credentials, signout, setIsLoggedIn, signOutVolunteer, userStorage } =
     useGlobalVolunteerContext();
 
@@ -21,6 +23,7 @@ function Navbar() {
     signout();
     signOutVolunteer({ uid: uid });
     setIsLoggedIn(false);
+    setVolunteers(() => []);
     Swal.fire({
       title: 'logout',
       text: 'You have signed out successfully!',

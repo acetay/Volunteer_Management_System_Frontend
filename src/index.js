@@ -7,11 +7,11 @@ import AdminContextProvider from './Context/AdminContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <VolunteerContextProvider>
     <AdminContextProvider>
-      <VolunteerContextProvider>
-        <App />
-      </VolunteerContextProvider>
+      <App />
     </AdminContextProvider>
-  </React.StrictMode>
+  </VolunteerContextProvider>
+  // </React.StrictMode>
 );

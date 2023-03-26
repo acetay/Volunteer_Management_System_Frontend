@@ -95,13 +95,10 @@ function VolunteerContextProvider({ children }) {
   // Sign-out a Volunteer
   const signOutVolunteer = async (uid) => {
     try {
-      const response = await axios.post(
-        `http://localhost:8080/api/signout`,
-        uid
-      );
+      await axios.post(`http://localhost:8080/api/signout`, uid);
       setSingleUser(null);
-      setUserUid(() => '');
-      setAuthUser({});
+      setUserUid(() => null);
+      setAuthUser(null);
       localStorage.clear();
     } catch (err) {
       console.log(err);
