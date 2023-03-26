@@ -53,7 +53,7 @@ function VolunteerProfileFull() {
   }, []);
 
   return (
-    <div className="w-[100%] mt-12 flex flex-col justify-center items-center space-y-2 sm:mt-50 md:mt-1 md:mb-4 lg:flex-row">
+    <div className="w-[100%] mt-12 flex flex-col justify-center items-center space-y-2 sm:mt-50 md:mt-1 md:mb-1 lg:flex-row">
       {/* COLUMN 1 */}
       <div className="w-[35%] h-auto md:h-[40vh] flex flex-col justify-center items-center">
         {/* PROFILE IMAGE */}

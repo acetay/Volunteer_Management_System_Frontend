@@ -3,7 +3,7 @@ import { MdAddAPhoto } from 'react-icons/md';
 function ProfileImage({ photo, name }) {
   return (
     <>
-      <div className=" relative mt-2">
+      <div className=" relative mt-1 -z-10">
         <img
           className="w-[170px] h-[170px] rounded-full"
           src={photo}

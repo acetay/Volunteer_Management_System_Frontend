@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 function VolunteerProfileEdit() {
   // To remove edit Form - for testing only
-  const { editVolunteer } = useGlobalVolunteerContext();
+  const { editVolunteer, setEditForm } = useGlobalVolunteerContext();
   const redirect = useNavigate();
   const { id } = useParams();
   const user = JSON.parse(localStorage.getItem('singleUser'))?.volunteer;
@@ -19,6 +19,7 @@ function VolunteerProfileEdit() {
   const editHandler = () => {
     try {
       editVolunteer(id, form);
+      setEditForm({});
       Swal.fire({
         title: 'Success',
         text: 'Profile successfully edited!',
@@ -27,6 +28,7 @@ function VolunteerProfileEdit() {
       redirect(`/volunteers/profile/${id}`);
     } catch (err) {
       console.log(err.message);
+      setEditForm({});
       Swal.fire({
         title: 'Something went wrong!',
         text: err.message,

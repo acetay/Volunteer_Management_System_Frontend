@@ -14,6 +14,7 @@ function AdminSignIn() {
     setSingleUser,
     authUser,
     setAuthUser,
+    AdminUid,
   } = useGlobalVolunteerContext();
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -52,7 +53,6 @@ function AdminSignIn() {
       redirect('/admin/main');
     } catch (err) {
       setIsLoggedIn(false);
-
       console.log(err);
       Swal.fire({
         title: 'Error',
@@ -66,7 +66,7 @@ function AdminSignIn() {
   useEffect(() => {
     if (isLoggedIn) {
       setForm({ ...form, email: '', password: '' });
-      signInAdmin({ uid: authUser.uid });
+      signInAdmin({ uid: AdminUid });
     } else {
       setForm({ ...form, email: '', password: '' });
       const userRecord = JSON.parse(localStorage.getItem('singleUser'));
@@ -75,7 +75,7 @@ function AdminSignIn() {
           localStorage.clear();
           setAuthUser({});
         }
-      }, 3000);
+      }, 5000);
       return () => {
         clearInterval(timer);
       };

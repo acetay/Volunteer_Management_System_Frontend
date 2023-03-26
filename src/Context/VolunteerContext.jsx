@@ -23,6 +23,7 @@ function VolunteerContextProvider({ children }) {
   const [authUser, setAuthUser] = useState({});
   const [singleUser, setSingleUser] = useState(null);
   const [editForm, setEditForm] = useState({});
+  const [AdminUid, setAdminUid] = useState('');
 
   // Temp signup Form - To be refactored
   const [tempForm, setTempForm] = useState(initialState);
@@ -30,12 +31,14 @@ function VolunteerContextProvider({ children }) {
   let userStorage = JSON.parse(localStorage.getItem('singleUser'));
   console.log(authUser?.accessToken);
   let credentials = JSON.parse(localStorage.getItem('userCredentials'));
+
   // console.log(authUser?.accessToken);
   // Get access Info from firebase
   useEffect(() => {
     // if (isLoggedIn) {
     const listenToAuth = onAuthStateChanged(auth, (currentUser) => {
       setAuthUser(currentUser);
+      setAdminUid(currentUser.uid);
       localStorage.setItem('authUser', JSON.stringify(currentUser));
       // console.log(currentUser.accessToken);
     });
@@ -117,6 +120,7 @@ function VolunteerContextProvider({ children }) {
         uid
       );
       setSingleUser(null);
+      setAdminUid(() => '');
       setAuthUser({});
       localStorage.clear();
     } catch (err) {
@@ -178,6 +182,7 @@ function VolunteerContextProvider({ children }) {
     setIsLoading,
     setAuthUser,
     credentials,
+    AdminUid,
   };
 
   return (

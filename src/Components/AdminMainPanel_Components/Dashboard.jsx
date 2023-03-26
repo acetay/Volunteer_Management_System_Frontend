@@ -19,21 +19,21 @@ function Dashboard() {
         stats={30}
         color={'bg-green-500'}
         date={'1 Jan 2018'}
-        icon={<TbHeartHandshake size={80} color={'orange'} />}
+        icon={<TbHeartHandshake size={80} color={'white'} />}
       />
       <PanelItem
         title={'Enrolments'}
         stats={10}
         color={'bg-pink-500'}
         date={'1 Jan 2018'}
-        icon={<IoAccessibility size={80} color={'yellow'} />}
+        icon={<IoAccessibility size={80} color={'white'} />}
       />
       <PanelItem
         title={'Completed'}
         stats={23}
         color={'bg-teal-400'}
         date={'1 Jan 2018'}
-        icon={<GiFinishLine size={80} color={'black'} />}
+        icon={<GiFinishLine size={80} color={'white'} />}
       />
     </div>
   );

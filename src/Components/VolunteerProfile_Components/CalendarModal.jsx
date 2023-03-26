@@ -125,19 +125,23 @@ function CalendarModal({ date, id, getAvailabilities, availabilities }) {
       <input type="checkbox" id="my-modal-4" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box h-[60vh] flex flex-col justify-center items-center px-8 text-center">
-          <h1 className="text-3xl font-semibold pb-4">Your availability</h1>
-          <p className="px-12 pb-4 text-lg text-blue-700 font-bold">
+          <h1 className="text-3xl font-semibold pb-4">
+            Mark your availability
+          </h1>
+          <p className="px-12 pb-4 text-2xl text-blue-700 font-bold">
             Please select the options below based on the date selected:
           </p>
-          <h3 className="font-bold text-2xl tracking-wider underline">
+          <h3 className="font-bold text-red-500 text-2xl tracking-wider">
             {displayDate}
           </h3>
 
           {/* SELECT PREFERRED TIME SLOTS */}
-          <h2 className="font-bold pt-2">Preferred Time Slots:</h2>
-          <div className="form-control flex justify-between w-[180px]">
+          <h2 className="font-bold pt-2 pb-4">Preferred Time Slots:</h2>
+          <div className="form-control flex justify-between w-[240px]">
             <label className="label cursor-pointer">
-              <span className="label-text">0800hrs - 1200hrs</span>
+              <span className="label-text font-semibold text-pink-400">
+                0800hrs - 1200hrs
+              </span>
               <input
                 type="radio"
                 name="radio-10"
@@ -148,9 +152,11 @@ function CalendarModal({ date, id, getAvailabilities, availabilities }) {
               />
             </label>
           </div>
-          <div className="form-control flex justify-between w-[180px]">
+          <div className="form-control flex justify-between w-[240px]">
             <label className="label cursor-pointer">
-              <span className="label-text">1300hrs - 1800hrs</span>
+              <span className="label-text font-semibold text-pink-400">
+                1300hrs - 1800hrs
+              </span>
               <input
                 onChange={timeSlotChangeHandler}
                 type="radio"
@@ -163,9 +169,11 @@ function CalendarModal({ date, id, getAvailabilities, availabilities }) {
             </label>
           </div>
 
-          <div className="form-control flex justify-between w-[180px]">
+          <div className="form-control flex justify-between w-[240px]">
             <label className="label cursor-pointer">
-              <span className="label-text">1900hrs - 2200hrs</span>
+              <span className="label-text font-semibold text-pink-400">
+                1900hrs - 2200hrs
+              </span>
               <input
                 type="radio"
                 name="radio-10"
@@ -177,9 +185,11 @@ function CalendarModal({ date, id, getAvailabilities, availabilities }) {
             </label>
           </div>
 
-          <div className="form-control flex justify-between w-[180px]">
+          <div className="form-control flex justify-between w-[240px]">
             <label className="label cursor-pointer">
-              <span className="label-text">Whole day</span>
+              <span className="label-text font-semibold text-pink-400">
+                Whole day
+              </span>
               <input
                 type="radio"
                 name="radio-10"
