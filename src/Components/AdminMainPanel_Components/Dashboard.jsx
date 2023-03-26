@@ -10,35 +10,35 @@ function Dashboard() {
   const { volunteers, programs, enrolments } = useGlobalAdminContext();
 
   return (
-    <div className="flex space-x-4">
+    <div className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
       <PanelItem
         title={'Volunteers'}
         stats={volunteers?.length}
-        color={'bg-blue-400'}
+        color={'bg-slate-100'}
         text={'Total enrolled'}
-        icon={<BsPeopleFill size={80} color={'white'} />}
+        icon={<BsPeopleFill size={80} color={'skyblue'} />}
         link={'/admin/main/editvolunteer'}
       />
       <PanelItem
         title={'Programs'}
         stats={programs?.length}
-        color={'bg-green-500'}
+        color={'bg-slate-100'}
         text={'Active'}
-        icon={<TbHeartHandshake size={80} color={'white'} />}
+        icon={<TbHeartHandshake size={80} color={'skyblue'} />}
       />
       <PanelItem
         title={'Enrolments'}
         stats={enrolments?.length}
-        color={'bg-pink-500'}
+        color={'bg-slate-100'}
         text={'Ongoing'}
-        icon={<IoAccessibility size={80} color={'white'} />}
+        icon={<IoAccessibility size={80} color={'skyblue'} />}
       />
       <PanelItem
         title={'Completed'}
         stats={23}
-        color={'bg-teal-400'}
+        color={'bg-slate-100'}
         text={'Past events'}
-        icon={<GiFinishLine size={80} color={'white'} />}
+        icon={<GiFinishLine size={80} color={'skyblue'} />}
       />
     </div>
   );

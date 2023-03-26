@@ -17,6 +17,7 @@ import AdminVolunteerManagement from './Pages/AdminVolunterMgt';
 import SignUpPageContainer from './Pages/VolunteerSignUp/VolSignUpPageContainer';
 import PasswordAndUsername from './Pages/VolunteerSignUp/PasswordAndUsername';
 import ProtectedRoute from './Auth/ProtectedRoute';
+import Volunteer from './Components/AdminVolunteerMgt/Volunteer';
 import NotFound from './Pages/NotFound';
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
             />
             <Route path="/admin/signin" element={<AdminSignIn />} />
             <Route path="/admin/main" element={<AdminMainPanel />} />
+            <Route path="/admin/volunteer" element={<Volunteer />} />
             <Route
               path="/admin/main/editvolunteer"
               element={
