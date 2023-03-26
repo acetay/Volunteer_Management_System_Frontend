@@ -1,18 +1,20 @@
+import { useEffect } from 'react';
 import { BsPeopleFill } from 'react-icons/bs';
 import { TbHeartHandshake } from 'react-icons/tb';
 import { IoAccessibility } from 'react-icons/io5';
 import { GiFinishLine } from 'react-icons/gi';
 import PanelItem from './PanelItem';
 
-import { useGlobalAdminContext } from '../../Context/AdminContext';
+import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
 
 function Dashboard() {
   const { volunteers } = useGlobalAdminContext();
+
   return (
     <div className="flex space-x-4">
       <PanelItem
         title={'Volunteers'}
-        stats={volunteers.length}
+        stats={volunteers?.length}
         color={'bg-blue-400'}
         date={'1 Jan 2018'}
         icon={<BsPeopleFill size={80} color={'white'} />}

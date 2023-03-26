@@ -13,10 +13,11 @@ import VolunteerProfileFull from './Pages/VolunteerProfileFull';
 import VolunteerProfileEdit from './Pages/VolunteerProfileEdit';
 import AdminSignIn from './Pages/AdminSignIn';
 import AdminMainPanel from './Pages/AdminMainPanel';
-import AdminVolProfileEdit from './Pages/AdminVolProfileEdit';
+import AdminVolunteerManagement from './Pages/AdminVolunterMgt';
 import SignUpPageContainer from './Pages/VolunteerSignUp/VolSignUpPageContainer';
 import PasswordAndUsername from './Pages/VolunteerSignUp/PasswordAndUsername';
 import ProtectedRoute from './Auth/ProtectedRoute';
+import NotFound from './Pages/NotFound';
 
 function App() {
   return (
@@ -63,10 +64,12 @@ function App() {
               path="/admin/main/editvolunteer"
               element={
                 <ProtectedRoute>
-                  <AdminVolProfileEdit />
+                  <AdminVolunteerManagement />
                 </ProtectedRoute>
               }
             />
+            <Route path="/notfound" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
       </Router>
