@@ -80,7 +80,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-100 w-screen left-0 right-0">
+    <nav className="sticky top-0 z-50 w-screen left-0 right-0">
       <div className="flex flex-col">
         {/* 1st Column */}
         <div className="lg:flex justify-between bg-blue-600 px-20 py-2 text-white font-semibold space-x-8">

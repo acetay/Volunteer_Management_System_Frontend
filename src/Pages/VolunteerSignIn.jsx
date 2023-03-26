@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
 import { SiGooglefit } from 'react-icons/si';
+import Spinner from '../Assets/Sample_images/spinner.gif';
 import Swal from 'sweetalert2';
 
 function VolunteerSignIn() {
@@ -11,10 +12,11 @@ function VolunteerSignIn() {
     setIsLoggedIn,
     isLoggedIn,
     signInVolunteer,
-    authUser,
     singleUser,
     setAuthUser,
     userUid,
+    setIsLoading,
+    isLoading,
   } = useGlobalVolunteerContext();
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({
@@ -42,6 +44,7 @@ function VolunteerSignIn() {
 
   useEffect(() => {
     if (singleUser?.volunteer) {
+      setIsLoading(false);
       const id = singleUser?.volunteer.id;
       redirect(`/volunteers/profile/${id}`);
     }
@@ -55,6 +58,7 @@ function VolunteerSignIn() {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       await signInUserWithPwAndEmail(form.email, form.password);
       setIsLoggedIn(true);
     } catch (err) {
@@ -68,6 +72,14 @@ function VolunteerSignIn() {
       setIsLoggedIn(false);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col h-auto md:h-screen p-8 justify-start items-center pt-32">
+        <img className="h-[300px] w-[300px]" src={Spinner} alt="spinner" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-auto md:h-screen justify-center items-center">

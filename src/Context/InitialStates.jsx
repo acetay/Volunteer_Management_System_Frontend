@@ -6,6 +6,7 @@ export const initialState = {
   education: '',
   address: '',
   pastExperience: '',
+  profilePicture: '',
   occupation: '',
   language: '',
   language2: '',

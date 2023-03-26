@@ -99,16 +99,16 @@ function PasswordAndUsername() {
   }
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-auto md:h-[60vh] flex-col">
       <div className="pt-2 w-full">
         <h1 className="text-gray-600 text-lg tracking-widest font-semibold">
           Username and Password Registration
         </h1>
 
         <div className="flex flex-col justify-center items-center flex-wrap md:flex-row md:justify-start w-full p-8 space-x-20">
-          <div>
+          <div className="-z-30">
             <img
-              className={`h-[45vh] w-[75vw] md:max-w-lg rounded-tl-extraLarge transition-all duration-3000 cursor-pointer filter grayscale hover:grayscale-0 ${
+              className={`h-[45vh] w-[75vw] -z-30 md:max-w-lg rounded-tl-extraLarge transition-all duration-3000 cursor-pointer filter grayscale hover:grayscale-0 ${
                 form.email.length > 0 ? 'grayscale-0' : ''
               }`}
               src={signupPhoto}

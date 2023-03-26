@@ -43,6 +43,7 @@ function AdminContextProvider({ children }) {
   useEffect(() => {
     if (userUid) {
       if (adminUser?.role === 'ADMIN') {
+        dispatch({ type: 'SET_LOADING' });
         const getAllData = async () => {
           const volunteersSummary = await getAllVolunteers();
           const programsSummary = await getAllPrograms();
@@ -65,6 +66,7 @@ function AdminContextProvider({ children }) {
     profiles: state.profiles,
     programs: state.programs,
     enrolments: state.enrolments,
+    isLoading: state.isLoading,
     dispatch,
     userUid,
     adminUser,

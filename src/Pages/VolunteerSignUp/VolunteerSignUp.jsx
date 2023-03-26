@@ -256,6 +256,16 @@ function VolunteerSignUp() {
               className="input input-bordered input-info input-sm"
             />
           </div>
+          <div className="flex flex-col">
+            <input
+              id="profilePicture"
+              name="profilePicture"
+              value={tempForm.profilePicture}
+              onChange={changeHandler}
+              placeholder="upload a profile image"
+              className="input input-bordered input-info input-sm"
+            />
+          </div>
         </div>
         {/* 5th row Inputs */}
         <div className="flex space-x-8 mt-4">

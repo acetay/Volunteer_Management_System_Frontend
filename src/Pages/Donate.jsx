@@ -2,7 +2,7 @@ import React from 'react';
 
 function Donate() {
   return (
-    <div className="flex flex-col h-auto justify-center items-center">
+    <div className="flex flex-col h-auto md:h-screen justify-center items-center">
       Donate to Charity
     </div>
   );
