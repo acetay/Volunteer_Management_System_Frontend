@@ -6,9 +6,11 @@ function VolunteerItem({ volunteer, toggle }) {
   const { profiles } = useGlobalAdminContext();
 
   const [profileComplete, setProfileComplete] = useState(null);
-
+  const volunteerProfile = profiles.find(
+    (profile) => profile.volunteer.id === volunteer.id
+  );
   useEffect(() => {
-    const findProfile = profiles.find(
+    let findProfile = profiles.find(
       (profile) => profile.volunteer.id === volunteer.id
     );
     let isProfileComplete = findProfile
@@ -26,7 +28,16 @@ function VolunteerItem({ volunteer, toggle }) {
         <div>
           <div className="avatar">
             <div className="rounded-full shadow w-14 h-14">
-              <img src={volunteer?.profilePicture} alt={volunteer?.name} />
+              <img
+                src={
+                  volunteer?.profilePicture === '' || null
+                    ? volunteerProfile.profilePicture === '' || null
+                      ? 'https://simg.nicepng.com/png/small/810-8105444_male-placeholder.png'
+                      : volunteerProfile.profilePicture
+                    : volunteer.profilePicture
+                }
+                alt={volunteer?.name}
+              />
             </div>
           </div>
         </div>

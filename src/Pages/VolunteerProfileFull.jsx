@@ -5,7 +5,7 @@ import ProfilePhoto1 from '../Assets/Sample_images/profilephoto1.png';
 import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-
+import Spinner from '../Assets/Sample_images/spinner.gif';
 import ProfileImage from '../Components/VolunteerProfile_Components/ProfileImage';
 import HeaderAndBorder from '../Components/VolunteerProfile_Components/HeaderAndBorder';
 import PersonInfoTable from '../Components/VolunteerProfile_Components/PersonInfoTable';
@@ -20,7 +20,7 @@ function VolunteerProfileFull() {
   const { id } = useParams();
   const redirect = useNavigate();
   // To remove singleUser - for testing only
-  const { setEditForm } = useGlobalVolunteerContext();
+  const { setEditForm, isLoading } = useGlobalVolunteerContext();
   const [availabilities, setAvailabilities] = useState([]);
   const [date, setDate] = useState(new Date());
   let volunteer = JSON.parse(localStorage.getItem('singleUser'))?.volunteer;
@@ -52,12 +52,27 @@ function VolunteerProfileFull() {
     getAvailabilities(id);
   }, []);
 
+  if (isLoading) {
+    return (
+      <div className="flex flex-col h-auto md:h-screen p-8 justify-start items-center pt-32">
+        <img className="h-[300px] w-[300px]" src={Spinner} alt="spinner" />
+      </div>
+    );
+  }
+
   return (
     <div className="w-[100%] mt-12 flex flex-col justify-center items-center space-y-2 sm:mt-50 md:mt-1 md:mb-1 lg:flex-row">
       {/* COLUMN 1 */}
       <div className="w-[35%] h-auto md:h-[40vh] flex flex-col justify-center items-center">
         {/* PROFILE IMAGE */}
-        <ProfileImage photo={ProfilePhoto1} name={volunteer?.name} />
+        <ProfileImage
+          photo={
+            volunteer?.profilePicture === ''
+              ? ProfilePhoto1
+              : volunteer.profilePicture
+          }
+          name={volunteer?.name}
+        />
         {/* CALENDAR SCHEDULE */}
         <div className="w-[100%] flex flex-col justify-center items-center">
           <h2 className="tracking-widest text-center text-md font-semibold text-red-500 underline">

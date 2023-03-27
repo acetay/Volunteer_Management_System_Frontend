@@ -4,16 +4,24 @@ import { MdOutlineInterests } from 'react-icons/md';
 import { FaUserFriends } from 'react-icons/fa';
 import { MdInterests } from 'react-icons/md';
 import { MdOutlineLanguage } from 'react-icons/md';
+import { IoBagHandleSharp } from 'react-icons/io5';
 import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
+import Spinner from '../../Assets/Sample_images/circle.gif';
 
 function Volunteer() {
   const redirect = useNavigate();
-  const { dispatch, getProfile, profile, setTempEditForm } =
+  const { dispatch, getProfile, profile, setTempEditForm, isLoading } =
     useGlobalAdminContext();
   const { id } = useParams();
   const { interests, hobbies, professionalExperience, profilePicture } =
     profile;
   const volunteer = profile?.volunteer;
+
+  const profileCompleted =
+    interests !== '' &&
+    hobbies !== '' &&
+    professionalExperience !== '' &&
+    profilePicture !== '';
 
   useEffect(() => {
     dispatch({ type: 'SET_LOADING' });
@@ -29,6 +37,16 @@ function Volunteer() {
     redirect(`/admin/singlevolunteer/edit/${id}`);
   };
 
+  if (isLoading) {
+    return (
+      <div className="w-full h-auto md:h-screen mx-auto lg:w-10/12 px-16">
+        <div className="flex justify-center items-center mt-32">
+          <img className="mix-blend-multiply" src={Spinner} alt="Loading" />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <div>
@@ -43,15 +61,19 @@ function Volunteer() {
             <div className="custom-card-image mb-6 md:mb-0">
               <div className="rounded-3xl image-full">
                 <figure>
-                  <img
-                    className="rounded-3xl"
-                    src={
-                      volunteer?.profilePicture !== ''
-                        ? volunteer?.profilePicture
-                        : profilePicture
-                    }
-                    alt="profile"
-                  />
+                  <div className="flex justify-center items-center">
+                    <img
+                      className="rounded-3xl md:h-[35vh] md:w-[20vw]"
+                      src={
+                        volunteer?.profilePicture !== ''
+                          ? volunteer?.profilePicture
+                          : profilePicture === ''
+                          ? 'https://simg.nicepng.com/png/small/810-8105444_male-placeholder.png'
+                          : profilePicture
+                      }
+                      alt="profile"
+                    />
+                  </div>
                 </figure>
               </div>
               <div className="flex justify-center items-center p-2">
@@ -68,8 +90,14 @@ function Volunteer() {
                   <div className="ml-2 mr-1 badge badge-info text-white">
                     Active
                   </div>
-                  <div className="mx-1 badge badge-error text-white">
-                    Profile Incomplete
+                  <div
+                    className={`mx-1 badge ${
+                      profileCompleted ? 'badge-info' : 'badge-error'
+                    } text-white`}
+                  >
+                    {profileCompleted
+                      ? 'Profile Completed'
+                      : 'Incomplete Profile'}
                   </div>
                 </h1>
 
@@ -147,7 +175,20 @@ function Volunteer() {
                   <MdOutlineLanguage size={50} color={'skyblue'} />
                   <h1 className="text-3xl pl-2">Languages</h1>
                 </div>
-                <p className="w-[90%] text-blue-600">{`${volunteer?.language}`}</p>
+                <p className="w-[90%] text-blue-600">{`${volunteer?.language} ${
+                  volunteer?.language2 !== '' ? ', ' + volunteer?.language2 : ''
+                } ${
+                  volunteer?.language3 !== '' ? ', ' + volunteer?.language3 : ''
+                }`}</p>
+              </div>
+              <div className="flex flex-col pb-8">
+                <div className="flex justify-start space-y-1">
+                  <IoBagHandleSharp size={50} color={'skyblue'} />
+                  <h1 className="text-3xl pl-2">Professional Experience</h1>
+                </div>
+                <p className="w-[90%] text-blue-600">
+                  {interests !== '' ? interests : 'Not completed'}
+                </p>
               </div>
             </div>
           </div>
