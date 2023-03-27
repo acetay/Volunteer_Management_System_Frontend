@@ -16,8 +16,8 @@ function AdminMainPanel() {
   }
   return (
     <div className="flex flex-col h-auto md:h-screen p-8 justify-start items-center">
-      <h1 className="text-2xl text-gray-400 tracking-widest font-bold mb-5">
-        MyAdmin Panel
+      <h1 className="text-4xl text-blue-300 tracking-widest font-bold mb-5">
+        My Admin Panel
       </h1>
       <Dashboard />
       <ChartsContainer />

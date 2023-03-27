@@ -18,6 +18,7 @@ import SignUpPageContainer from './Pages/VolunteerSignUp/VolSignUpPageContainer'
 import PasswordAndUsername from './Pages/VolunteerSignUp/PasswordAndUsername';
 import ProtectedRoute from './Auth/ProtectedRoute';
 import Volunteer from './Components/AdminVolunteerMgt/Volunteer';
+import VolunteerEdit from './Components/AdminVolunteerMgt/VolunteerEdit';
 import NotFound from './Pages/NotFound';
 
 function App() {
@@ -59,9 +60,7 @@ function App() {
               path="/volunteers/programmes"
               element={<ProgrammeListing />}
             />
-            <Route path="/admin/signin" element={<AdminSignIn />} />
-            <Route path="/admin/main" element={<AdminMainPanel />} />
-            <Route path="/admin/volunteer" element={<Volunteer />} />
+
             <Route
               path="/admin/main/editvolunteer"
               element={
@@ -69,6 +68,13 @@ function App() {
                   <AdminVolunteerManagement />
                 </ProtectedRoute>
               }
+            />
+            <Route path="/admin/signin" element={<AdminSignIn />} />
+            <Route path="/admin/main" element={<AdminMainPanel />} />
+            <Route path="/admin/singlevolunteer/:id" element={<Volunteer />} />
+            <Route
+              path="/admin/singlevolunteer/edit/:id"
+              element={<VolunteerEdit />}
             />
             <Route path="/notfound" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />

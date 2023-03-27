@@ -32,7 +32,7 @@ function VolunteerItem({ volunteer }) {
           </p>
           <Link
             className="text-base-content  text-opacity-70 hover:text-blue-500"
-            to={`/`}
+            to={`/admin/singlevolunteer/${volunteer?.id}`}
           >
             View more
           </Link>

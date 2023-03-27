@@ -12,7 +12,7 @@ function PanelItem({ title, stats, color, text, icon, link }) {
               <h2 className="font-bold text-lg text-blue-400 tracking-widest">
                 {title}
               </h2>
-              <p className={`text-7xl font-bold text-blue-800`}>{stats}</p>
+              <p className={`text-7xl font-bold text-blue-500`}>{stats}</p>
             </div>
             <div>
               <p className="font-bold text-sm text-slate-500">{text}</p>

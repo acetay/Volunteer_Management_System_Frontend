@@ -1,4 +1,10 @@
-import { useContext, createContext, useEffect, useReducer } from 'react';
+import {
+  useContext,
+  createContext,
+  useEffect,
+  useReducer,
+  useState,
+} from 'react';
 import { adminReducer, initialState } from './AdminReducer';
 import { useGlobalVolunteerContext } from '../VolunteerContext';
 import axios from 'axios';
@@ -8,6 +14,7 @@ const AdminContext = createContext();
 
 function AdminContextProvider({ children }) {
   const [state, dispatch] = useReducer(adminReducer, initialState);
+  const [tempEditForm, setTempEditForm] = useState({});
   const { userUid } = useGlobalVolunteerContext();
 
   // let authUser = JSON.parse(localStorage.getItem('authUser'));
@@ -39,6 +46,16 @@ function AdminContextProvider({ children }) {
     return { programs: programs.data, enrolments: enrolments.data };
   };
 
+  // Get a volunteer's profile
+  const getProfile = async (volunteerId) => {
+    try {
+      const profile = await api.get(`/volunteers/profiles/${volunteerId}`);
+      return profile.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // Setting all Information when Admin panel loads
   useEffect(() => {
     if (userUid) {
@@ -66,10 +83,14 @@ function AdminContextProvider({ children }) {
     profiles: state.profiles,
     programs: state.programs,
     enrolments: state.enrolments,
+    profile: state.profile,
     isLoading: state.isLoading,
     dispatch,
     userUid,
     adminUser,
+    getProfile,
+    tempEditForm,
+    setTempEditForm,
   };
 
   return <AdminContext.Provider value={ctx}>{children}</AdminContext.Provider>;
