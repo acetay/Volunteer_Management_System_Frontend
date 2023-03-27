@@ -6,7 +6,7 @@ import { MdInterests } from 'react-icons/md';
 import { MdOutlineLanguage } from 'react-icons/md';
 import { IoBagHandleSharp } from 'react-icons/io5';
 import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
-import Spinner from '../../Assets/Sample_images/circle.gif';
+import Spinner from '../../Assets/Sample_images/spinner.gif';
 
 function Volunteer() {
   const redirect = useNavigate();
@@ -41,7 +41,11 @@ function Volunteer() {
     return (
       <div className="w-full h-auto md:h-screen mx-auto lg:w-10/12 px-16">
         <div className="flex justify-center items-center mt-32">
-          <img className="mix-blend-multiply" src={Spinner} alt="Loading" />
+          <img
+            className="mix-blend-multiply bg-transparent h-[300px] w-[300px]"
+            src={Spinner}
+            alt="Loading"
+          />
         </div>
       </div>
     );
@@ -169,9 +173,11 @@ function Volunteer() {
                   <FaUserFriends size={50} color={'skyblue'} />
                   <h1 className="text-3xl pl-2">Volunteering Experience</h1>
                 </div>
-                <tp className="w-[90%] text-blue-600 pt-3">
-                  {volunteer?.pastExperience}
-                </tp>
+                <p className="w-[90%] text-blue-600 pt-3">
+                  {volunteer?.pastExperience !== '' || null
+                    ? volunteer?.pastExperience
+                    : 'Not completed'}
+                </p>
               </div>
               {/* COLUMN 2 */}
               <div className="flex flex-col pb-8">
@@ -199,7 +205,9 @@ function Volunteer() {
                   <h1 className="text-3xl pl-2">Languages</h1>
                 </div>
                 <p className="w-[90%] text-blue-600 pt-3">{`${
-                  volunteer?.language
+                  volunteer?.language === ''
+                    ? 'Not completed'
+                    : volunteer?.language
                 } ${
                   volunteer?.language2 !== '' ? ', ' + volunteer?.language2 : ''
                 } ${
@@ -212,7 +220,9 @@ function Volunteer() {
                   <h1 className="text-3xl pl-2">Professional Experience</h1>
                 </div>
                 <p className="w-[90%] text-blue-600 pt-3">
-                  {interests !== '' ? interests : 'Not completed'}
+                  {professionalExperience !== ''
+                    ? professionalExperience
+                    : 'Not completed'}
                 </p>
               </div>
             </div>
