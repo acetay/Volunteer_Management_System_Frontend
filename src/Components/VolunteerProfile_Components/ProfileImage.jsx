@@ -1,6 +1,6 @@
 import { MdAddAPhoto } from 'react-icons/md';
 
-function ProfileImage({ photo, name }) {
+function ProfileImage({ photo, name, date }) {
   return (
     <>
       <div className=" relative mt-1 -z-10">
@@ -17,7 +17,9 @@ function ProfileImage({ photo, name }) {
         />
       </div>
       <h1 className="text-2xl font-semibold pt-1 tracking-wider">{name}</h1>
-      <p className="text-sm text-gray-700">Member since 1 Jan 2010</p>
+      <p className="text-sm text-purple-700">
+        Member since {date?.substring(0, 10)}
+      </p>
     </>
   );
 }

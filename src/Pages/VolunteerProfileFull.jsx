@@ -72,6 +72,7 @@ function VolunteerProfileFull() {
               : volunteer.profilePicture
           }
           name={volunteer?.name}
+          date={volunteer.createdAt}
         />
         {/* CALENDAR SCHEDULE */}
         <div className="w-[100%] flex flex-col justify-center items-center">
@@ -118,10 +119,10 @@ function VolunteerProfileFull() {
             Upcoming Events
           </button>
           <button className="w-[80%] md:w-[20%] btn btn-primary text-white">
-            Past Records
+            Your availability
           </button>
           <button className="w-[80%] md:w-[20%] btn btn-accent text-white">
-            Your availability
+            Change password
           </button>
           <button
             onClick={goToEdit}
