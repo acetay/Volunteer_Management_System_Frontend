@@ -106,7 +106,7 @@ function Volunteer() {
                 </div>
               </div>
 
-              <div className="w-full flex flex-col h-auto md:flex-row h-[50%] rounded-lg shadow-md bg-base-100 stats">
+              <div className="w-full flex flex-col md:flex-row h-auto rounded-lg shadow-md bg-base-100 stats">
                 <div className="stat">
                   <div className="stat-title text-md">Address</div>
                   <div className="text-sm stat-value">{volunteer?.address}</div>
@@ -135,6 +135,29 @@ function Volunteer() {
                   </div>
                 </div>
               </div>
+
+              <div className="w-full flex flex-col md:flex-row h-auto rounded-lg shadow-md bg-base-100 stats">
+                <div className="stat">
+                  <div className="stat-title text-md">Email</div>
+                  <div className="text-sm stat-value">{volunteer?.email}</div>
+                </div>
+                <div className="stat">
+                  <div className="stat-title text-md">Contact</div>
+                  <div className="text-sm stat-value">{volunteer?.contact}</div>
+                </div>
+                <div className="stat">
+                  <div className="stat-title text-md">Date of Birth</div>
+                  <div className="text-sm stat-value">
+                    {volunteer?.dateOfBirth}
+                  </div>
+                </div>
+                <div className="stat">
+                  <div className="stat-title text-md">Referral</div>
+                  <div className="text-sm stat-value">
+                    {volunteer?.referrerName} {volunteer?.referrerContact}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -146,7 +169,7 @@ function Volunteer() {
                   <FaUserFriends size={50} color={'skyblue'} />
                   <h1 className="text-3xl pl-2">Volunteering Experience</h1>
                 </div>
-                <tp className="w-[90%] text-blue-600">
+                <tp className="w-[90%] text-blue-600 pt-3">
                   {volunteer?.pastExperience}
                 </tp>
               </div>
@@ -156,7 +179,7 @@ function Volunteer() {
                   <MdOutlineInterests size={50} color={'skyblue'} />
                   <h1 className="text-3xl pl-2">Interests</h1>
                 </div>
-                <p className="w-[90%] text-blue-600">
+                <p className="w-[90%] text-blue-600 pt-3">
                   {interests !== '' ? interests : 'Not completed'}
                 </p>
               </div>
@@ -166,7 +189,7 @@ function Volunteer() {
                   <MdInterests size={50} color={'skyblue'} />
                   <h1 className="text-3xl pl-2">Hobbies</h1>
                 </div>
-                <p className="w-[90%] text-blue-600">
+                <p className="w-[90%] text-blue-600 pt-3">
                   {hobbies ? hobbies : 'Not completed'}
                 </p>
               </div>
@@ -175,7 +198,9 @@ function Volunteer() {
                   <MdOutlineLanguage size={50} color={'skyblue'} />
                   <h1 className="text-3xl pl-2">Languages</h1>
                 </div>
-                <p className="w-[90%] text-blue-600">{`${volunteer?.language} ${
+                <p className="w-[90%] text-blue-600 pt-3">{`${
+                  volunteer?.language
+                } ${
                   volunteer?.language2 !== '' ? ', ' + volunteer?.language2 : ''
                 } ${
                   volunteer?.language3 !== '' ? ', ' + volunteer?.language3 : ''
@@ -186,7 +211,7 @@ function Volunteer() {
                   <IoBagHandleSharp size={50} color={'skyblue'} />
                   <h1 className="text-3xl pl-2">Professional Experience</h1>
                 </div>
-                <p className="w-[90%] text-blue-600">
+                <p className="w-[90%] text-blue-600 pt-3">
                   {interests !== '' ? interests : 'Not completed'}
                 </p>
               </div>
