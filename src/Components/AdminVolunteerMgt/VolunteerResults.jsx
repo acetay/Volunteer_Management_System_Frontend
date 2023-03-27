@@ -4,7 +4,7 @@ import Spinner from '../../Assets/Sample_images/circle.gif';
 import VolunteerSearch from './VolunteerSearch';
 
 function VolunteerResults() {
-  const { isLoading, volunteers } = useGlobalAdminContext();
+  const { isLoading, volunteers, toggle } = useGlobalAdminContext();
 
   if (!isLoading) {
     return (
@@ -18,7 +18,11 @@ function VolunteerResults() {
 
         <div className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
           {volunteers.map((volunteer) => (
-            <VolunteerItem key={volunteer.id} volunteer={volunteer} />
+            <VolunteerItem
+              key={volunteer.id}
+              volunteer={volunteer}
+              toggle={toggle}
+            />
           ))}
         </div>
       </>

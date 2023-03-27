@@ -6,6 +6,7 @@ import {
   useState,
 } from 'react';
 import { adminReducer, initialState } from './AdminReducer';
+
 import { useGlobalVolunteerContext } from '../VolunteerContext';
 import axios from 'axios';
 
@@ -14,6 +15,7 @@ const AdminContext = createContext();
 
 function AdminContextProvider({ children }) {
   const [state, dispatch] = useReducer(adminReducer, initialState);
+  const [toggle, setToggle] = useState(false);
   const [tempEditForm, setTempEditForm] = useState({});
   const { userUid } = useGlobalVolunteerContext();
 
@@ -32,7 +34,7 @@ function AdminContextProvider({ children }) {
   const getAllVolunteers = async () => {
     const [volunteers, profiles] = await Promise.all([
       api.get('/admin/volunteers'),
-      api.get('/volunteers/profiles/all'),
+      api.get('/admin/volunteers/profiles/all'),
     ]);
     return { volunteers: volunteers.data, profiles: profiles.data };
   };
@@ -49,7 +51,22 @@ function AdminContextProvider({ children }) {
   // Get a volunteer's profile
   const getProfile = async (volunteerId) => {
     try {
-      const profile = await api.get(`/volunteers/profiles/${volunteerId}`);
+      const profile = await api.get(
+        `/admin/volunteers/profiles/${volunteerId}`
+      );
+      return profile.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Edit a volunteer's profile API
+  const editProfile = async (volunteerId, volunteerProfile) => {
+    try {
+      const profile = await api.put(
+        `/admin/volunteers/profiles/${volunteerId}/edit`,
+        volunteerProfile
+      );
       return profile.data;
     } catch (err) {
       console.log(err);
@@ -91,6 +108,9 @@ function AdminContextProvider({ children }) {
     getProfile,
     tempEditForm,
     setTempEditForm,
+    editProfile,
+    toggle,
+    setToggle,
   };
 
   return <AdminContext.Provider value={ctx}>{children}</AdminContext.Provider>;

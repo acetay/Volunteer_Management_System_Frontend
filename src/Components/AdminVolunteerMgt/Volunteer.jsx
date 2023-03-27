@@ -11,7 +11,8 @@ function Volunteer() {
   const { dispatch, getProfile, profile, setTempEditForm } =
     useGlobalAdminContext();
   const { id } = useParams();
-  const { interest, hobbies, professionalExperience, profilePicture } = profile;
+  const { interests, hobbies, professionalExperience, profilePicture } =
+    profile;
   const volunteer = profile?.volunteer;
 
   useEffect(() => {
@@ -44,7 +45,11 @@ function Volunteer() {
                 <figure>
                   <img
                     className="rounded-3xl"
-                    src={volunteer?.profilePicture}
+                    src={
+                      volunteer?.profilePicture !== ''
+                        ? volunteer?.profilePicture
+                        : profilePicture
+                    }
                     alt="profile"
                   />
                 </figure>
@@ -81,7 +86,11 @@ function Volunteer() {
                 <div className="stat">
                   <div className="stat-title text-md">Occupation</div>
                   <div className="text-sm stat-value">
-                    <p>{volunteer?.occupation || 'Did not indicate'}</p>
+                    <p>
+                      {volunteer?.occupation
+                        ? volunteer.occupation
+                        : 'Did not indicate'}
+                    </p>
                   </div>
                 </div>
                 <div className="stat">
@@ -120,7 +129,7 @@ function Volunteer() {
                   <h1 className="text-3xl pl-2">Interests</h1>
                 </div>
                 <p className="w-[90%] text-blue-600">
-                  {interest ? interest : 'Not completed'}
+                  {interests !== '' ? interests : 'Not completed'}
                 </p>
               </div>
               {/* COLUMN 3 */}

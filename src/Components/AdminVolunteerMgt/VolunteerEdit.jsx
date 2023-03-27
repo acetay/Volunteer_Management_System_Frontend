@@ -1,13 +1,29 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
 import { useParams, useNavigate } from 'react-router-dom';
 
 function VolunteerEdit() {
-  const [form, setForm] = useState({});
+  const { tempEditForm, editProfile, toggle, setToggle } =
+    useGlobalAdminContext();
+  const [form, setForm] = useState(tempEditForm);
   const { id } = useParams();
   const redirect = useNavigate();
-  const { tempEditForm } = useGlobalAdminContext();
-  const changeHandler = (e) => {};
+
+  const changeHandler = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const submitProfileEdit = async () => {
+    await editProfile(id, {
+      interests: form.interests,
+      hobbies: form.hobbies,
+      professionalExperience: form.professionalExperience,
+      profilePicture: form.profilePicture,
+    });
+    setToggle(!toggle);
+    redirect(`/admin/singlevolunteer/${id}`);
+  };
+
   return (
     <>
       <div className="flex flex-col h-auto md:h-[75vh] justify-center items-center">
@@ -26,7 +42,7 @@ function VolunteerEdit() {
                 <input
                   id="interests"
                   name="interests"
-                  value={tempEditForm?.interests}
+                  value={form?.interests}
                   onChange={changeHandler}
                   placeholder="Main interests"
                   type="text"
@@ -43,7 +59,7 @@ function VolunteerEdit() {
                 <input
                   id="hobbies"
                   name="hobbies"
-                  value={tempEditForm?.hobbies}
+                  value={form?.hobbies}
                   onChange={changeHandler}
                   placeholder="Volunteer's hobbies and likes"
                   type="text"
@@ -64,7 +80,7 @@ function VolunteerEdit() {
                 <input
                   id="profilePicture"
                   name="profilePicture"
-                  value={tempEditForm?.profilePicture}
+                  value={form?.profilePicture}
                   onChange={changeHandler}
                   placeholder="Image URL"
                   className="input input-bordered input-info input-sm w-[40vw]"
@@ -84,7 +100,7 @@ function VolunteerEdit() {
                 <textarea
                   name="professionalExperience"
                   id="professionalExperience"
-                  value={tempEditForm?.professionalExperience}
+                  value={form?.professionalExperience}
                   onChange={changeHandler}
                   className="textarea textarea-info w-full textarea-md h-[25vh]"
                   placeholder="Describe volunteer's professional experience, if any."
@@ -99,7 +115,10 @@ function VolunteerEdit() {
             >
               Cancel
             </button>
-            <button className="btn btn-success btn-sm text-white">
+            <button
+              onClick={submitProfileEdit}
+              className="btn btn-success btn-sm text-white"
+            >
               Submit
             </button>
           </div>

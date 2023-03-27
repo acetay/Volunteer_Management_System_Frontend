@@ -53,6 +53,7 @@ function PasswordAndUsername() {
         text: 'Error encountered in firebase!',
         icon: 'error',
       });
+      redirect('/volunteers/signup');
     }
   };
 
