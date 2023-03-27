@@ -62,14 +62,15 @@ function VolunteerSignIn() {
       await signInUserWithPwAndEmail(form.email, form.password);
       setIsLoggedIn(true);
     } catch (err) {
+      setIsLoggedIn(false);
+      setForm({ email: '', password: '' });
+      redirect(`/volunteers/signin`);
       Swal.fire({
         title: 'Invalid',
         text: 'You have entered the wrong credentials. Please check again!',
         icon: 'error',
       });
       console.log(err.message);
-      setForm({ email: '', password: '' });
-      setIsLoggedIn(false);
     }
   };
 

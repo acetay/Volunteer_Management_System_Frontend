@@ -36,8 +36,8 @@ export const adminReducer = (state, action) => {
         isLoading: false,
       };
     case 'EDIT_VOLUNTEER_PROFILE':
-      const editedProfiles = state.profiles.map((profile) =>
-        profile.id === action.profile.id ? action.profile : profile
+      const editedProfiles = state?.profiles.map((x) =>
+        x.id === action.profile.id ? action.profile : x
       );
       return {
         ...state,
