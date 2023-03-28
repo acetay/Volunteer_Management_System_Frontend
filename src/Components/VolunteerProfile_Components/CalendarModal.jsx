@@ -149,7 +149,7 @@ function CalendarModal({ date, id, getAvailabilities, availabilities }) {
               <input
                 type="radio"
                 name="radio-10"
-                value="0900hrs - 1200hrs"
+                value="0800hrs - 1200hrs"
                 onClick={timeSlotChangeHandler}
                 className="radio checked:bg-green-500"
                 ref={radio}

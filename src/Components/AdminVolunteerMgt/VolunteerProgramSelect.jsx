@@ -8,13 +8,20 @@ function VolunteerProgramsSelect() {
   const { id, date, timeslot } = useParams();
 
   useEffect(() => {
-    const findEnrolmentByDate = enrolments.filter(
+    const findEnrolmentByDateAndTime = enrolments.filter(
       (enrolment) =>
-        enrolment.date === date &&
-        (enrolment.timeOfProgram === timeslot ||
-          enrolment.timeOfProgram === 'Full day')
+        enrolment.date === date && enrolment.timeOfProgram === timeslot
     );
-    setEnrolmentsByDate(findEnrolmentByDate);
+    const findEnrolmentByDate = enrolments.filter(
+      (enrolment) => enrolment.date === date
+    );
+
+    const filteredEnrolments =
+      timeslot === 'Full day'
+        ? findEnrolmentByDate
+        : findEnrolmentByDateAndTime;
+
+    setEnrolmentsByDate(filteredEnrolments);
   }, []);
 
   if (enrolmentsByDate.length === 0) {

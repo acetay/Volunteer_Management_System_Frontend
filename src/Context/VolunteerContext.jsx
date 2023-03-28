@@ -52,15 +52,11 @@ function VolunteerContextProvider({ children }) {
       const accessToken = JSON.parse(localStorage.getItem('authUser'))
         .stsTokenManager.accessToken;
 
-      const response = await axios.put(
-        `http://localhost:8080/volunteers/${id}`,
-        volunteer,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      await axios.put(`http://localhost:8080/volunteers/${id}`, volunteer, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       const editedUser = { ...singleUser, volunteer: volunteer };
       setSingleUser({ ...singleUser, volunteer: volunteer });
       localStorage.setItem('singleUser', JSON.stringify(editedUser));
