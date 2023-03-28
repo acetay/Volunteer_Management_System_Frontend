@@ -6,12 +6,22 @@ import { MdInterests } from 'react-icons/md';
 import { MdOutlineLanguage } from 'react-icons/md';
 import { IoBagHandleSharp } from 'react-icons/io5';
 import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
+
 import Spinner from '../../Assets/Sample_images/spinner.gif';
+
+import VolunteerAvailabilities from './VolunteerAvailabilities';
 
 function Volunteer() {
   const redirect = useNavigate();
-  const { dispatch, getProfile, profile, setTempEditForm, isLoading } =
-    useGlobalAdminContext();
+  const {
+    dispatch,
+    getProfile,
+    profile,
+    setTempEditForm,
+    isLoading,
+    getVolunteerAvail,
+    availabilities,
+  } = useGlobalAdminContext();
   const { id } = useParams();
   const { interests, hobbies, professionalExperience, profilePicture } =
     profile;
@@ -23,6 +33,7 @@ function Volunteer() {
     professionalExperience !== '' &&
     profilePicture !== '';
 
+  // Get volunteer's profile on component load
   useEffect(() => {
     dispatch({ type: 'SET_LOADING' });
     const getVolunteerProfile = async () => {
@@ -36,6 +47,19 @@ function Volunteer() {
     setTempEditForm(profile);
     redirect(`/admin/singlevolunteer/edit/${id}`);
   };
+
+  // Get volunteer's availabilities on component load
+  useEffect(() => {
+    const getAvailabilities = async () => {
+      try {
+        const avails = await getVolunteerAvail(id);
+        dispatch({ type: 'GET_VOLUNTEER_AVAIL', availabilities: avails });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getAvailabilities();
+  }, []);
 
   if (isLoading) {
     return (
@@ -54,7 +78,7 @@ function Volunteer() {
   return (
     <>
       <div>
-        <div className="w-full h-auto md:h-screen mx-auto lg:w-10/12 px-16">
+        <div className="w-full h-auto mx-auto lg:w-10/12 px-16">
           <div className="mb-4">
             <Link to="/admin/main/editvolunteer" className="btn btn-ghost">
               Back To Search
@@ -173,7 +197,13 @@ function Volunteer() {
                   <FaUserFriends size={50} color={'skyblue'} />
                   <h1 className="text-3xl pl-2">Volunteering Experience</h1>
                 </div>
-                <p className="w-[90%] text-blue-600 pt-3">
+                <p
+                  className={`w-[90%] ${
+                    volunteer?.pastExperience !== '' || null
+                      ? 'text-blue-600'
+                      : 'text-error'
+                  } pt-3`}
+                >
                   {volunteer?.pastExperience !== '' || null
                     ? volunteer?.pastExperience
                     : 'Not completed'}
@@ -185,7 +215,11 @@ function Volunteer() {
                   <MdOutlineInterests size={50} color={'skyblue'} />
                   <h1 className="text-3xl pl-2">Interests</h1>
                 </div>
-                <p className="w-[90%] text-blue-600 pt-3">
+                <p
+                  className={`w-[90%] ${
+                    interests !== '' ? 'text-blue-600' : 'text-error'
+                  } pt-3`}
+                >
                   {interests !== '' ? interests : 'Not completed'}
                 </p>
               </div>
@@ -195,7 +229,11 @@ function Volunteer() {
                   <MdInterests size={50} color={'skyblue'} />
                   <h1 className="text-3xl pl-2">Hobbies</h1>
                 </div>
-                <p className="w-[90%] text-blue-600 pt-3">
+                <p
+                  className={`w-[90%] ${
+                    hobbies ? 'text-blue-600' : 'text-error'
+                  } pt-3`}
+                >
                   {hobbies ? hobbies : 'Not completed'}
                 </p>
               </div>
@@ -204,7 +242,13 @@ function Volunteer() {
                   <MdOutlineLanguage size={50} color={'skyblue'} />
                   <h1 className="text-3xl pl-2">Languages</h1>
                 </div>
-                <p className="w-[90%] text-blue-600 pt-3">{`${
+                <p
+                  className={`w-[90%] ${
+                    volunteer?.language !== '' || null
+                      ? 'text-blue-600'
+                      : 'text-error'
+                  } pt-3`}
+                >{`${
                   volunteer?.language === ''
                     ? 'Not completed'
                     : volunteer?.language
@@ -219,7 +263,13 @@ function Volunteer() {
                   <IoBagHandleSharp size={50} color={'skyblue'} />
                   <h1 className="text-3xl pl-2">Professional Experience</h1>
                 </div>
-                <p className="w-[90%] text-blue-600 pt-3">
+                <p
+                  className={`w-[90%] ${
+                    professionalExperience !== ''
+                      ? 'text-blue-600'
+                      : 'text-error'
+                  } pt-3`}
+                >
                   {professionalExperience !== ''
                     ? professionalExperience
                     : 'Not completed'}
@@ -227,9 +277,27 @@ function Volunteer() {
               </div>
             </div>
           </div>
-        </div>
 
-        {/* <RepoList repos={repos} /> */}
+          {/* TABLE */}
+
+          {availabilities ? (
+            <VolunteerAvailabilities availabilities={availabilities} id={id} />
+          ) : (
+            <>
+              <div className="flex justify-start items-center rounded-lg  mt-8">
+                <h1 className="font-bold tracking-widest text-2xl ml-2 text-blue-500">
+                  Volunteer's Availability
+                </h1>
+              </div>
+              <div className="flex justify-start items-center p-4">
+                <h1 className="text-md text-error font-bold">
+                  Please note that volunteer has not marked his/her
+                  availability.
+                </h1>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </>
   );

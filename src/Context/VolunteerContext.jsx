@@ -38,7 +38,7 @@ function VolunteerContextProvider({ children }) {
       setAuthUser(currentUser);
       setUserUid(currentUser?.uid);
       localStorage.setItem('authUser', JSON.stringify(currentUser));
-      // console.log(currentUser.accessToken);
+      console.log(currentUser.accessToken);
     });
     return () => {
       listenToAuth();

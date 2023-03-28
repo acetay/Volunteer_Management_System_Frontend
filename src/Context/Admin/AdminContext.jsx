@@ -73,7 +73,19 @@ function AdminContextProvider({ children }) {
     }
   };
 
-  // Setting all Information when Admin panel loads
+  // Get availability of a volunteer based on ID
+  const getVolunteerAvail = async (volunteerId) => {
+    try {
+      const availability = await api.get(
+        `/volunteers/availabilities/${volunteerId}`
+      );
+      return availability.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Listener to set all Information when Admin panel loads
   useEffect(() => {
     if (userUid) {
       if (adminUser?.role === 'ADMIN') {
@@ -111,6 +123,8 @@ function AdminContextProvider({ children }) {
     editProfile,
     toggle,
     setToggle,
+    getVolunteerAvail,
+    availabilities: state.availabilities,
   };
 
   return <AdminContext.Provider value={ctx}>{children}</AdminContext.Provider>;

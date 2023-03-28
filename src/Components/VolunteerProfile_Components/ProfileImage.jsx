@@ -17,7 +17,7 @@ function ProfileImage({ photo, name, date }) {
         />
       </div>
       <h1 className="text-2xl font-semibold pt-1 tracking-wider">{name}</h1>
-      <p className="text-sm text-purple-700">
+      <p className="text-sm text-purple-700 text-center">
         Member since {date?.substring(0, 10)}
       </p>
     </>

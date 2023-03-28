@@ -4,6 +4,8 @@ export const initialState = {
   programs: [],
   enrolments: [],
   profile: {},
+  program: {},
+  availabilities: [],
   isLoading: false,
 };
 
@@ -43,6 +45,12 @@ export const adminReducer = (state, action) => {
         ...state,
         profiles: editedProfiles,
       };
+    case 'GET_VOLUNTEER_AVAIL':
+      return {
+        ...state,
+        availabilities: action.availabilities,
+      };
+
     case 'SET_LOADING':
       return {
         ...state,

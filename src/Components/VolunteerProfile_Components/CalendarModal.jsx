@@ -69,7 +69,11 @@ function CalendarModal({ date, id, getAvailabilities, availabilities }) {
         });
       }
     } else {
-      alert('some fields are missing');
+      Swal.fire({
+        title: 'Missing fields',
+        text: 'Some fields are missing',
+        icon: 'error',
+      });
     }
   };
 
@@ -188,12 +192,12 @@ function CalendarModal({ date, id, getAvailabilities, availabilities }) {
           <div className="form-control flex justify-between w-[240px]">
             <label className="label cursor-pointer">
               <span className="label-text font-semibold text-pink-400">
-                Whole day
+                Full day
               </span>
               <input
                 type="radio"
                 name="radio-10"
-                value="whole day"
+                value="Full day"
                 onChange={timeSlotChangeHandler}
                 className="radio checked:bg-green-500"
                 ref={radio}
