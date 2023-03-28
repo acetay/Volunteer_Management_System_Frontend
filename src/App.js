@@ -5,7 +5,6 @@ import Layout from './Layouts/Layout';
 import Home from './Pages/Home';
 import About from './Pages/About';
 import ProgrammeListing from './Pages/ProgrammeListing';
-import Contact from './Pages/Contact';
 import Donate from './Pages/Donate';
 import VolunteerSignUp from './Pages/VolunteerSignUp/VolunteerSignUp';
 import VolunteerSignIn from './Pages/VolunteerSignIn';
@@ -31,7 +30,6 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/programmes" element={<ProgrammeListing />} />
-            <Route path="/contact" element={<Contact />} />
             <Route path="/donate" element={<Donate />} />
             {/* Nested Routes */}
             <Route path="/volunteers/signup" element={<SignUpPageContainer />}>

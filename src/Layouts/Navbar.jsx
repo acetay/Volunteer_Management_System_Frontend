@@ -126,12 +126,6 @@ function Navbar() {
                 >
                   Programmes
                 </Link>
-                <Link
-                  className="font-semibold hover:text-blue-400"
-                  to="/contact"
-                >
-                  Contact
-                </Link>
               </div>
               <div className="hidden md:flex md:justify-center items-center space-x-3">
                 {userStorage ? (
