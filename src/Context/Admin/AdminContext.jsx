@@ -48,7 +48,7 @@ function AdminContextProvider({ children }) {
     return { programs: programs.data, enrolments: enrolments.data };
   };
 
-  // Get a volunteer's profile
+  // Get a volunteer's profile API
   const getProfile = async (volunteerId) => {
     try {
       const profile = await api.get(
@@ -73,13 +73,39 @@ function AdminContextProvider({ children }) {
     }
   };
 
-  // Get availability of a volunteer based on ID
+  // Get availability of a volunteer based on ID API
   const getVolunteerAvail = async (volunteerId) => {
     try {
       const availability = await api.get(
         `/volunteers/availabilities/${volunteerId}`
       );
       return availability.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Enrol a volunteer into the program
+  const enrolVolunteer = async (volunteerId, programId) => {
+    try {
+      const response = await api.post(
+        `/admin/enrolments/volunteers?volunteer_id=${volunteerId}&program_id=${programId}`,
+        {}
+      );
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Edit availability of a volunteer
+  const editVolunteerAvail = async (volunteerId, date, isAvail) => {
+    try {
+      const response = await api.put(
+        `/volunteers/availability/${volunteerId}?date=${date}&isAvail=${isAvail}`,
+        {}
+      );
+      return response;
     } catch (err) {
       console.log(err);
     }
@@ -125,6 +151,8 @@ function AdminContextProvider({ children }) {
     setToggle,
     getVolunteerAvail,
     availabilities: state.availabilities,
+    enrolVolunteer,
+    editVolunteerAvail,
   };
 
   return <AdminContext.Provider value={ctx}>{children}</AdminContext.Provider>;

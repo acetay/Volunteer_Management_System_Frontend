@@ -21,7 +21,7 @@ function VolunteerAvailabilities({ availabilities, id }) {
           </tr>
         </thead>
         <tbody>
-          {listOfConfirmAvails.map((avail, index) => (
+          {listOfConfirmAvails?.map((avail, index) => (
             <AvailTableRow
               date={avail.date}
               timeslot={avail.timeslot}

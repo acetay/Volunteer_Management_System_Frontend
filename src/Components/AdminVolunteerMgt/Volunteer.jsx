@@ -33,6 +33,9 @@ function Volunteer() {
     professionalExperience !== '' &&
     profilePicture !== '';
 
+  const listOfConfirmAvails = availabilities?.filter((avail) => avail.avail);
+  console.log(listOfConfirmAvails);
+
   // Get volunteer's profile on component load
   useEffect(() => {
     dispatch({ type: 'SET_LOADING' });
@@ -280,7 +283,7 @@ function Volunteer() {
 
           {/* TABLE */}
 
-          {availabilities ? (
+          {availabilities && listOfConfirmAvails?.length !== 0 ? (
             <VolunteerAvailabilities availabilities={availabilities} id={id} />
           ) : (
             <>
@@ -291,8 +294,7 @@ function Volunteer() {
               </div>
               <div className="flex justify-start items-center p-4">
                 <h1 className="text-md text-error font-bold">
-                  Please note that volunteer has not marked his/her
-                  availability.
+                  Please note that volunteer don't have any available dates
                 </h1>
               </div>
             </>

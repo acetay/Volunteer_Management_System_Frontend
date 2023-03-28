@@ -3,9 +3,24 @@ import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
 import { useState, useEffect } from 'react';
 
 function VolunteerProgramsSelect() {
-  const { enrolments, profile } = useGlobalAdminContext();
+  const { enrolments, profile, enrolVolunteer, editVolunteerAvail } =
+    useGlobalAdminContext();
   const [enrolmentsByDate, setEnrolmentsByDate] = useState([]);
   const { id, date, timeslot } = useParams();
+
+  const newDate = date.split('-').reverse().join('-');
+
+  const enrolVolunteerIntoProgram = async (
+    volunteerId,
+    programId,
+    date,
+    isAvail
+  ) => {
+    const response = await enrolVolunteer(volunteerId, programId).then(() => {
+      editVolunteerAvail(volunteerId, date, isAvail);
+    });
+    console.log(response);
+  };
 
   useEffect(() => {
     const findEnrolmentByDateAndTime = enrolments.filter(
@@ -20,7 +35,6 @@ function VolunteerProgramsSelect() {
       timeslot === 'Full day'
         ? findEnrolmentByDate
         : findEnrolmentByDateAndTime;
-
     setEnrolmentsByDate(filteredEnrolments);
   }, []);
 
@@ -91,7 +105,17 @@ function VolunteerProgramsSelect() {
                 </td>
                 <td>{enrol?.timeOfProgram}</td>
                 <th>
-                  <button className="btn btn-info btn-xs text-white">
+                  <button
+                    onClick={() =>
+                      enrolVolunteerIntoProgram(
+                        id,
+                        enrol?.program?.id,
+                        newDate,
+                        false
+                      )
+                    }
+                    className="btn btn-info btn-xs text-white"
+                  >
                     Enrol
                   </button>
                 </th>
