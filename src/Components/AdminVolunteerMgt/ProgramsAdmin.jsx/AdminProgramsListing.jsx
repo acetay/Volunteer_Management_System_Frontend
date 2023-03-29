@@ -6,7 +6,7 @@ function AdminProgramsListing() {
   return (
     <>
       {enrolments.length > 0 ? (
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-1 px-20 justify-center items-center">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-1 px-20 justify-center items-center h-auto">
           {enrolments.map((enrolment, index) => (
             <AdminProgramItem enrolment={enrolment} key={index} />
           ))}

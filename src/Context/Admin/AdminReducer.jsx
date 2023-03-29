@@ -32,6 +32,11 @@ export const adminReducer = (state, action) => {
         enrolments: action.payload.enrolments,
         isLoading: false,
       };
+    case 'ADD_NEW_PROGRAM':
+      return {
+        ...state,
+        programs: [...state.programs, action.program],
+      };
     case 'GET_VOLUNTEER_PROFILE':
       return {
         ...state,

@@ -20,6 +20,7 @@ import Volunteer from './Components/AdminVolunteerMgt/Volunteer';
 import VolunteerEdit from './Components/AdminVolunteerMgt/VolunteerEdit';
 import VolunteerProgramsSelect from './Components/AdminVolunteerMgt/VolunteerProgramSelect';
 import AdminPrograms from './Pages/AdminPrograms';
+import ProgramKickstarter from './Pages/ProgramKickstarter';
 import NotFound from './Pages/NotFound';
 
 function App() {
@@ -73,6 +74,10 @@ function App() {
             <Route path="/admin/main" element={<AdminMainPanel />} />
             <Route path="/admin/programs" element={<AdminPrograms />} />
             <Route path="/admin/singlevolunteer/:id" element={<Volunteer />} />
+            <Route
+              path="/admin/programkickstarter"
+              element={<ProgramKickstarter />}
+            />
             <Route
               path="/admin/singlevolunteer/:id/programselect/:date/:timeslot"
               element={<VolunteerProgramsSelect />}

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { BsPeopleFill } from 'react-icons/bs';
 import { TbHeartHandshake } from 'react-icons/tb';
 import { IoAccessibility } from 'react-icons/io5';
@@ -7,15 +8,16 @@ function ChartsContainer() {
   return (
     <div className="h-[38vh] mt-4 flex justify-start">
       <div className="stats shadow h-[15vh] w-[100%]">
-        <div className="stat">
-          <div className="stat-figure text-success">
-            <BsPeopleFill size={40} />
+        <Link to="/admin/programkickstarter">
+          <div className="stat">
+            <div className="stat-figure text-success">
+              <BsPeopleFill size={40} />
+            </div>
+            <div className="stat-title font-bold">Program Kickstarter</div>
+            <div className="stat-value text-success">Builder</div>
+            <div className="stat-desc">Create programs with ease</div>
           </div>
-          <div className="stat-title font-bold">Program Kickstarter</div>
-          <div className="stat-value text-success">Builder</div>
-          <div className="stat-desc">Create programs with ease</div>
-        </div>
-
+        </Link>
         <div className="stat">
           <div className="stat-figure text-blue-400">
             <TbHeartHandshake size={45} />

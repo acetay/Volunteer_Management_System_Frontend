@@ -111,6 +111,16 @@ function AdminContextProvider({ children }) {
     }
   };
 
+  // Add a new program
+  const addProgram = async (body) => {
+    try {
+      const response = await api.post(`/admin/newprogram`, body);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // Listener to set all Information when Admin panel loads
   useEffect(() => {
     if (userUid) {
@@ -154,6 +164,8 @@ function AdminContextProvider({ children }) {
     availabilities: state.availabilities,
     enrolVolunteer,
     editVolunteerAvail,
+    addProgram,
+    getAllPrograms,
   };
 
   return <AdminContext.Provider value={ctx}>{children}</AdminContext.Provider>;

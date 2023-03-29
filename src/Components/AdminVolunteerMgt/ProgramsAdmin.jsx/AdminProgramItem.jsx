@@ -2,7 +2,7 @@ import React from 'react';
 
 function AdminProgramItem({ enrolment }) {
   return (
-    <div className="card card-compact w-96 bg-base-100 shadow-xl">
+    <div className="card card-compact w-96 bg-base-100 shadow-xl flex-wrap">
       <figure>
         <img src={enrolment?.program.photo} alt="photo" />
       </figure>
