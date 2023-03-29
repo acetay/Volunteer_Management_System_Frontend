@@ -34,7 +34,7 @@ function AdminContextProvider({ children }) {
   const getAllVolunteers = async () => {
     const [volunteers, profiles] = await Promise.all([
       api.get('/admin/volunteers'),
-      api.get('/admin/volunteers/profiles/all'),
+      api.get(`/admin/volunteers/profiles/all?UID=${userUid}`),
     ]);
     return { volunteers: volunteers.data, profiles: profiles.data };
   };
@@ -140,6 +140,7 @@ function AdminContextProvider({ children }) {
     enrolments: state.enrolments,
     profile: state.profile,
     isLoading: state.isLoading,
+    volunteerEnrolments: state.volunteerEnrolments,
     dispatch,
     userUid,
     adminUser,

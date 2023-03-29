@@ -33,7 +33,6 @@ function VolunteerContextProvider({ children }) {
 
   // Get access Info from firebase
   useEffect(() => {
-    // if (isLoggedIn) {
     const listenToAuth = onAuthStateChanged(auth, (currentUser) => {
       setAuthUser(currentUser);
       setUserUid(currentUser?.uid);
@@ -114,6 +113,45 @@ function VolunteerContextProvider({ children }) {
     }
   };
 
+  // Get enrolments of a volunteer
+  const getEnrolments = async (volunteerId) => {
+    try {
+      const accessToken = JSON.parse(localStorage.getItem('authUser'))
+        .stsTokenManager.accessToken;
+      const enrolments = await axios.get(
+        `http://localhost:8080/volunteers/${volunteerId}/enrolments`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      console.log(enrolments.data);
+      return enrolments.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Change a volunteer's avail date
+  const unmarkAvailDate = async (volunteerId, date) => {
+    try {
+      const accessToken = JSON.parse(localStorage.getItem('authUser'))
+        .stsTokenManager.accessToken;
+      const response = await axios.delete(
+        `http://localhost:8080/volunteers/availability/${volunteerId}?date=${date}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // FIREBASE APIs - ****TO BE REFACTORED
   // 1. Firebase = Create new user
   const createUserWithPwAndEmail = (email, password) => {
@@ -156,6 +194,8 @@ function VolunteerContextProvider({ children }) {
     setAuthUser,
     credentials,
     userUid,
+    getEnrolments,
+    unmarkAvailDate,
   };
 
   return (

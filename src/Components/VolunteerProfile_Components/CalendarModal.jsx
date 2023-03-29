@@ -2,7 +2,14 @@ import { useState, useRef } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-function CalendarModal({ date, id, getAvailabilities, availabilities }) {
+function CalendarModal({
+  date,
+  id,
+  getAvailabilities,
+  availabilities,
+  unmarkAvailDate,
+  setAvailabilities,
+}) {
   const radio = useRef(null);
 
   // Spring boot variables
@@ -27,6 +34,9 @@ function CalendarModal({ date, id, getAvailabilities, availabilities }) {
   const displayDate = new Date(newdate)
     .toLocaleDateString('en-SG')
     .replaceAll('/', '-');
+
+  const newDate = displayDate.split('-').reverse().join('-');
+  //   console.log(newDate);
 
   let today = new Date();
 
@@ -77,9 +87,27 @@ function CalendarModal({ date, id, getAvailabilities, availabilities }) {
     }
   };
 
-  const findDate = availabilities.find((avail) => avail.date === displayDate);
+  let findDate = availabilities.find((avail) => avail.date === displayDate);
+  // Unmark avail date
+  const unmarkAvail = async (id, date) => {
+    const response = await unmarkAvailDate(id, date).then(() => {
+      getAvailabilities(id);
+    });
+    const newAvails = availabilities.filter(
+      (avail) => avail.date !== displayDate
+    );
+    setAvailabilities(() => [...newAvails]);
+    findDate = availabilities.find((avail) => avail.date === displayDate);
+    Swal.fire({
+      title: 'Success',
+      text: 'Availability has been unset',
+      icon: 'success',
+    });
+  };
 
-  if (findDate) {
+  //   console.log(findDate);
+
+  if (findDate && findDate?.avail) {
     return (
       <>
         <input type="checkbox" id="my-modal-4" className="modal-toggle" />
@@ -88,6 +116,36 @@ function CalendarModal({ date, id, getAvailabilities, availabilities }) {
             <h3 className="font-bold text-lg text-red-600">{findDate.date}</h3>
             <p className="py-4">
               You have already marked this date. Do you want to change it?
+            </p>
+            <div className="modal-action">
+              <label
+                onClick={() => unmarkAvail(id, newDate)}
+                htmlFor="my-modal-4"
+                className="btn btn-error text-white"
+              >
+                Unmarked date
+              </label>
+              <label htmlFor="my-modal-4" className="btn btn-primary">
+                Ok, got it!
+              </label>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  if (findDate && !findDate?.avail) {
+    return (
+      <>
+        <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+        <div className="modal modal-bottom sm:modal-middle">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg text-red-600">{findDate.date}</h3>
+            <p className="py-4 text-error">
+              You have a scheduled event on the selected date. Please contact
+              your administrator if you can't make it. Please click on Upcoming
+              Events tab to view your events.
             </p>
             <div className="modal-action">
               <label htmlFor="my-modal-4" className="btn btn-primary">

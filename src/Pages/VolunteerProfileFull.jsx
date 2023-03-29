@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import ProfilePhoto1 from '../Assets/Sample_images/profilephoto1.png';
 import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -11,6 +10,8 @@ import HeaderAndBorder from '../Components/VolunteerProfile_Components/HeaderAnd
 import PersonInfoTable from '../Components/VolunteerProfile_Components/PersonInfoTable';
 import ProfileAndExpTable from '../Components/VolunteerProfile_Components/ProfileAndExpTable';
 import CalendarModal from '../Components/VolunteerProfile_Components/CalendarModal';
+import EventsModal from '../Components/VolunteerProfile_Components/EventsModal';
+import AvailabilityModal from '../Components/VolunteerProfile_Components/AvailabilityModal';
 
 // TODO - BREAKUP AND TRANSFER TO COMPONENTS FOLDER
 
@@ -20,7 +21,9 @@ function VolunteerProfileFull() {
   const { id } = useParams();
   const redirect = useNavigate();
   // To remove singleUser - for testing only
-  const { setEditForm, isLoading } = useGlobalVolunteerContext();
+  const { setEditForm, isLoading, getEnrolments, unmarkAvailDate } =
+    useGlobalVolunteerContext();
+  const [enrolments, setEnrolments] = useState([]);
   const [availabilities, setAvailabilities] = useState([]);
   const [date, setDate] = useState(new Date());
   let volunteer = JSON.parse(localStorage.getItem('singleUser'))?.volunteer;
@@ -50,6 +53,11 @@ function VolunteerProfileFull() {
 
   useEffect(() => {
     getAvailabilities(id);
+    const enrolledprograms = async () => {
+      const programs = await getEnrolments(id);
+      setEnrolments(programs);
+    };
+    enrolledprograms();
   }, []);
 
   if (isLoading) {
@@ -115,12 +123,12 @@ function VolunteerProfileFull() {
         </div>
         {/* Buttons */}
         <div className="flex flex-col justify-center items-baseline pb-8 space-y-3 md:flex-row md:items-baseline md:justify-start pt-8 space-x-4 md:pl-8">
-          <button className="w-[80%] md:w-[20%] btn btn-info text-white">
+          <label htmlFor="my-modal-3" className="btn btn-info text-white">
             Upcoming Events
-          </button>
-          <button className="w-[80%] md:w-[20%] btn btn-primary text-white">
-            Your availability
-          </button>
+          </label>
+          <label htmlFor="my-modal-6" className="btn btn-primary">
+            Availability
+          </label>
           <button className="w-[80%] md:w-[20%] btn btn-accent text-white">
             Change password
           </button>
@@ -138,7 +146,11 @@ function VolunteerProfileFull() {
         id={id}
         getAvailabilities={getAvailabilities}
         availabilities={availabilities}
+        unmarkAvailDate={unmarkAvailDate}
+        setAvailabilities={setAvailabilities}
       />
+      <EventsModal enrolments={enrolments} />
+      <AvailabilityModal availabilities={availabilities} />
     </div>
   );
 }

@@ -6,10 +6,12 @@ import { MdInterests } from 'react-icons/md';
 import { MdOutlineLanguage } from 'react-icons/md';
 import { IoBagHandleSharp } from 'react-icons/io5';
 import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
+import { useGlobalVolunteerContext } from '../../Context/VolunteerContext';
 
 import Spinner from '../../Assets/Sample_images/spinner.gif';
 
 import VolunteerAvailabilities from './VolunteerAvailabilities';
+import VolunteerEvents from './VolunteerEvents';
 
 function Volunteer() {
   const redirect = useNavigate();
@@ -21,7 +23,9 @@ function Volunteer() {
     isLoading,
     getVolunteerAvail,
     availabilities,
+    volunteerEnrolments,
   } = useGlobalAdminContext();
+  const { getEnrolments } = useGlobalVolunteerContext();
   const { id } = useParams();
   const { interests, hobbies, professionalExperience, profilePicture } =
     profile;
@@ -34,7 +38,7 @@ function Volunteer() {
     profilePicture !== '';
 
   const listOfConfirmAvails = availabilities?.filter((avail) => avail.avail);
-  console.log(listOfConfirmAvails);
+  // console.log(listOfConfirmAvails);
 
   // Get volunteer's profile on component load
   useEffect(() => {
@@ -62,6 +66,18 @@ function Volunteer() {
       }
     };
     getAvailabilities();
+  }, []);
+
+  // Get volunteer's enrolments
+  useEffect(() => {
+    const getPrograms = async () => {
+      const programs = await getEnrolments(id);
+      dispatch({
+        type: 'GET_VOLUNTEER_ENROLMENTS',
+        volunteerEnrolments: programs,
+      });
+    };
+    getPrograms();
   }, []);
 
   if (isLoading) {
@@ -281,8 +297,27 @@ function Volunteer() {
             </div>
           </div>
 
-          {/* TABLE */}
+          {/* UPCOMING EVENTS TABLE */}
+          {volunteerEnrolments?.length !== 0 ? (
+            <>
+              <VolunteerEvents volunteerEnrolments={volunteerEnrolments} />
+            </>
+          ) : (
+            <>
+              <div className="flex justify-start items-center rounded-lg  mt-8">
+                <h1 className="font-bold tracking-widest text-2xl ml-2 text-blue-500">
+                  Volunteer's Schedule Events
+                </h1>
+              </div>
+              <div className="flex justify-start items-center p-4">
+                <h1 className="text-md text-error font-bold">
+                  Please note that volunteer don't have any scheduled events
+                </h1>
+              </div>
+            </>
+          )}
 
+          {/* AVAILABILITY TABLE */}
           {availabilities && listOfConfirmAvails?.length !== 0 ? (
             <VolunteerAvailabilities availabilities={availabilities} id={id} />
           ) : (

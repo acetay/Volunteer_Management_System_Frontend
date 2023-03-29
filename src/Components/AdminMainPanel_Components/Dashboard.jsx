@@ -23,21 +23,22 @@ function Dashboard() {
         title={'Programs'}
         stats={programs?.length}
         color={'bg-slate-100'}
-        text={'Active'}
+        text={'Active programs'}
         icon={<TbHeartHandshake size={80} color={'skyblue'} />}
+        link={'/admin/programs'}
       />
       <PanelItem
         title={'Enrolments'}
         stats={enrolments?.length}
         color={'bg-slate-100'}
-        text={'Ongoing'}
+        text={'Recruitments'}
         icon={<IoAccessibility size={80} color={'skyblue'} />}
       />
       <PanelItem
         title={'Completed'}
         stats={23}
         color={'bg-slate-100'}
-        text={'Past events'}
+        text={'Completed events'}
         icon={<GiFinishLine size={80} color={'skyblue'} />}
       />
     </div>

@@ -1,8 +1,10 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
 import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 function VolunteerProgramsSelect() {
+  const redirect = useNavigate();
   const { enrolments, profile, enrolVolunteer, editVolunteerAvail } =
     useGlobalAdminContext();
   const [enrolmentsByDate, setEnrolmentsByDate] = useState([]);
@@ -16,10 +18,16 @@ function VolunteerProgramsSelect() {
     date,
     isAvail
   ) => {
-    const response = await enrolVolunteer(volunteerId, programId).then(() => {
+    await enrolVolunteer(volunteerId, programId).then(() => {
       editVolunteerAvail(volunteerId, date, isAvail);
     });
-    console.log(response);
+    // console.log(response);
+    Swal.fire({
+      title: 'Success',
+      text: 'Volunteer has been enrolled into program!',
+      icon: 'success',
+    });
+    redirect(`/admin/singlevolunteer/${volunteerId} `);
   };
 
   useEffect(() => {

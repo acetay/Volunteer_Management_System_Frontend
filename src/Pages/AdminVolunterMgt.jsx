@@ -1,4 +1,3 @@
-import React from 'react';
 import VolunteerResults from '../Components/AdminVolunteerMgt/VolunteerResults';
 
 function AdminVolunteerManagement() {
