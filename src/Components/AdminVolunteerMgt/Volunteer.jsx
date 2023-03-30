@@ -306,7 +306,7 @@ function Volunteer() {
             <>
               <div className="flex justify-start items-center rounded-lg  mt-8">
                 <h1 className="font-bold tracking-widest text-2xl ml-2 text-blue-500">
-                  Volunteer's Schedule Events
+                  Volunteer's Scheduled Events
                 </h1>
               </div>
               <div className="flex justify-start items-center p-4">
