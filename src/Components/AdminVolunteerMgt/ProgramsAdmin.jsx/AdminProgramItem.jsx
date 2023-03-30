@@ -4,7 +4,13 @@ function AdminProgramItem({ enrolment }) {
   return (
     <div className="card card-compact w-96 bg-base-100 shadow-xl flex-wrap">
       <figure>
-        <img src={enrolment?.program.photo} alt="photo" />
+        <img
+          src={
+            enrolment?.program.photo ||
+            'https://static.thehoneycombers.com/wp-content/uploads/sites/2/2017/11/Salvation-Army.jpg'
+          }
+          alt="photo"
+        />
       </figure>
       <div className="card-body">
         <h2 className="card-title">{enrolment?.program.name}</h2>

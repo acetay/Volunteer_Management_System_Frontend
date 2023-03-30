@@ -1,30 +1,24 @@
+import { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useGlobalAdminContext } from '../../../Context/Admin/AdminContext';
 import { useEffect } from 'react';
 
+import AdminProgramVolunteerTable from './AdminProgramVolunteerTable';
+
 function AdminProgramInfo() {
   const { id } = useParams();
   const redirect = useNavigate();
-
-  const {
-    enrolments,
-    setTempEditForm,
-    getAllVolunteersInEnrolment,
-    dispatch,
-    volunteerInEnrolment,
-  } = useGlobalAdminContext();
+  const [volunteersEnrolled, setVolunteersEnrolled] = useState([]);
+  const { enrolments, setTempEditForm, getAllVolunteersInEnrolment } =
+    useGlobalAdminContext();
   const enrolment = enrolments.find(
     (enrol) => Number(enrol.program.id) === Number(id)
   );
-
+  console.log(volunteersEnrolled.length);
   useEffect(() => {
     const getVolunteers = async () => {
       const volunteers = await getAllVolunteersInEnrolment(id);
-      console.log(volunteers);
-      dispatch({
-        type: 'GET_VOLUNTEER_IN_ENROLMENT',
-        volunteerInEnrolment: volunteers,
-      });
+      setVolunteersEnrolled(volunteers);
     };
     getVolunteers();
   }, []);
@@ -35,7 +29,7 @@ function AdminProgramInfo() {
   };
 
   return (
-    <div>
+    <div className="h-auto">
       <div className="flex justify-start w-screen px-12">
         <Link to={'/admin/programs'}>
           <button className="flex justify-center items-center space-x-2 btn btn-active text-white btn-sm">
@@ -49,9 +43,23 @@ function AdminProgramInfo() {
         <div className="w-[50%]">
           <img
             className="rounded-xl shadow-2xl"
-            src={enrolment?.program.photo}
+            src={
+              enrolment?.program.photo ||
+              'https://static.thehoneycombers.com/wp-content/uploads/sites/2/2017/11/Salvation-Army.jpg'
+            }
             alt="photo"
           />
+          {volunteersEnrolled.length === 0 ? (
+            <div className="text-error text-lg">
+              <h1>
+                There are currently no volunteers enrolled in this program
+              </h1>
+            </div>
+          ) : (
+            <AdminProgramVolunteerTable
+              volunteersEnrolled={volunteersEnrolled}
+            />
+          )}
         </div>
         {/* COLUMN 2 */}
         <div className="w-[50%]">

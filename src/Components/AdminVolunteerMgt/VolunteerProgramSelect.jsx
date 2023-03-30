@@ -91,7 +91,11 @@ function VolunteerProgramsSelect() {
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
                         <img
-                          src="https://static.thehoneycombers.com/wp-content/uploads/sites/2/2017/11/Salvation-Army.jpg"
+                          // src="https://static.thehoneycombers.com/wp-content/uploads/sites/2/2017/11/Salvation-Army.jpg"
+                          src={
+                            enrol?.program.photo ||
+                            'https://static.thehoneycombers.com/wp-content/uploads/sites/2/2017/11/Salvation-Army.jpg'
+                          }
                           alt="Elderly"
                         />
                       </div>

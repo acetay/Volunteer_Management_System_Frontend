@@ -2,7 +2,7 @@ import AdminProgramInfo from '../../Components/AdminVolunteerMgt/ProgramsAdmin.j
 
 function AdminProgramInfoPage() {
   return (
-    <div className="flex flex-col h-auto md:h-screen p-8 justify-start items-center">
+    <div className="flex flex-col h-auto p-8 justify-start items-center">
       <AdminProgramInfo />
     </div>
   );

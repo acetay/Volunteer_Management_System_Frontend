@@ -184,6 +184,7 @@ function AdminContextProvider({ children }) {
     enrolments: state.enrolments,
     profile: state.profile,
     isLoading: state.isLoading,
+    volunteerEnrolments: state.volunteerEnrolments,
     volunteerInEnrolment: state.volunteerInEnrolment,
     dispatch,
     userUid,
