@@ -14,6 +14,7 @@ function AdminProgramItem({ enrolment }) {
       </figure>
       <div className="card-body">
         <h2 className="card-title">{enrolment?.program.name}</h2>
+        <p className="text-blue-500">{enrolment?.date}</p>
         <p>{enrolment?.program.description}</p>
         <div className="card-actions justify-end">
           <Link to={`/admin/programs/${enrolment?.program.id}`}>
