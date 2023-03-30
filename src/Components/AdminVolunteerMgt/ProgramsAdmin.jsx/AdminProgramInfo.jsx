@@ -3,24 +3,67 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useGlobalAdminContext } from '../../../Context/Admin/AdminContext';
 import { useEffect } from 'react';
 
-import AdminProgramVolunteerTable from './AdminProgramVolunteerTable';
+import AdminProgramVolunteerTable2 from './AdminProgramVolunteerTable2';
+import AdminProgramVolunteerTable1 from './AdminProgramVolunteerTable1';
 
 function AdminProgramInfo() {
   const { id } = useParams();
   const redirect = useNavigate();
   const [volunteersEnrolled, setVolunteersEnrolled] = useState([]);
-  const { enrolments, setTempEditForm, getAllVolunteersInEnrolment } =
-    useGlobalAdminContext();
+
+  const {
+    enrolments,
+    setTempEditForm,
+    getAllVolunteersInEnrolment,
+    allAvailabilitiesOfVolunteers,
+    getAllAvailabilities,
+    dispatch,
+  } = useGlobalAdminContext();
   const enrolment = enrolments.find(
     (enrol) => Number(enrol.program.id) === Number(id)
   );
-  console.log(volunteersEnrolled.length);
+
+  const availsWithMatchDate = allAvailabilitiesOfVolunteers.filter(
+    (avail) => avail.date === enrolment?.date
+  );
+
+  const availVolunteers = availsWithMatchDate.map((avail) => avail.volunteer);
+  function getDifference(array1, array2) {
+    return array1.filter((object1) => {
+      return !array2.some((object2) => {
+        return object1.id === object2.id;
+      });
+    });
+  }
+
+  const unique = getDifference(availVolunteers, volunteersEnrolled);
+
+  const nonEnrolled = volunteersEnrolled?.map((volunteer) => {
+    let nonenrolled = availsWithMatchDate.filter(
+      (avail) => avail.volunteer.id !== volunteer.id
+    );
+    return [...nonenrolled];
+  });
+
+  //   console.log(nonEnrolled);
+
   useEffect(() => {
     const getVolunteers = async () => {
       const volunteers = await getAllVolunteersInEnrolment(id);
       setVolunteersEnrolled(volunteers);
     };
     getVolunteers();
+  }, []);
+
+  useEffect(() => {
+    const getAvails = async () => {
+      const allAvails = await getAllAvailabilities();
+      dispatch({
+        type: 'GET_ALL_AVAILABILITIES',
+        allAvailabilitiesOfVolunteers: allAvails,
+      });
+    };
+    getAvails();
   }, []);
 
   const toEditForm = () => {
@@ -49,15 +92,17 @@ function AdminProgramInfo() {
             }
             alt="photo"
           />
-          {volunteersEnrolled.length === 0 ? (
+          {volunteersEnrolled?.length === 0 ? (
             <div className="text-error text-lg">
               <h1>
                 There are currently no volunteers enrolled in this program
               </h1>
             </div>
           ) : (
-            <AdminProgramVolunteerTable
+            <AdminProgramVolunteerTable1
               volunteersEnrolled={volunteersEnrolled}
+              title={'Volunteers Enrolled'}
+              fontcolor={'text-error'}
             />
           )}
         </div>
@@ -117,6 +162,19 @@ function AdminProgramInfo() {
               </button>
             </div>
           </div>
+          {nonEnrolled?.length === 0 || nonEnrolled === null ? (
+            <div className="flex p-4">
+              <h1 className="text-red-500">
+                There are no volunteers with matching dates
+              </h1>
+            </div>
+          ) : (
+            <AdminProgramVolunteerTable2
+              volunteersEnrolled={unique}
+              title={'Propective Volunteers with matching date'}
+              fontcolor={'text-blue-500'}
+            />
+          )}
         </div>
       </div>
     </div>

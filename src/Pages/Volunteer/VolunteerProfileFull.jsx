@@ -60,6 +60,10 @@ function VolunteerProfileFull() {
     enrolledprograms();
   }, []);
 
+  const goToReset = () => {
+    redirect('/volunteers/passwordreset');
+  };
+
   if (isLoading) {
     return (
       <div className="flex flex-col h-auto md:h-screen p-8 justify-start items-center pt-32">
@@ -129,9 +133,14 @@ function VolunteerProfileFull() {
           <label htmlFor="my-modal-6" className="btn btn-primary">
             Availability
           </label>
-          <button className="w-[80%] md:w-[20%] btn btn-accent text-white">
+
+          <button
+            onClick={goToReset}
+            className="w-[80%] md:w-[20%] btn btn-accent text-white"
+          >
             Change password
           </button>
+
           <button
             onClick={goToEdit}
             className="w-[80%] md:w-[20%] btn btn-secondary text-white"

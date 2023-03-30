@@ -155,6 +155,17 @@ function AdminContextProvider({ children }) {
     }
   };
 
+  const getAllAvailabilities = async () => {
+    try {
+      const getAllAvailabilities = await api.get(
+        '/volunteers/availability/all'
+      );
+      return getAllAvailabilities.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // Listener to set all Information when Admin panel loads
   useEffect(() => {
     if (userUid) {
@@ -186,6 +197,7 @@ function AdminContextProvider({ children }) {
     isLoading: state.isLoading,
     volunteerEnrolments: state.volunteerEnrolments,
     volunteerInEnrolment: state.volunteerInEnrolment,
+    allAvailabilitiesOfVolunteers: state.allAvailabilitiesOfVolunteers,
     dispatch,
     userUid,
     adminUser,
@@ -204,6 +216,7 @@ function AdminContextProvider({ children }) {
     editProgram,
     searchVolunteersByParams,
     getAllVolunteersInEnrolment,
+    getAllAvailabilities,
   };
 
   return <AdminContext.Provider value={ctx}>{children}</AdminContext.Provider>;

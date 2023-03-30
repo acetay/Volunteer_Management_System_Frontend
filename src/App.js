@@ -15,6 +15,7 @@ import AdminMainPanel from './Pages/Admin/AdminMainPanel';
 import AdminVolunteerManagement from './Pages/Admin/AdminVolunterMgt';
 import SignUpPageContainer from './Pages/Volunteer/VolSignUpPageContainer';
 import PasswordAndUsername from './Pages/Volunteer/PasswordAndUsername';
+import ResetPassword from './Pages/Volunteer/ResetPassword';
 import ProtectedRoute from './Auth/ProtectedRoute';
 import Volunteer from './Components/AdminVolunteerMgt/Volunteer';
 import VolunteerEdit from './Components/AdminVolunteerMgt/VolunteerEdit';
@@ -42,6 +43,10 @@ function App() {
             </Route>
 
             <Route path="/volunteers/signin" element={<VolunteerSignIn />} />
+            <Route
+              path="/volunteers/passwordreset"
+              element={<ResetPassword />}
+            />
 
             <Route
               path="/volunteers/profile/:id"

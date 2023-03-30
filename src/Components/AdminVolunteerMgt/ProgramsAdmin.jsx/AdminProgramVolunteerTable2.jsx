@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-function AdminProgramVolunteerTable({ volunteersEnrolled }) {
+function AdminProgramVolunteerTable({ volunteersEnrolled, title, fontcolor }) {
   const redirect = useNavigate();
 
   const redirectToVolunteerPage = (id) => {
@@ -8,7 +8,7 @@ function AdminProgramVolunteerTable({ volunteersEnrolled }) {
   };
   return (
     <div className="pt-4 h-auto">
-      <h1 className="text-error font-bold text-2xl">Volunteers Enrolled</h1>
+      <h1 className={`${fontcolor} font-bold text-2xl`}>{title}</h1>
       <div className="overflow-x-auto w-full">
         <table className="table w-full">
           {/* head */}
@@ -31,18 +31,18 @@ function AdminProgramVolunteerTable({ volunteersEnrolled }) {
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
                         <img
-                          src={volunteer.profilePicture}
+                          src={volunteer?.profilePicture}
                           alt="Avatar Tailwind CSS Component"
                         />
                       </div>
                     </div>
                   </div>
                 </td>
-                <td>{volunteer.name}</td>
+                <td>{volunteer?.name}</td>
 
                 <th>
                   <button
-                    onClick={() => redirectToVolunteerPage(volunteer.id)}
+                    onClick={() => redirectToVolunteerPage(volunteer?.id)}
                     className="btn btn-ghost btn-xs"
                   >
                     details
