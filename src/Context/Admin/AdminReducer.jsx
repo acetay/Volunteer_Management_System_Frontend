@@ -1,11 +1,12 @@
 export const initialState = {
   volunteers: [],
+  volunteersBySearch: [],
   profiles: [],
   programs: [],
   enrolments: [],
   profile: {},
   program: {},
-  volunteerEnrolments: [],
+  volunteerInEnrolment: [],
   availabilities: [],
   isLoading: false,
 };
@@ -13,6 +14,12 @@ export const initialState = {
 export const adminReducer = (state, action) => {
   switch (action.type) {
     case 'GET_VOLUNTEERS':
+      return {
+        ...state,
+        volunteers: action.volunteers,
+        isLoading: false,
+      };
+    case 'GET_VOLUNTEERS_BY_SEARCH':
       return {
         ...state,
         volunteers: action.volunteers,
@@ -37,6 +44,14 @@ export const adminReducer = (state, action) => {
         ...state,
         programs: [...state.programs, action.program],
       };
+    case 'EDIT_PROGRAM':
+      const editedPrograms = state.programs.map((program) =>
+        program.id === action.id ? action.program : program
+      );
+      return {
+        ...state,
+        programs: [...editedPrograms],
+      };
     case 'GET_VOLUNTEER_PROFILE':
       return {
         ...state,
@@ -57,10 +72,10 @@ export const adminReducer = (state, action) => {
         ...state,
         availabilities: action.availabilities,
       };
-    case 'GET_VOLUNTEER_ENROLMENTS':
+    case 'GET_VOLUNTEER_IN_ENROLMENT':
       return {
         ...state,
-        volunteerEnrolments: action.volunteerEnrolments,
+        volunteerInEnrolment: action.volunteerInEnrolment,
       };
     case 'SET_LOADING':
       return {

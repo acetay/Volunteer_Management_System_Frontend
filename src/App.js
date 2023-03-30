@@ -6,22 +6,24 @@ import Home from './Pages/Home';
 import About from './Pages/About';
 import ProgrammeListing from './Pages/ProgrammeListing';
 import Donate from './Pages/Donate';
-import VolunteerSignUp from './Pages/VolunteerSignUp/VolunteerSignUp';
-import VolunteerSignIn from './Pages/VolunteerSignIn';
-import VolunteerProfileFull from './Pages/VolunteerProfileFull';
-import VolunteerProfileEdit from './Pages/VolunteerProfileEdit';
-import AdminSignIn from './Pages/AdminSignIn';
-import AdminMainPanel from './Pages/AdminMainPanel';
-import AdminVolunteerManagement from './Pages/AdminVolunterMgt';
-import SignUpPageContainer from './Pages/VolunteerSignUp/VolSignUpPageContainer';
-import PasswordAndUsername from './Pages/VolunteerSignUp/PasswordAndUsername';
+import VolunteerSignUp from './Pages/Volunteer/VolunteerSignUp';
+import VolunteerSignIn from './Pages/Volunteer/VolunteerSignIn';
+import VolunteerProfileFull from './Pages/Volunteer/VolunteerProfileFull';
+import VolunteerProfileEdit from './Pages/Volunteer/VolunteerProfileEdit';
+import AdminSignIn from './Pages/Admin/AdminSignIn';
+import AdminMainPanel from './Pages/Admin/AdminMainPanel';
+import AdminVolunteerManagement from './Pages/Admin/AdminVolunterMgt';
+import SignUpPageContainer from './Pages/Volunteer/VolSignUpPageContainer';
+import PasswordAndUsername from './Pages/Volunteer/PasswordAndUsername';
 import ProtectedRoute from './Auth/ProtectedRoute';
 import Volunteer from './Components/AdminVolunteerMgt/Volunteer';
 import VolunteerEdit from './Components/AdminVolunteerMgt/VolunteerEdit';
 import VolunteerProgramsSelect from './Components/AdminVolunteerMgt/VolunteerProgramSelect';
-import AdminPrograms from './Pages/AdminPrograms';
-import ProgramKickstarter from './Pages/ProgramKickstarter';
+import AdminPrograms from './Pages/Admin/AdminPrograms';
+import ProgramKickstarter from './Pages/Admin/ProgramKickstarter';
 import NotFound from './Pages/NotFound';
+import AdminProgramEditPage from './Pages/Admin/AdminProgramEditPage';
+import AdminProgramInfoPage from './Pages/Admin/AdminProgramInfoPage';
 
 function App() {
   return (
@@ -71,20 +73,62 @@ function App() {
               }
             />
             <Route path="/admin/signin" element={<AdminSignIn />} />
-            <Route path="/admin/main" element={<AdminMainPanel />} />
-            <Route path="/admin/programs" element={<AdminPrograms />} />
+            <Route
+              path="/admin/main"
+              element={
+                <ProtectedRoute>
+                  <AdminMainPanel />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/programs"
+              element={
+                <ProtectedRoute>
+                  <AdminPrograms />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/programs/:id"
+              element={
+                <ProtectedRoute>
+                  <AdminProgramInfoPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/programs/edit/:id"
+              element={
+                <ProtectedRoute>
+                  <AdminProgramEditPage />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/admin/singlevolunteer/:id" element={<Volunteer />} />
             <Route
               path="/admin/programkickstarter"
-              element={<ProgramKickstarter />}
+              element={
+                <ProtectedRoute>
+                  <ProgramKickstarter />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/admin/singlevolunteer/:id/programselect/:date/:timeslot"
-              element={<VolunteerProgramsSelect />}
+              element={
+                <ProtectedRoute>
+                  <VolunteerProgramsSelect />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/admin/singlevolunteer/edit/:id"
-              element={<VolunteerEdit />}
+              element={
+                <ProtectedRoute>
+                  <VolunteerEdit />
+                </ProtectedRoute>
+              }
             />
 
             <Route path="/notfound" element={<NotFound />} />

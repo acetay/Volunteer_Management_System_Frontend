@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 function AdminProgramItem({ enrolment }) {
   return (
@@ -10,7 +10,9 @@ function AdminProgramItem({ enrolment }) {
         <h2 className="card-title">{enrolment?.program.name}</h2>
         <p>{enrolment?.program.description}</p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Admin</button>
+          <Link to={`/admin/programs/${enrolment?.program.id}`}>
+            <button className="btn btn-primary">Admin</button>
+          </Link>
         </div>
       </div>
     </div>

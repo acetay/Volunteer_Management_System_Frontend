@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
+import { useGlobalVolunteerContext } from '../../Context/VolunteerContext';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import Spinner from '../Assets/Sample_images/spinner.gif';
-import ProfileImage from '../Components/VolunteerProfile_Components/ProfileImage';
-import HeaderAndBorder from '../Components/VolunteerProfile_Components/HeaderAndBorder';
-import PersonInfoTable from '../Components/VolunteerProfile_Components/PersonInfoTable';
-import ProfileAndExpTable from '../Components/VolunteerProfile_Components/ProfileAndExpTable';
-import CalendarModal from '../Components/VolunteerProfile_Components/CalendarModal';
-import EventsModal from '../Components/VolunteerProfile_Components/EventsModal';
-import AvailabilityModal from '../Components/VolunteerProfile_Components/AvailabilityModal';
+import Spinner from '../../Assets/Sample_images/spinner.gif';
+import ProfileImage from '../../Components/VolunteerProfile_Components/ProfileImage';
+import HeaderAndBorder from '../../Components/VolunteerProfile_Components/HeaderAndBorder';
+import PersonInfoTable from '../../Components/VolunteerProfile_Components/PersonInfoTable';
+import ProfileAndExpTable from '../../Components/VolunteerProfile_Components/ProfileAndExpTable';
+import CalendarModal from '../../Components/VolunteerProfile_Components/CalendarModal';
+import EventsModal from '../../Components/VolunteerProfile_Components/EventsModal';
+import AvailabilityModal from '../../Components/VolunteerProfile_Components/AvailabilityModal';
 
 // TODO - BREAKUP AND TRANSFER TO COMPONENTS FOLDER
 

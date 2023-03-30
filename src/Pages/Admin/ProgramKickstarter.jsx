@@ -1,4 +1,4 @@
-import AdminProgramStarter from '../Components/AdminVolunteerMgt/ProgramsAdmin.jsx/AdminProgramStarter';
+import AdminProgramStarter from '../../Components/AdminVolunteerMgt/ProgramsAdmin.jsx/AdminProgramStarter';
 
 function ProgramKickstarter() {
   return (

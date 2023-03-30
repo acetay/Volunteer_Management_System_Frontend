@@ -121,6 +121,40 @@ function AdminContextProvider({ children }) {
     }
   };
 
+  // Edit a program
+  const editProgram = async (id, body) => {
+    try {
+      console.log(body);
+      const response = await api.put(`/admin/programs/${id}`, body);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const searchVolunteersByParams = async (experience, education, language) => {
+    try {
+      const volunteers = await api.get(
+        `/admin/volunteers/search?experience=${experience}&education=${education}&language=${language}`
+      );
+      console.log(volunteers);
+      return volunteers.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getAllVolunteersInEnrolment = async (id) => {
+    try {
+      const enroledVolunteers = await api.get(
+        `/admin/enrolments/volunteers?program_id=${id}`
+      );
+      return enroledVolunteers.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // Listener to set all Information when Admin panel loads
   useEffect(() => {
     if (userUid) {
@@ -150,7 +184,7 @@ function AdminContextProvider({ children }) {
     enrolments: state.enrolments,
     profile: state.profile,
     isLoading: state.isLoading,
-    volunteerEnrolments: state.volunteerEnrolments,
+    volunteerInEnrolment: state.volunteerInEnrolment,
     dispatch,
     userUid,
     adminUser,
@@ -166,6 +200,9 @@ function AdminContextProvider({ children }) {
     editVolunteerAvail,
     addProgram,
     getAllPrograms,
+    editProgram,
+    searchVolunteersByParams,
+    getAllVolunteersInEnrolment,
   };
 
   return <AdminContext.Provider value={ctx}>{children}</AdminContext.Provider>;
@@ -174,3 +211,20 @@ function AdminContextProvider({ children }) {
 export const useGlobalAdminContext = () => useContext(AdminContext);
 
 export default AdminContextProvider;
+
+// const params1 = `experience=${experience}&education=${education}&language=${language}`;
+// const params2 = `education=${education}&language=${language}`;
+// const params3 = `language=${language}`;
+// const params4 = `experience=${experience}&language=${language}`;
+// let condition = '';
+
+// if (experience !== '' && education !== '' && language !== '') {
+//   condition = params1;
+// } else if (experience === '' && education !== '' && language !== '') {
+//   condition = params2;
+// } else if (experience === '' && education === '' && language !== '') {
+//   condition = params3;
+// } else if (experience !== '' && education === '' && language !== '') {
+//   condition = params4;
+// } else if (experience !== '' && education === '' && language !== '') {
+// }

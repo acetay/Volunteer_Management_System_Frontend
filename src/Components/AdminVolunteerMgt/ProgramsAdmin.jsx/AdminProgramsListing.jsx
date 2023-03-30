@@ -6,14 +6,14 @@ function AdminProgramsListing() {
   return (
     <>
       {enrolments.length > 0 ? (
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-1 px-20 justify-center items-center h-auto">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-1 px-20 justify-center items-center">
           {enrolments.map((enrolment, index) => (
             <AdminProgramItem enrolment={enrolment} key={index} />
           ))}
         </div>
       ) : (
         <>
-          <h1 className="text-lg text-center text-error">
+          <h1 className="text-lg text-center text-error mt-8">
             There are currently no programs listed
           </h1>
         </>

@@ -1,32 +1,39 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useGlobalAdminContext } from '../../../Context/Admin/AdminContext';
-import Swal from 'sweetalert2';
 
-function AdminProgramStarter() {
+function AdminProgramEdit() {
+  const { id } = useParams();
+  const { editProgram, dispatch, tempEditForm, getAllPrograms } =
+    useGlobalAdminContext();
   const redirect = useNavigate();
   const [form, setForm] = useState({});
-  const { addProgram, dispatch, getAllPrograms } = useGlobalAdminContext();
   const changeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const addNewProgram = async () => {
-    const program = await addProgram({ ...form, noOfVolunteers: 0 });
-    const getProgAndEnrols = await getAllPrograms();
-    dispatch({ type: 'ADD_NEW_PROGRAM', program: program });
-    dispatch({
-      type: 'GET_PROGRAMS_ENROLMENTS',
-      payload: getProgAndEnrols,
+  const editProgramInfo = async () => {
+    const editedProgram = await editProgram(id, {
+      name: form.name,
+      date: form.date,
+      description: form.description,
+      photo: form.photo,
+      timeOfProgram: form.timeOfProgram,
+      volunteersRequired: form.volunteersRequired,
+      noOfVolunteers: 0,
     });
-    setForm(() => {});
-    Swal.fire({
-      title: 'Successful Launch',
-      text: 'Program created!',
-      icon: 'success',
-    });
-    redirect('/admin/programs');
+    dispatch({ type: 'EDIT_PROGRAM', id: id, program: editedProgram });
+    const programs = await getAllPrograms();
+    dispatch({ type: 'GET_PROGRAMS_ENROLMENTS', payload: programs });
+    redirect(`/admin/programs/${id}`);
   };
+
+  useEffect(() => {
+    setForm({
+      ...tempEditForm,
+      date: tempEditForm?.date.split('-').reverse().join('-'),
+    });
+  }, []);
 
   return (
     <div>
@@ -93,6 +100,7 @@ function AdminProgramStarter() {
             </label>
             <select
               name="timeOfProgram"
+              value={form.timeOfProgram}
               onChange={changeHandler}
               className="select select-info w-full max-w-md w-[18vw] select-md text-md font-normal"
             >
@@ -131,6 +139,7 @@ function AdminProgramStarter() {
             <textarea
               name="description"
               id="description"
+              value={form.description}
               onChange={changeHandler}
               className="textarea textarea-info w-full textarea-md"
               placeholder="Program description."
@@ -138,12 +147,15 @@ function AdminProgramStarter() {
           </div>
         </div>
         <div className="flex justify-center items-center p-4 space-x-2">
-          <Link to="/admin/main">
+          <Link to={`/admin/programs/${id}`}>
             <button className="btn btn-info text-white btn-sm">Back</button>
           </Link>
 
-          <button onClick={addNewProgram} className="btn btn-secondary btn-sm">
-            Launch
+          <button
+            onClick={editProgramInfo}
+            className="btn btn-secondary btn-sm"
+          >
+            Change
           </button>
         </div>
       </div>
@@ -151,4 +163,4 @@ function AdminProgramStarter() {
   );
 }
 
-export default AdminProgramStarter;
+export default AdminProgramEdit;

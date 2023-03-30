@@ -1,8 +1,8 @@
 import React from 'react';
-import Dashboard from '../Components/AdminMainPanel_Components/Dashboard';
-import ChartsContainer from '../Components/AdminMainPanel_Components/ChartsContainer';
-import { useGlobalAdminContext } from '../Context/Admin/AdminContext';
-import Spinner from '../Assets/Sample_images/spinner.gif';
+import Dashboard from '../../Components/AdminMainPanel_Components/Dashboard';
+import ChartsContainer from '../../Components/AdminMainPanel_Components/ChartsContainer';
+import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
+import Spinner from '../../Assets/Sample_images/spinner.gif';
 
 function AdminMainPanel() {
   const { isLoading } = useGlobalAdminContext();

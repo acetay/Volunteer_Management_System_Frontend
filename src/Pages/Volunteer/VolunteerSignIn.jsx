@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
+import { useGlobalVolunteerContext } from '../../Context/VolunteerContext';
 import { SiGooglefit } from 'react-icons/si';
 
 import Swal from 'sweetalert2';
