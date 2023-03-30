@@ -1,8 +1,9 @@
 import React from 'react';
 import Dashboard from '../../Components/AdminMainPanel_Components/Dashboard';
-import ChartsContainer from '../../Components/AdminMainPanel_Components/ChartsContainer';
+import BannerContainer from '../../Components/AdminMainPanel_Components/BannerContainer';
 import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
 import Spinner from '../../Assets/Sample_images/spinner.gif';
+import ChartsContainer from '../../Components/AdminMainPanel_Components/ChartsContainer';
 
 function AdminMainPanel() {
   const { isLoading } = useGlobalAdminContext();
@@ -20,6 +21,7 @@ function AdminMainPanel() {
         Welcome back!
       </h1>
       <Dashboard />
+      <BannerContainer />
       <ChartsContainer />
     </div>
   );

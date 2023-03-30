@@ -23,9 +23,9 @@ function AdminProgramVolunteerTable({ volunteersEnrolled }) {
           </thead>
           <tbody>
             {/* row 1 */}
-            {volunteersEnrolled?.map((volunteer) => (
+            {volunteersEnrolled?.map((volunteer, index) => (
               <tr>
-                <th>1</th>
+                <th>{index + 1}</th>
                 <td>
                   <div className="flex items-center space-x-3">
                     <div className="avatar">

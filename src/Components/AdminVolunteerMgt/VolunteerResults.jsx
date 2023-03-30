@@ -90,7 +90,9 @@ function VolunteerResults() {
               <button
                 onClick={() => changePage(index + 1)}
                 key={index}
-                className="btn btn-info btn-md text-white"
+                className={`btn btn-md text-white ${
+                  index + 1 === page ? 'btn-primary' : 'btn-info'
+                }`}
               >
                 {index + 1}
               </button>
