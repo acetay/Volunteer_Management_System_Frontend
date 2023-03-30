@@ -93,7 +93,7 @@ function AdminProgramInfo() {
             alt="photo"
           />
           {volunteersEnrolled?.length === 0 ? (
-            <div className="text-error text-lg">
+            <div className="text-error text-lg mt-4">
               <h1>
                 There are currently no volunteers enrolled in this program
               </h1>

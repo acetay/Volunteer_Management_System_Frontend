@@ -1,15 +1,41 @@
 import { useState } from 'react';
 import { useGlobalVolunteerContext } from '../../Context/VolunteerContext';
+import Swal from 'sweetalert2';
 
 function ResetPassword() {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const { passwordReset } = useGlobalVolunteerContext();
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const onChangeHandler = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setPassword(e.target.value);
   };
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
+    if (password !== '' && password.length > 7) {
+      try {
+        passwordReset(password);
+        Swal.fire({
+          title: 'Success',
+          text: 'Password successfully changed',
+          icon: 'success',
+        });
+        setPassword('');
+      } catch (err) {
+        console.log(err);
+        Swal.fire({
+          title: 'Error',
+          text: err.message,
+          icon: 'error',
+        });
+      }
+    } else {
+      Swal.fire({
+        title: 'Incomplete field',
+        text: 'Password must be more than 7 characters',
+        icon: 'error',
+      });
+    }
   };
 
   return (
@@ -19,18 +45,10 @@ function ResetPassword() {
         <form onSubmit={onSubmitHandler} className="mt-4">
           <div className="flex flex-col justify-center items-center space-y-8">
             <input
-              type="text"
-              onChange={onChangeHandler}
-              name="email"
-              value={form.email}
-              placeholder="Email"
-              className="input input-bordered input-info w-[40vw] lg:w-[70vw] max-w-xs"
-            />
-            <input
               type={`${showPassword ? 'text' : 'password'}`}
               onChange={onChangeHandler}
               name="password"
-              value={form.password}
+              value={password}
               placeholder="Password"
               className="input input-bordered input-info  w-[40vw] lg:w-[70vw] max-w-xs"
             />

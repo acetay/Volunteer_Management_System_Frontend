@@ -10,6 +10,7 @@ import {
   signInWithEmailAndPassword, // signin and receive jwt token from firebase
   onAuthStateChanged, // recceive user jwt and details after signin
   signOut,
+  updatePassword,
 } from 'firebase/auth';
 
 const VolunteerContext = createContext();
@@ -168,6 +169,12 @@ function VolunteerContextProvider({ children }) {
     signOut(auth);
   };
 
+  // 4. Reset Password
+  const passwordReset = (newPassword) => {
+    const user = auth.currentUser;
+    return updatePassword(user, newPassword);
+  };
+
   const ctx = {
     volunteers,
     setVolunteers,
@@ -196,6 +203,7 @@ function VolunteerContextProvider({ children }) {
     userUid,
     getEnrolments,
     unmarkAvailDate,
+    passwordReset,
   };
 
   return (
