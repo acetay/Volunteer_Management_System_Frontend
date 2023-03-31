@@ -3,18 +3,6 @@ import { useState } from 'react';
 function EmailTest() {
   const [form, setForm] = useState({ email: '', message: '' });
 
-  // const config = {
-  //   Username: 'vms@yopmail.com',
-  //   Password: '561B5C9D0B6D85FBC8FF1806B796A6D35A89',
-  //   Host: 'smtp.elasticemail.com',
-  //   Port: 2525,
-  //   SecureToken: '2cba66fc-e24b-418e-9118-34a7b3458c3a',
-  //   To: form.email,
-  //   From: 'you@isp.com',
-  //   Subject: 'This is the subject',
-  //   Body: 'And this is the body',
-  // };
-
   const onChangeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
