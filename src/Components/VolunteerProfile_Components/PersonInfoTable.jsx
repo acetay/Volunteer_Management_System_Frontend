@@ -16,7 +16,7 @@ function PersonInfoTable({ volunteer }) {
           <td className="w-[100px] md:w-[220px] py-2 font-semibold">
             Address:{' '}
           </td>
-          <td className="text-blue-700">{volunteer?.address}</td>
+          <td className="text-blue-700 w-[300px]">{volunteer?.address}</td>
         </tr>
         <tr>
           <td className="w-[100px] md:w-[220px] py-2 font-semibold">

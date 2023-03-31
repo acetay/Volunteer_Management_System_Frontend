@@ -6,6 +6,16 @@ function AdminProgramVolunteerTable({ volunteersEnrolled, title, fontcolor }) {
   const redirectToVolunteerPage = (id) => {
     redirect(`/admin/singlevolunteer/${id}`);
   };
+
+  if (volunteersEnrolled.length === 0) {
+    return (
+      <div className="flex p-4">
+        <h1 className="text-red-500">
+          There are no volunteers with matching dates
+        </h1>
+      </div>
+    );
+  }
   return (
     <div className="pt-4 h-auto">
       <h1 className={`${fontcolor} font-bold text-2xl`}>{title}</h1>

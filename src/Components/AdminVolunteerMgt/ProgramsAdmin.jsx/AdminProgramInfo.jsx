@@ -27,7 +27,14 @@ function AdminProgramInfo() {
     (avail) => avail.date === enrolment?.date
   );
 
+  console.log(availsWithMatchDate);
+
   const availVolunteers = availsWithMatchDate.map((avail) => avail.volunteer);
+
+  console.log(availVolunteers);
+
+  console.log(volunteersEnrolled);
+
   function getDifference(array1, array2) {
     return array1.filter((object1) => {
       return !array2.some((object2) => {
@@ -37,6 +44,8 @@ function AdminProgramInfo() {
   }
 
   const unique = getDifference(availVolunteers, volunteersEnrolled);
+
+  console.log(unique);
 
   const nonEnrolled = volunteersEnrolled?.map((volunteer) => {
     let nonenrolled = availsWithMatchDate.filter(
@@ -162,19 +171,21 @@ function AdminProgramInfo() {
               </button>
             </div>
           </div>
-          {nonEnrolled?.length === 0 || nonEnrolled === null ? (
+          {/* {nonEnrolled?.length === 0 || nonEnrolled === null ? (
             <div className="flex p-4">
               <h1 className="text-red-500">
                 There are no volunteers with matching dates
               </h1>
             </div>
-          ) : (
-            <AdminProgramVolunteerTable2
-              volunteersEnrolled={unique}
-              title={'Propective Volunteers with matching date'}
-              fontcolor={'text-blue-500'}
-            />
-          )}
+          ) : ( */}
+          <AdminProgramVolunteerTable2
+            volunteersEnrolled={
+              volunteersEnrolled?.length > 0 ? unique : availVolunteers
+            }
+            title={'Propective Volunteers with matching date'}
+            fontcolor={'text-blue-500'}
+          />
+          {/* )} */}
         </div>
       </div>
     </div>
