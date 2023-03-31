@@ -12,6 +12,20 @@ function VolunteerProgramsSelect() {
 
   const newDate = date.split('-').reverse().join('-');
 
+  // Disabled for testing purpose
+  const sendConfirmationEmail = (eventName, eventDate) => {
+    const config = {
+      SecureToken: '2cba66fc-e24b-418e-9118-34a7b3458c3a',
+      To: profile?.volunteer.email,
+      From: 'j.hokit80@gmail.com',
+      Subject: 'Confirmation to enrolments',
+      Body: `Hello there, we are please to confirm on your enrolment to the program ${eventName} on ${eventDate}`,
+    };
+    if (window.Email) {
+      window.Email.send(config);
+    }
+  };
+
   const enrolVolunteerIntoProgram = async (
     volunteerId,
     programId,

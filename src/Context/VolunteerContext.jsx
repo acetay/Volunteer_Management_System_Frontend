@@ -31,6 +31,7 @@ function VolunteerContextProvider({ children }) {
 
   let userStorage = JSON.parse(localStorage.getItem('singleUser'));
   let credentials = JSON.parse(localStorage.getItem('userCredentials'));
+  let role = credentials?.role;
 
   // Get access Info from firebase
   useEffect(() => {
@@ -204,6 +205,7 @@ function VolunteerContextProvider({ children }) {
     getEnrolments,
     unmarkAvailDate,
     passwordReset,
+    role,
   };
 
   return (

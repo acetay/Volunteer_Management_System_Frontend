@@ -36,6 +36,21 @@ function PasswordAndUsername() {
     }
   }, []);
 
+  // Send Welcome Email - disabled for testing purpose
+  const sendWelcomeEmail = () => {
+    const config = {
+      SecureToken: '2cba66fc-e24b-418e-9118-34a7b3458c3a',
+      To: form.email,
+      From: 'j.hokit80@gmail.com',
+      Subject: 'Welcome Onboard to Hope!',
+      Body: `Hello there, welcome to Hope! Please note that an administrator will be contacting you shortly for an interview session!`,
+    };
+
+    if (window.Email) {
+      window.Email.send(config);
+    }
+  };
+
   // Signup and create user in Firebase
   const signup = async () => {
     try {
@@ -46,6 +61,7 @@ function PasswordAndUsername() {
       );
       localStorage.setItem('uid', JSON.stringify(response.user.uid));
       setUid(response.user.uid);
+      // sendWelcomeEmail();
     } catch (err) {
       console.log(err.message);
       Swal.fire({

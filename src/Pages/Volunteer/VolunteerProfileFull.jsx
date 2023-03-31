@@ -61,7 +61,7 @@ function VolunteerProfileFull() {
   }, []);
 
   const goToReset = () => {
-    redirect('/volunteers/passwordreset');
+    redirect(`/volunteers/passwordreset/${id}`);
   };
 
   if (isLoading) {

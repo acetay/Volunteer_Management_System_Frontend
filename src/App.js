@@ -17,6 +17,7 @@ import SignUpPageContainer from './Pages/Volunteer/VolSignUpPageContainer';
 import PasswordAndUsername from './Pages/Volunteer/PasswordAndUsername';
 import ResetPassword from './Pages/Volunteer/ResetPassword';
 import ProtectedRoute from './Auth/ProtectedRoute';
+import ProtectedRouteAdmin from './Auth/ProtectedRouteAdmin';
 import Volunteer from './Components/AdminVolunteerMgt/Volunteer';
 import VolunteerEdit from './Components/AdminVolunteerMgt/VolunteerEdit';
 import VolunteerProgramsSelect from './Components/AdminVolunteerMgt/VolunteerProgramSelect';
@@ -25,6 +26,9 @@ import ProgramKickstarter from './Pages/Admin/ProgramKickstarter';
 import NotFound from './Pages/NotFound';
 import AdminProgramEditPage from './Pages/Admin/AdminProgramEditPage';
 import AdminProgramInfoPage from './Pages/Admin/AdminProgramInfoPage';
+import NotAuthourised from './Pages/NotAuthorised';
+
+import EmailTest from './Pages/emailtest';
 
 function App() {
   return (
@@ -44,9 +48,12 @@ function App() {
 
             <Route path="/volunteers/signin" element={<VolunteerSignIn />} />
             <Route
-              path="/volunteers/passwordreset"
+              path="/volunteers/passwordreset/:id"
               element={<ResetPassword />}
             />
+            <Route path="/notauth" element={<NotAuthourised />} />
+
+            <Route path="/emailtest" element={<EmailTest />} />
 
             <Route
               path="/volunteers/profile/:id"
@@ -72,18 +79,18 @@ function App() {
             <Route
               path="/admin/main/editvolunteer"
               element={
-                <ProtectedRoute>
+                <ProtectedRouteAdmin>
                   <AdminVolunteerManagement />
-                </ProtectedRoute>
+                </ProtectedRouteAdmin>
               }
             />
             <Route path="/admin/signin" element={<AdminSignIn />} />
             <Route
               path="/admin/main"
               element={
-                <ProtectedRoute>
+                <ProtectedRouteAdmin>
                   <AdminMainPanel />
-                </ProtectedRoute>
+                </ProtectedRouteAdmin>
               }
             />
             <Route

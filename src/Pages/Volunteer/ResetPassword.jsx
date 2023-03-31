@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { useGlobalVolunteerContext } from '../../Context/VolunteerContext';
 import Swal from 'sweetalert2';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function ResetPassword() {
+  const { id } = useParams();
+  const redirect = useNavigate();
   const { passwordReset } = useGlobalVolunteerContext();
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -21,6 +24,7 @@ function ResetPassword() {
           icon: 'success',
         });
         setPassword('');
+        redirect(`/volunteers/profile/${id}`);
       } catch (err) {
         console.log(err);
         Swal.fire({
