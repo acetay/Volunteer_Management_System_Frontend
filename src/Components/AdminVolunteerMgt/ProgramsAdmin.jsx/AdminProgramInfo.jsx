@@ -10,13 +10,15 @@ function AdminProgramInfo() {
   const { id } = useParams();
   const redirect = useNavigate();
   const [volunteersEnrolled, setVolunteersEnrolled] = useState([]);
+  const [enrolments, setEnrolments] = useState([]);
 
   const {
-    enrolments,
+    // enrolments,
     setTempEditForm,
     getAllVolunteersInEnrolment,
     allAvailabilitiesOfVolunteers,
     getAllAvailabilities,
+    getAllPrograms,
     dispatch,
   } = useGlobalAdminContext();
   const enrolment = enrolments.find(
@@ -47,19 +49,12 @@ function AdminProgramInfo() {
 
   console.log(unique);
 
-  const nonEnrolled = volunteersEnrolled?.map((volunteer) => {
-    let nonenrolled = availsWithMatchDate.filter(
-      (avail) => avail.volunteer.id !== volunteer.id
-    );
-    return [...nonenrolled];
-  });
-
-  //   console.log(nonEnrolled);
-
   useEffect(() => {
     const getVolunteers = async () => {
       const volunteers = await getAllVolunteersInEnrolment(id);
+      const { enrolments } = await getAllPrograms();
       setVolunteersEnrolled(volunteers);
+      setEnrolments(enrolments);
     };
     getVolunteers();
   }, []);
@@ -171,13 +166,7 @@ function AdminProgramInfo() {
               </button>
             </div>
           </div>
-          {/* {nonEnrolled?.length === 0 || nonEnrolled === null ? (
-            <div className="flex p-4">
-              <h1 className="text-red-500">
-                There are no volunteers with matching dates
-              </h1>
-            </div>
-          ) : ( */}
+
           <AdminProgramVolunteerTable2
             volunteersEnrolled={
               volunteersEnrolled?.length > 0 ? unique : availVolunteers
