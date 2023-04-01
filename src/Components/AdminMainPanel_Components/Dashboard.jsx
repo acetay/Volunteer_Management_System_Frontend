@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { BsPeopleFill } from 'react-icons/bs';
 import { TbHeartHandshake } from 'react-icons/tb';
 import { IoAccessibility } from 'react-icons/io5';
@@ -7,13 +8,32 @@ import PanelItem from './PanelItem';
 import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
 
 function Dashboard() {
-  const { volunteers, programs, enrolments } = useGlobalAdminContext();
+  const [state, setState] = useState({
+    volunteers: [],
+    programs: [],
+    enrolements: [],
+  });
+  const { getAllPrograms, getAllVolunteers } = useGlobalAdminContext();
+
+  useEffect(() => {
+    const apiCalls = async () => {
+      const { volunteers } = await getAllVolunteers();
+      const { programs, enrolments } = await getAllPrograms();
+      setState({
+        ...state,
+        volunteers: volunteers,
+        programs: programs,
+        enrolments: enrolments,
+      });
+    };
+    apiCalls();
+  }, []);
 
   return (
     <div className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
       <PanelItem
         title={'Volunteers'}
-        stats={volunteers?.length}
+        stats={state.volunteers?.length}
         color={'bg-slate-100'}
         text={'Total enrolled'}
         icon={<BsPeopleFill size={80} color={'skyblue'} />}
@@ -21,7 +41,7 @@ function Dashboard() {
       />
       <PanelItem
         title={'Programs'}
-        stats={programs?.length}
+        stats={state.programs?.length}
         color={'bg-slate-100'}
         text={'Active programs'}
         icon={<TbHeartHandshake size={80} color={'skyblue'} />}
@@ -29,7 +49,7 @@ function Dashboard() {
       />
       <PanelItem
         title={'Enrolments'}
-        stats={enrolments?.length}
+        stats={state.enrolments?.length}
         color={'bg-slate-100'}
         text={'Recruitments'}
         icon={<IoAccessibility size={80} color={'skyblue'} />}
