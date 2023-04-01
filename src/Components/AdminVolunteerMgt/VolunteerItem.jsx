@@ -30,11 +30,14 @@ function VolunteerItem({ volunteer, toggle }) {
             <div className="rounded-full shadow w-14 h-14">
               <img
                 src={
-                  volunteer?.profilePicture === '' || null
-                    ? volunteerProfile.profilePicture === '' || null
-                      ? 'https://simg.nicepng.com/png/small/810-8105444_male-placeholder.png'
-                      : volunteerProfile.profilePicture
-                    : volunteer.profilePicture
+                  volunteer?.profilePicture
+                    ? volunteer?.profilePicture
+                    : 'https://simg.nicepng.com/png/small/810-8105444_male-placeholder.png'
+                  // volunteer?.profilePicture === '' || null
+                  //   ? volunteerProfile?.profilePicture === '' || null
+                  //     ? 'https://simg.nicepng.com/png/small/810-8105444_male-placeholder.png'
+                  //     : volunteerProfile.profilePicture
+                  //   : volunteer?.profilePicture
                 }
                 alt={volunteer?.name}
               />

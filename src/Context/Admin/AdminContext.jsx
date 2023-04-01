@@ -6,18 +6,25 @@ import {
   useState,
 } from 'react';
 import { adminReducer, initialState } from './AdminReducer';
-
 import { useGlobalVolunteerContext } from '../VolunteerContext';
 import axios from 'axios';
+
+const defaultState = JSON.parse(localStorage.getItem('date')) || initialState;
 
 const BASE_URL = process.env.REACT_APP_SPRING_URL;
 const AdminContext = createContext();
 
 function AdminContextProvider({ children }) {
-  const [state, dispatch] = useReducer(adminReducer, initialState);
+  // const [state, dispatch] = useReducer(adminReducer, initialState);
+  const [state, dispatch] = useReducer(adminReducer, defaultState);
   const [toggle, setToggle] = useState(false);
   const [tempEditForm, setTempEditForm] = useState({});
   const { userUid } = useGlobalVolunteerContext();
+
+  // Listener to persist data into local storage wheneven there is changes in state
+  useEffect(() => {
+    localStorage.setItem('data', JSON.stringify(state));
+  }, [state]);
 
   // let authUser = JSON.parse(localStorage.getItem('authUser'));
   let adminUser = JSON.parse(localStorage.getItem('userCredentials'));
@@ -210,6 +217,7 @@ function AdminContextProvider({ children }) {
     getVolunteerAvail,
     availabilities: state.availabilities,
     enrolVolunteer,
+    getAllVolunteers,
     editVolunteerAvail,
     addProgram,
     getAllPrograms,

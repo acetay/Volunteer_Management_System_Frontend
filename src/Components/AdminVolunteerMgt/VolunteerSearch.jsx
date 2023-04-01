@@ -1,5 +1,5 @@
 function VolunteerSearch({
-  volunteers,
+  // volunteers,
   experience,
   handleChange,
   clear,
@@ -29,16 +29,15 @@ function VolunteerSearch({
           </div>
         </form>
       </div>
-      {volunteers.length > 0 && (
-        <div>
-          <button
-            onClick={clear}
-            className="btn btn-md bg-cyan-700 ml-2 text-white"
-          >
-            Clear
-          </button>
-        </div>
-      )}
+
+      <div>
+        <button
+          onClick={clear}
+          className="btn btn-md bg-cyan-700 ml-2 text-white"
+        >
+          Clear
+        </button>
+      </div>
     </div>
   );
 }

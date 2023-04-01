@@ -7,8 +7,13 @@ import VolunteerFilter from './VolunteerFilter';
 import Swal from 'sweetalert2';
 
 function VolunteerResults() {
-  const { isLoading, volunteers, toggle, searchVolunteersByParams } =
-    useGlobalAdminContext();
+  const {
+    isLoading,
+    // volunteers,
+    toggle,
+    searchVolunteersByParams,
+    getAllVolunteers,
+  } = useGlobalAdminContext();
   const [volunteersCopy, setVolunteersCopy] = useState([]);
   const [filters, setFilters] = useState({
     experience: '',
@@ -29,7 +34,11 @@ function VolunteerResults() {
   };
 
   useEffect(() => {
-    setVolunteersCopy(volunteers);
+    const allvolunteers = async () => {
+      const { volunteers } = await getAllVolunteers();
+      setVolunteersCopy(volunteers);
+    };
+    allvolunteers();
   }, []);
 
   const search = async (e) => {
@@ -59,8 +68,9 @@ function VolunteerResults() {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
-  const clear = () => {
+  const clear = async () => {
     setFilters({ experience: '', education: '', language: '' });
+    const { volunteers } = await getAllVolunteers();
     setVolunteersCopy(volunteers);
   };
 
@@ -74,7 +84,7 @@ function VolunteerResults() {
           <VolunteerSearch
             experience={filters.experience}
             handleChange={handleChange}
-            volunteers={volunteers}
+            // volunteers={volunteers}
             clear={clear}
             search={search}
           />
