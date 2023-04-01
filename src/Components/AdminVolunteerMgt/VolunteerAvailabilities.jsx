@@ -1,6 +1,6 @@
 import AvailTableRow from './AvailTableRow';
 
-function VolunteerAvailabilities({ availabilities, id }) {
+function VolunteerAvailabilities({ availabilities, id, name }) {
   const listOfConfirmAvails = availabilities?.filter((avail) => avail.avail);
 
   return (
@@ -27,6 +27,7 @@ function VolunteerAvailabilities({ availabilities, id }) {
               timeslot={avail.timeslot}
               index={index + 1}
               id={id}
+              name={name}
             />
           ))}
         </tbody>

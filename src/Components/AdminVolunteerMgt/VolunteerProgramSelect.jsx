@@ -17,7 +17,7 @@ function VolunteerProgramsSelect() {
   const [trigger, setTrigger] = useState(false);
   const [enrolmentsByDate, setEnrolmentsByDate] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { id, date, timeslot } = useParams();
+  const { id, date, timeslot, name } = useParams();
 
   useEffect(() => {
     const getApi = async () => {
@@ -85,8 +85,7 @@ function VolunteerProgramsSelect() {
     return (
       <div className="w-full h-auto md:h-screen mx-auto flex flex-col items-center mt-32 px-12">
         <h1 className="text-error font-bold text-lg w-[40%] text-center">
-          There are no programs on {date} with matching timeslots for{' '}
-          {profile?.volunteer?.name}
+          There are no programs on {date} with matching timeslots for {name}
         </h1>
         <Link to={`/admin/singlevolunteer/${id}`}>
           <button className="btn btn-primary mt-12 btn-sm">Back</button>
@@ -101,9 +100,7 @@ function VolunteerProgramsSelect() {
         <h1 className="text-2xl font-bold text-blue-700">Events on {date}</h1>
         <p className="text-gray-600 text-semibold text-lg">
           Select program for -{' '}
-          <span className="font-bold text-blue-500">
-            {profile?.volunteer?.name}
-          </span>
+          <span className="font-bold text-blue-500">{name}</span>
         </p>
       </div>
 

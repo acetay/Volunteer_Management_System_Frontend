@@ -319,7 +319,11 @@ function Volunteer() {
 
           {/* AVAILABILITY TABLE */}
           {availabilities && listOfConfirmAvails?.length !== 0 ? (
-            <VolunteerAvailabilities availabilities={availabilities} id={id} />
+            <VolunteerAvailabilities
+              availabilities={availabilities}
+              name={volunteer?.name}
+              id={id}
+            />
           ) : (
             <>
               <div className="flex justify-start items-center rounded-lg  mt-8">

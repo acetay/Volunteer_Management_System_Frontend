@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 
-function AvailTableRow({ date, timeslot, index, id }) {
+function AvailTableRow({ date, timeslot, index, id, name }) {
   const redirect = useNavigate();
   const navigateTo = () => {
-    redirect(`/admin/singlevolunteer/${id}/programselect/${date}/${timeslot}`);
+    redirect(
+      `/admin/singlevolunteer/${id}/programselect/${date}/${timeslot}/${name}`
+    );
   };
 
   return (

@@ -127,7 +127,7 @@ function App() {
               }
             />
             <Route
-              path="/admin/singlevolunteer/:id/programselect/:date/:timeslot"
+              path="/admin/singlevolunteer/:id/programselect/:date/:timeslot/:name"
               element={
                 <ProtectedRoute>
                   <VolunteerProgramsSelect />
