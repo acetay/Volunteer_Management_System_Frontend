@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { MdOutlineInterests } from 'react-icons/md';
 import { FaUserFriends } from 'react-icons/fa';
@@ -15,12 +15,13 @@ import VolunteerEvents from './VolunteerEvents';
 
 function Volunteer() {
   const redirect = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
   const {
     dispatch,
     getProfile,
     profile,
     setTempEditForm,
-    isLoading,
+    // isLoading,
     getVolunteerAvail,
     availabilities,
     volunteerEnrolments,
@@ -42,10 +43,10 @@ function Volunteer() {
 
   // Get volunteer's profile on component load
   useEffect(() => {
-    dispatch({ type: 'SET_LOADING' });
     const getVolunteerProfile = async () => {
       const volunteerProfile = await getProfile(id);
       dispatch({ type: 'GET_VOLUNTEER_PROFILE', profile: volunteerProfile });
+      setIsLoading(false);
     };
     getVolunteerProfile();
   }, []);
