@@ -1,20 +1,16 @@
 import { useState, useEffect } from 'react';
 import VolunteerItem from './VolunteerItem';
 import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
-import Spinner from '../../Assets/Sample_images/circle.gif';
+import Spinner from '../../Assets/Sample_images/spinner.gif';
 import VolunteerSearch from './VolunteerSearch';
 import VolunteerFilter from './VolunteerFilter';
 import Swal from 'sweetalert2';
 
 function VolunteerResults() {
-  const {
-    isLoading,
-    // volunteers,
-    toggle,
-    searchVolunteersByParams,
-    getAllVolunteers,
-  } = useGlobalAdminContext();
-  const [volunteersCopy, setVolunteersCopy] = useState([]);
+  const { toggle, searchVolunteersByParams, getAllVolunteers, dispatch } =
+    useGlobalAdminContext();
+  const [isLoading, setIsLoading] = useState(false);
+  const [volunteersCopy, setVolunteersCopy] = useState(null);
   const [filters, setFilters] = useState({
     experience: '',
     education: 'na',
@@ -34,9 +30,11 @@ function VolunteerResults() {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     const allvolunteers = async () => {
       const { volunteers } = await getAllVolunteers();
       setVolunteersCopy(volunteers);
+      setIsLoading(false);
     };
     allvolunteers();
   }, []);
@@ -74,50 +72,48 @@ function VolunteerResults() {
     setVolunteersCopy(volunteers);
   };
 
-  if (!isLoading) {
-    return (
-      <>
-        <div className="flex flex-col justify-center items-center py-2">
-          <h1 className="text-lg text-gray-400 font-semibold tracking-wider py-4">
-            Search for volunteers
-          </h1>
-          <VolunteerSearch
-            experience={filters.experience}
-            handleChange={handleChange}
-            // volunteers={volunteers}
-            clear={clear}
-            search={search}
-          />
-          <VolunteerFilter
-            language={filters.language}
-            education={filters.education}
-            handleChange={handleChange}
-          />
-        </div>
-        <div className="btn-group flex justify-center items-center pb-4 text-white">
-          {totalPages ? (
-            [...new Array(totalPages).fill(true)].map((page, index) => (
-              <button
-                onClick={() => changePage(index + 1)}
-                key={index}
-                className={`btn btn-md text-white ${
-                  index + 1 === page ? 'btn-primary' : 'btn-info'
-                }`}
-              >
-                {index + 1}
-              </button>
-            ))
-          ) : (
-            <></>
-          )}
+  return (
+    <>
+      <div className="flex flex-col justify-center items-center py-2">
+        <h1 className="text-lg text-gray-400 font-semibold tracking-wider py-4">
+          Search for volunteers
+        </h1>
+        <VolunteerSearch
+          experience={filters.experience}
+          handleChange={handleChange}
+          // volunteers={volunteers}
+          clear={clear}
+          search={search}
+        />
+        <VolunteerFilter
+          language={filters.language}
+          education={filters.education}
+          handleChange={handleChange}
+        />
+      </div>
+      <div className="btn-group flex justify-center items-center pb-4 text-white">
+        {totalPages ? (
+          [...new Array(totalPages).fill(true)].map((page, index) => (
+            <button
+              onClick={() => changePage(index + 1)}
+              key={index}
+              className={`btn btn-md text-white ${
+                index + 1 === page ? 'btn-primary' : 'btn-info'
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))
+        ) : (
+          <></>
+        )}
+      </div>
 
-          {/* <button className="btn btn-info btn-md text-white btn-active">
-            1
-          </button>
-          <button className="btn btn-md btn-info text-white">2</button>
-          <button className="btn btn-info btn-md text-white">3</button>
-          <button className="btn btn-info btn-md text-white">4</button> */}
+      {isLoading ? (
+        <div className="flex justify-center items-center">
+          <img className="h-[300px] w-[300px]" src={Spinner} alt="spinner" />
         </div>
+      ) : (
         <div className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
           {volunteersCopy ? (
             volunteersShownOnPage?.map((volunteer) => (
@@ -133,11 +129,9 @@ function VolunteerResults() {
             </div>
           )}
         </div>
-      </>
-    );
-  } else {
-    return <Spinner />;
-  }
+      )}
+    </>
+  );
 }
 
 export default VolunteerResults;

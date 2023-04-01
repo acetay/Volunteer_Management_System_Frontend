@@ -174,26 +174,25 @@ function AdminContextProvider({ children }) {
   };
 
   // Listener to set all Information when Admin panel loads
-  useEffect(() => {
-    if (userUid) {
-      if (adminUser?.role === 'ADMIN') {
-        dispatch({ type: 'SET_LOADING' });
-        const getAllData = async () => {
-          const volunteersSummary = await getAllVolunteers();
-          const programsSummary = await getAllPrograms();
-          dispatch({
-            type: 'GET_VOLUNTEERS_PROFILES',
-            payload: volunteersSummary,
-          });
-          dispatch({
-            type: 'GET_PROGRAMS_ENROLMENTS',
-            payload: programsSummary,
-          });
-        };
-        getAllData();
-      }
-    }
-  }, [adminUser?.role]);
+  // useEffect(() => {
+  //   if (userUid) {
+  //     if (adminUser?.role === 'ADMIN') {
+  //       const getAllData = async () => {
+  //         const volunteersSummary = await getAllVolunteers();
+  //         const programsSummary = await getAllPrograms();
+  //         dispatch({
+  //           type: 'GET_VOLUNTEERS_PROFILES',
+  //           payload: volunteersSummary,
+  //         });
+  //         dispatch({
+  //           type: 'GET_PROGRAMS_ENROLMENTS',
+  //           payload: programsSummary,
+  //         });
+  //       };
+  //       getAllData();
+  //     }
+  //   }
+  // }, [adminUser?.role]);
 
   const ctx = {
     volunteers: state.volunteers,

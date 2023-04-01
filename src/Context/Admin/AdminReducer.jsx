@@ -45,6 +45,7 @@ export const adminReducer = (state, action) => {
       return {
         ...state,
         programs: [...state.programs, action.program],
+        isLoading: false,
       };
     case 'EDIT_PROGRAM':
       const editedPrograms = state.programs.map((program) =>
@@ -53,6 +54,7 @@ export const adminReducer = (state, action) => {
       return {
         ...state,
         programs: [...editedPrograms],
+        isLoading: false,
       };
     case 'GET_VOLUNTEER_PROFILE':
       return {
@@ -73,11 +75,13 @@ export const adminReducer = (state, action) => {
         ...state,
         allAvailabilitiesOfVolunteers:
           action.allAvailabilitiesOfVolunteers || [],
+        isLoading: false,
       };
     case 'GET_VOLUNTEER_AVAIL':
       return {
         ...state,
         availabilities: action.availabilities,
+        isLoading: false,
       };
     case 'GET_VOLUNTEER_ENROLMENTS':
       return {
@@ -93,6 +97,11 @@ export const adminReducer = (state, action) => {
       return {
         ...state,
         isLoading: true,
+      };
+    case 'OFF_LOADING':
+      return {
+        ...state,
+        isLoading: false,
       };
     case 'CLEAR_ALL':
       return initialState;

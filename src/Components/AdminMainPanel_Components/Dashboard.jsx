@@ -1,34 +1,10 @@
-import { useState, useEffect } from 'react';
 import { BsPeopleFill } from 'react-icons/bs';
 import { TbHeartHandshake } from 'react-icons/tb';
 import { IoAccessibility } from 'react-icons/io5';
 import { GiFinishLine } from 'react-icons/gi';
 import PanelItem from './PanelItem';
 
-import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
-
-function Dashboard() {
-  const [state, setState] = useState({
-    volunteers: [],
-    programs: [],
-    enrolements: [],
-  });
-  const { getAllPrograms, getAllVolunteers } = useGlobalAdminContext();
-
-  useEffect(() => {
-    const apiCalls = async () => {
-      const { volunteers } = await getAllVolunteers();
-      const { programs, enrolments } = await getAllPrograms();
-      setState({
-        ...state,
-        volunteers: volunteers,
-        programs: programs,
-        enrolments: enrolments,
-      });
-    };
-    apiCalls();
-  }, []);
-
+function Dashboard({ state }) {
   return (
     <div className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
       <PanelItem
