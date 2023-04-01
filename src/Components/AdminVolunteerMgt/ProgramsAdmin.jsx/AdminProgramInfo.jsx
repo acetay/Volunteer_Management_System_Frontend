@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useGlobalAdminContext } from '../../../Context/Admin/AdminContext';
 import { useEffect } from 'react';
+import Spinner from '../../../Assets/Sample_images/spinner.gif';
 
 import AdminProgramVolunteerTable2 from './AdminProgramVolunteerTable2';
 import AdminProgramVolunteerTable1 from './AdminProgramVolunteerTable1';
@@ -9,6 +10,7 @@ import AdminProgramVolunteerTable1 from './AdminProgramVolunteerTable1';
 function AdminProgramInfo() {
   const { id } = useParams();
   const redirect = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
   const [volunteersEnrolled, setVolunteersEnrolled] = useState([]);
   const [enrolments, setEnrolments] = useState([]);
 
@@ -54,6 +56,7 @@ function AdminProgramInfo() {
       const { enrolments } = await getAllPrograms();
       setVolunteersEnrolled(volunteers);
       setEnrolments(enrolments);
+      setIsLoading(false);
     };
     getVolunteers();
   }, []);
@@ -73,6 +76,20 @@ function AdminProgramInfo() {
     setTempEditForm(enrolment.program);
     redirect(`/admin/programs/edit/${id}`);
   };
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-auto md:h-screen mx-auto lg:w-10/12 px-16">
+        <div className="flex justify-center items-center mt-32">
+          <img
+            className="mix-blend-multiply bg-transparent h-[300px] w-[300px]"
+            src={Spinner}
+            alt="Loading"
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="h-auto">
