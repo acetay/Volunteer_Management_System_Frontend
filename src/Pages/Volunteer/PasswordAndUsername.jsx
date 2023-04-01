@@ -61,7 +61,7 @@ function PasswordAndUsername() {
       );
       localStorage.setItem('uid', JSON.stringify(response.user.uid));
       setUid(response.user.uid);
-      // sendWelcomeEmail();
+      // sendWelcomeEmail(); 
     } catch (err) {
       console.log(err.message);
       Swal.fire({

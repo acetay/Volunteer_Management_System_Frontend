@@ -30,7 +30,9 @@ function VolunteerEdit() {
     <>
       <div className="flex flex-col h-auto md:h-[75vh] justify-center items-center">
         <div>
-          <h1 className="text-3xl font-bold">Profile Edit for</h1>
+          <h1 className="text-3xl font-bold">
+            Profile Edit for {form?.volunteer.name}
+          </h1>
           <div className="flex flex-col mt-4">
             {/* 1st Row Inputs */}
             <div className="flex space-x-8">
