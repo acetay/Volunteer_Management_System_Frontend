@@ -13,7 +13,6 @@ function AdminProgramInfo() {
   const [enrolments, setEnrolments] = useState([]);
 
   const {
-    // enrolments,
     setTempEditForm,
     getAllVolunteersInEnrolment,
     allAvailabilitiesOfVolunteers,

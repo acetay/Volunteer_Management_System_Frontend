@@ -17,7 +17,6 @@ const AdminContext = createContext();
 function AdminContextProvider({ children }) {
   // const [state, dispatch] = useReducer(adminReducer, initialState);
   const [state, dispatch] = useReducer(adminReducer, defaultState);
-  const [toggle, setToggle] = useState(false);
   const [tempEditForm, setTempEditForm] = useState({});
   const { userUid } = useGlobalVolunteerContext();
 
@@ -211,8 +210,6 @@ function AdminContextProvider({ children }) {
     tempEditForm,
     setTempEditForm,
     editProfile,
-    toggle,
-    setToggle,
     getVolunteerAvail,
     availabilities: state.availabilities,
     enrolVolunteer,

@@ -3,7 +3,7 @@ import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
 import { useParams, useNavigate } from 'react-router-dom';
 
 function VolunteerEdit() {
-  const { tempEditForm, editProfile, toggle, setToggle, dispatch } =
+  const { tempEditForm, editProfile, toggle, dispatch } =
     useGlobalAdminContext();
   const [form, setForm] = useState(tempEditForm);
   const { id } = useParams();
@@ -22,7 +22,6 @@ function VolunteerEdit() {
     });
 
     dispatch({ type: 'EDIT_VOLUNTEER_PROFILE', profile: profile });
-    setToggle(!toggle);
     redirect(`/admin/singlevolunteer/${id}`);
   };
 

@@ -7,10 +7,11 @@ import VolunteerFilter from './VolunteerFilter';
 import Swal from 'sweetalert2';
 
 function VolunteerResults() {
-  const { toggle, searchVolunteersByParams, getAllVolunteers, dispatch } =
+  const { toggle, searchVolunteersByParams, getAllVolunteers } =
     useGlobalAdminContext();
   const [isLoading, setIsLoading] = useState(false);
   const [volunteersCopy, setVolunteersCopy] = useState(null);
+  const [profiles, setProfiles] = useState([]);
   const [filters, setFilters] = useState({
     experience: '',
     education: 'na',
@@ -32,8 +33,9 @@ function VolunteerResults() {
   useEffect(() => {
     setIsLoading(true);
     const allvolunteers = async () => {
-      const { volunteers } = await getAllVolunteers();
+      const { volunteers, profiles } = await getAllVolunteers();
       setVolunteersCopy(volunteers);
+      setProfiles(profiles);
       setIsLoading(false);
     };
     allvolunteers();
@@ -121,6 +123,7 @@ function VolunteerResults() {
                 key={volunteer.id}
                 volunteer={volunteer}
                 toggle={toggle}
+                profiles={profiles}
               />
             ))
           ) : (

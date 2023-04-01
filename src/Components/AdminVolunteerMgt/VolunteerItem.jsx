@@ -1,14 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
 import { useState, useEffect } from 'react';
 
-function VolunteerItem({ volunteer, toggle }) {
-  const { profiles } = useGlobalAdminContext();
-
+function VolunteerItem({ volunteer, profiles }) {
   const [profileComplete, setProfileComplete] = useState(null);
-  const volunteerProfile = profiles.find(
-    (profile) => profile.volunteer.id === volunteer.id
-  );
+
   useEffect(() => {
     let findProfile = profiles.find(
       (profile) => profile.volunteer.id === volunteer.id
@@ -20,7 +15,7 @@ function VolunteerItem({ volunteer, toggle }) {
         : false
       : null;
     setProfileComplete(isProfileComplete);
-  }, [toggle]);
+  }, []);
 
   return (
     <div className="card shadow-lg compact side bg-slate-100">
