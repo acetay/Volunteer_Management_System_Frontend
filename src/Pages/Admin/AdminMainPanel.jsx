@@ -37,6 +37,14 @@ function AdminMainPanel() {
     apiCalls();
   }, []);
 
+  const dates = state?.enrolments.map((enrol) =>
+    enrol.date.split('-').reverse().join('-')
+  );
+
+  const today = new Date();
+
+  const pastDue = dates?.filter((date) => today >= new Date(date));
+
   if (!state) {
     return (
       <div className="flex flex-col h-auto md:h-screen p-8 justify-start items-center">
@@ -51,9 +59,13 @@ function AdminMainPanel() {
       </h1> */}
       <div className="flex justify-between w-[75vw] p-2">
         <button className="btn text-white btn-sm">Override</button>
-        <h1 className="font-bold text-lg text-blue-700">VMS Control Panel</h1>
+        <h1 className="font-bold text-lg  text-blue-700">VMS Control Panel</h1>
       </div>
-      <Dashboard state={state} completedProfiles={completedProfiles} />
+      <Dashboard
+        state={state}
+        completedProfiles={completedProfiles}
+        completed={pastDue.length}
+      />
       <BannerContainer />
       <ChartsContainer />
     </div>
