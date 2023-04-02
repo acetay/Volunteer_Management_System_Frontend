@@ -26,17 +26,22 @@ function AdminProgramInfo() {
     (enrol) => Number(enrol.program.id) === Number(id)
   );
 
+  const newDate = enrolment?.date.split('-').reverse().join('-');
+  const enrolmentDate = new Date(newDate);
+  const today = new Date();
+  const closed = today >= enrolmentDate;
+
   const availsWithMatchDate = allAvailabilitiesOfVolunteers.filter(
     (avail) => avail.date === enrolment?.date
   );
 
-  console.log(availsWithMatchDate);
+  //   console.log(availsWithMatchDate);
 
   const availVolunteers = availsWithMatchDate.map((avail) => avail.volunteer);
 
-  console.log(availVolunteers);
+  //   console.log(availVolunteers);
 
-  console.log(volunteersEnrolled);
+  //   console.log(volunteersEnrolled);
 
   function getDifference(array1, array2) {
     return array1.filter((object1) => {
@@ -129,8 +134,11 @@ function AdminProgramInfo() {
         {/* COLUMN 2 */}
         <div className="w-[50%]">
           <h1 className="text-3xl font-bold">Program Details</h1>
-          <div className="w-[100%] p-4 shadow-xl rounded-lg">
+          <div className="w-[100%] p-4 shadow-xl rounded-lg flex items-baseline space-x-4">
             <h3 className="text-lg">{enrolment?.program.description}</h3>
+            {closed && (
+              <button className="btn btn-error text-white btn-sm">Ended</button>
+            )}
           </div>
           <div className="w-full flex flex-col md:flex-row h-auto rounded-lg shadow-md bg-base-100 stats">
             <div className="stat">
@@ -142,19 +150,31 @@ function AdminProgramInfo() {
             </div>
             <div className="stat">
               <div className="stat-title text-md">Date</div>
-              <div className="text-sm stat-value">
+              <div
+                className={`text-sm stat-value ${
+                  closed && 'text-red-600 line-through font-bold'
+                }`}
+              >
                 {enrolment?.program.date}
               </div>
             </div>
             <div className="stat">
               <div className="stat-title text-md">Time</div>
-              <div className="text-sm stat-value">
+              <div
+                className={`text-sm stat-value ${
+                  closed && 'text-red-600 line-through font-bold'
+                }`}
+              >
                 <p> {enrolment?.program.timeOfProgram}</p>
               </div>
             </div>
             <div className="stat">
               <div className="stat-title text-md">Volunteers</div>
-              <div className="text-sm stat-value">
+              <div
+                className={`text-sm stat-value ${
+                  closed && 'text-red-600 line-through'
+                }`}
+              >
                 {enrolment?.program.volunteersRequired}
               </div>
             </div>
@@ -182,14 +202,20 @@ function AdminProgramInfo() {
               </button>
             </div>
           </div>
+          {!closed ? (
+            <AdminProgramVolunteerTable2
+              volunteersEnrolled={
+                volunteersEnrolled?.length > 0 ? unique : availVolunteers
+              }
+              title={'Propective Volunteers with matching date'}
+              fontcolor={'text-blue-500'}
+            />
+          ) : (
+            <div className="flex justify-center items-center text-error p-12">
+              <h3>No volunteers available, program has already ended.</h3>
+            </div>
+          )}
 
-          <AdminProgramVolunteerTable2
-            volunteersEnrolled={
-              volunteersEnrolled?.length > 0 ? unique : availVolunteers
-            }
-            title={'Propective Volunteers with matching date'}
-            fontcolor={'text-blue-500'}
-          />
           {/* )} */}
         </div>
       </div>
