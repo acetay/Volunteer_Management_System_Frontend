@@ -1,21 +1,25 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
 
-function VolunteerItem({ volunteer, profiles }) {
-  const [profileComplete, setProfileComplete] = useState(null);
+function VolunteerItem({ volunteer }) {
+  const { getProfile } = useGlobalAdminContext();
+  const [volunteerProfile, setVolunteerProfile] = useState({});
 
   useEffect(() => {
-    let findProfile = profiles.find(
-      (profile) => profile.volunteer.id === volunteer.id
-    );
-    let isProfileComplete = findProfile
-      ? findProfile.interests !== '' &&
-        findProfile.professionalExperience !== ''
-        ? true
-        : false
-      : null;
-    setProfileComplete(isProfileComplete);
+    const getApi = async () => {
+      const prof = await getProfile(volunteer.id);
+      setVolunteerProfile(prof);
+    };
+    getApi();
   }, []);
+
+  let isProfileComplete = volunteerProfile
+    ? volunteerProfile?.interests !== '' &&
+      volunteerProfile?.professionalExperience !== ''
+      ? true
+      : false
+    : null;
 
   return (
     <div className="card shadow-lg compact side bg-slate-100">
@@ -52,7 +56,7 @@ function VolunteerItem({ volunteer, profiles }) {
           >
             View more
           </Link>
-          {profileComplete ? (
+          {isProfileComplete ? (
             <p className="bg-blue-300 text-white text-center p-1 text-xs rounded-lg">
               Profile completed
             </p>

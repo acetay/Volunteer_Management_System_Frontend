@@ -122,8 +122,10 @@ function VolunteerResults() {
               <VolunteerItem
                 key={volunteer.id}
                 volunteer={volunteer}
-                toggle={toggle}
-                profiles={profiles}
+
+                // profile={profiles?.find(
+                //   (prof) => prof.volunteer.id === volunteer.id
+                // )}
               />
             ))
           ) : (
