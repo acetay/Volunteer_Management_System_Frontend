@@ -19,6 +19,7 @@ function AdminContextProvider({ children }) {
   const [state, dispatch] = useReducer(adminReducer, defaultState);
   const [tempEditForm, setTempEditForm] = useState({});
   const { userUid } = useGlobalVolunteerContext();
+  // console.log(userUid);
 
   // Listener to persist data into local storage wheneven there is changes in state
   useEffect(() => {

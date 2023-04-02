@@ -16,7 +16,8 @@ function VolunteerItem({ volunteer }) {
 
   let isProfileComplete = volunteerProfile
     ? volunteerProfile?.interests !== '' &&
-      volunteerProfile?.professionalExperience !== ''
+      volunteerProfile?.professionalExperience !== '' &&
+      volunteerProfile?.hobbies !== ''
       ? true
       : false
     : null;

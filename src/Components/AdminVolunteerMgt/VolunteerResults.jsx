@@ -119,14 +119,7 @@ function VolunteerResults() {
         <div className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
           {volunteersCopy ? (
             volunteersShownOnPage?.map((volunteer) => (
-              <VolunteerItem
-                key={volunteer.id}
-                volunteer={volunteer}
-
-                // profile={profiles?.find(
-                //   (prof) => prof.volunteer.id === volunteer.id
-                // )}
-              />
+              <VolunteerItem key={volunteer.id} volunteer={volunteer} />
             ))
           ) : (
             <div className="text-error col-span-4">

@@ -8,16 +8,27 @@ import ChartsContainer from '../../Components/AdminMainPanel_Components/ChartsCo
 
 function AdminMainPanel() {
   const [state, setState] = useState(null);
+  const [completedProfiles, setCompletedProfiles] = useState(0);
   const { getAllPrograms, getAllVolunteers } = useGlobalAdminContext();
 
   useEffect(() => {
     const apiCalls = async () => {
-      const { volunteers } = await getAllVolunteers();
+      const { volunteers, profiles } = await getAllVolunteers();
       const { programs, enrolments } = await getAllPrograms();
+      if (profiles) {
+        let checkCompletion = profiles.filter(
+          (profile) =>
+            profile.interests === '' ||
+            profile.hobbies === '' ||
+            profile.professionalExperience === ''
+        );
+        setCompletedProfiles(() => checkCompletion.length);
+      }
       setState(
         {
           ...state,
           volunteers: volunteers,
+          profiles: profiles,
           programs: programs,
           enrolments: enrolments,
         } || {}
@@ -38,7 +49,7 @@ function AdminMainPanel() {
       <h1 className="text-4xl text-gray-600 tracking-widest font-bold mb-5 italic">
         Welcome back!
       </h1>
-      <Dashboard state={state} />
+      <Dashboard state={state} completedProfiles={completedProfiles} />
       <BannerContainer />
       <ChartsContainer />
     </div>

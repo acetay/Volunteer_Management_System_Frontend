@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-function PanelItem({ title, stats, color, text, icon, link }) {
+function PanelItem({ title, stats, color, text, icon, link, red = false }) {
   return (
     <>
       <Link to={link}>
@@ -15,7 +15,13 @@ function PanelItem({ title, stats, color, text, icon, link }) {
               <p className={`text-6xl font-bold text-blue-500`}>{stats}</p>
             </div>
             <div>
-              <p className="font-bold text-sm text-slate-500">{text}</p>
+              <p
+                className={`font-bold text-sm ${
+                  red ? 'text-red-300' : 'text-slate-500'
+                }`}
+              >
+                {text}
+              </p>
             </div>
           </div>
           <div className="flex flex-col justify-center items-center">
