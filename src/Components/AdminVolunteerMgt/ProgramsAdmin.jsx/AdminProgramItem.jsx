@@ -37,7 +37,11 @@ function AdminProgramItem({ enrolment }) {
         <p>{enrolment?.program.description}</p>
         <div className="card-actions justify-end">
           <Link to={`/admin/programs/${enrolment?.program.id}`}>
-            <button className="btn btn-primary">Admin</button>
+            <button
+              className={`btn ${closed ? ' text-white btn-sm' : 'btn-primary'}`}
+            >
+              {closed ? 'info' : 'Admin'}
+            </button>
           </Link>
         </div>
       </div>
