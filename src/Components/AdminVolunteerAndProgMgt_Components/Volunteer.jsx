@@ -7,10 +7,7 @@ import { MdOutlineLanguage } from 'react-icons/md';
 import { IoBagHandleSharp } from 'react-icons/io5';
 import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
 import { useGlobalVolunteerContext } from '../../Context/Volunteer/VolunteerContext';
-import {
-  getProfile,
-  getVolunteerAvail,
-} from '../../Context/Admin/AdminApiActions';
+import { getVolunteerAvail } from '../../Context/Admin/AdminApiActions';
 
 import Spinner from '../../Assets/Sample_images/spinner.gif';
 
@@ -22,7 +19,7 @@ function Volunteer() {
   const [isLoading, setIsLoading] = useState(true);
   const {
     dispatch,
-    // getProfile,
+    getProfile,
     profile,
     setTempEditForm,
     // getVolunteerAvail,
@@ -42,7 +39,6 @@ function Volunteer() {
     profilePicture !== '';
 
   const listOfConfirmAvails = availabilities?.filter((avail) => avail.avail);
-  // console.log(listOfConfirmAvails);
 
   // Get volunteer's profile on component load
   useEffect(() => {
