@@ -3,15 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalAdminContext } from '../../../Context/Admin/AdminContext';
 import Swal from 'sweetalert2';
 
-import {
-  getAllPrograms,
-  addProgram,
-} from '../../../Context/Admin/AdminApiActions';
+// import {
+//   getAllPrograms,
+//   addProgram,
+// } from '../../../Context/Admin/AdminApiActions';
 
 function AdminProgramStarter() {
   const redirect = useNavigate();
   const [form, setForm] = useState({});
-  const { dispatch } = useGlobalAdminContext();
+  const { dispatch, getAllPrograms, addProgram } = useGlobalAdminContext();
   const changeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };

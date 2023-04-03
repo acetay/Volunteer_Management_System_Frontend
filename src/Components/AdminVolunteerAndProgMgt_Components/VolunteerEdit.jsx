@@ -1,13 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
 import { useParams, useNavigate } from 'react-router-dom';
-import { editProfile } from '../../Context/Admin/AdminApiActions';
 
 function VolunteerEdit() {
-  const { tempEditForm } = useGlobalAdminContext();
-  const [form, setForm] = useState(tempEditForm);
+  const { editProfile, getProfile } = useGlobalAdminContext();
+  const [form, setForm] = useState({});
   const { id } = useParams();
   const redirect = useNavigate();
+
+  useEffect(() => {
+    const callProfileApi = async () => {
+      const profileInfo = await getProfile(id);
+      setForm(profileInfo);
+    };
+    callProfileApi();
+  }, []);
 
   const changeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -29,7 +36,7 @@ function VolunteerEdit() {
       <div className="flex flex-col h-auto md:h-[75vh] justify-center items-center">
         <div>
           <h1 className="text-3xl font-bold">
-            Profile Edit for {form?.volunteer.name}
+            Profile Edit for {form?.volunteer?.name}
           </h1>
           <div className="flex flex-col mt-4">
             {/* 1st Row Inputs */}

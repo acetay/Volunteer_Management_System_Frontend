@@ -21,7 +21,6 @@ function Volunteer() {
     dispatch,
     getProfile,
     profile,
-    setTempEditForm,
     getVolunteerAvail,
     availabilities,
     volunteerEnrolments,
@@ -51,7 +50,6 @@ function Volunteer() {
   }, []);
 
   const toEditPage = () => {
-    setTempEditForm(profile);
     redirect(`/admin/singlevolunteer/edit/${id}`);
   };
 

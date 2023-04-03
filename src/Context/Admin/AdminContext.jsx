@@ -122,6 +122,37 @@ function AdminContextProvider({ children }) {
     }
   };
 
+  const addProgram = async (body) => {
+    try {
+      const response = await api.post(`/admin/newprogram`, body);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const editProgram = async (id, body) => {
+    try {
+      console.log(body);
+      const response = await api.put(`/admin/programs/${id}`, body);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const editProfile = async (volunteerId, volunteerProfile) => {
+    try {
+      const profile = await api.put(
+        `/admin/volunteers/profiles/${volunteerId}/edit`,
+        volunteerProfile
+      );
+      return profile.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const ctx = {
     profile: state.profile,
     isLoading: state.isLoading,
@@ -142,6 +173,9 @@ function AdminContextProvider({ children }) {
     getVolunteerAvail,
     enrolVolunteer,
     editVolunteerAvail,
+    editProgram,
+    editProfile,
+    addProgram,
   };
 
   return <AdminContext.Provider value={ctx}>{children}</AdminContext.Provider>;

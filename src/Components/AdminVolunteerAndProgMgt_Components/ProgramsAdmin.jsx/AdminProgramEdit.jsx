@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useGlobalAdminContext } from '../../../Context/Admin/AdminContext';
-import {
-  editProgram,
-  getAllPrograms,
-} from '../../../Context/Admin/AdminApiActions';
+// import {
+//   editProgram,
+//   getAllPrograms,
+// } from '../../../Context/Admin/AdminApiActions';
 
 function AdminProgramEdit() {
   const { id } = useParams();
-  const { tempEditForm } = useGlobalAdminContext();
+  const { tempEditForm, editProgram, getAllPrograms } = useGlobalAdminContext();
   const redirect = useNavigate();
   const [form, setForm] = useState({});
   const changeHandler = (e) => {
