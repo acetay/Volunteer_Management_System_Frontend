@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import AdminProgramItem from './AdminProgramItem';
 import { useGlobalAdminContext } from '../../../Context/Admin/AdminContext';
 import Spinner from '../../../Assets/Sample_images/spinner.gif';
-import { getAllPrograms } from '../../../Context/Admin/AdminApiActions';
+// import { getAllPrograms } from '../../../Context/Admin/AdminApiActions';
 
 function AdminProgramsListing() {
   const [enrolments, setEnrolments] = useState([]);
   const [copyEnrolments, setCopyEnrolments] = useState(enrolments);
-  const { dispatch, isLoading } = useGlobalAdminContext();
+  const { dispatch, isLoading, getAllPrograms } = useGlobalAdminContext();
 
   useEffect(() => {
     const getApi = async () => {

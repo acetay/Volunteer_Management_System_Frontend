@@ -53,6 +53,28 @@ function AdminContextProvider({ children }) {
     return { programs: programs.data, enrolments: enrolments.data };
   };
 
+  const getAllVolunteersInEnrolment = async (id) => {
+    try {
+      const enroledVolunteers = await api.get(
+        `/admin/enrolments/volunteers?program_id=${id}`
+      );
+      return enroledVolunteers.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getAllAvailabilities = async () => {
+    try {
+      const getAllAvailabilities = await api.get(
+        '/volunteers/availability/all'
+      );
+      return getAllAvailabilities.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const ctx = {
     profile: state.profile,
     isLoading: state.isLoading,
@@ -67,6 +89,8 @@ function AdminContextProvider({ children }) {
     availabilities: state.availabilities,
     getAllVolunteers,
     getAllPrograms,
+    getAllVolunteersInEnrolment,
+    getAllAvailabilities,
   };
 
   return <AdminContext.Provider value={ctx}>{children}</AdminContext.Provider>;
