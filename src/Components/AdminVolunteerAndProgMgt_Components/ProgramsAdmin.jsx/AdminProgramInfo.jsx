@@ -7,6 +7,12 @@ import Spinner from '../../../Assets/Sample_images/spinner.gif';
 import AdminProgramVolunteerTable2 from './AdminProgramVolunteerTable2';
 import AdminProgramVolunteerTable1 from './AdminProgramVolunteerTable1';
 
+import {
+  getAllVolunteersInEnrolment,
+  getAllAvailabilities,
+  getAllPrograms,
+} from '../../../Context/Admin/AdminApiActions';
+
 function AdminProgramInfo() {
   const { id } = useParams();
   const redirect = useNavigate();
@@ -16,10 +22,10 @@ function AdminProgramInfo() {
 
   const {
     setTempEditForm,
-    getAllVolunteersInEnrolment,
+    // getAllVolunteersInEnrolment,
     allAvailabilitiesOfVolunteers,
-    getAllAvailabilities,
-    getAllPrograms,
+    // getAllAvailabilities,
+    // getAllPrograms,
     dispatch,
   } = useGlobalAdminContext();
   const enrolment = enrolments.find(

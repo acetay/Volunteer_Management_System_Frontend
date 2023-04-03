@@ -9,6 +9,7 @@ function AdminProgramItem({ enrolment }) {
     <div className="card card-compact w-96 bg-base-100 shadow-xl flex-wrap">
       <figure>
         <img
+          className="min-h-[290px]"
           src={
             enrolment?.program.photo ||
             'https://static.thehoneycombers.com/wp-content/uploads/sites/2/2017/11/Salvation-Army.jpg'

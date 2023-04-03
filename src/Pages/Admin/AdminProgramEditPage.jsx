@@ -1,4 +1,4 @@
-import AdminProgramEdit from '../../Components/AdminVolunteerMgt/ProgramsAdmin.jsx/AdminProgramEdit';
+import AdminProgramEdit from '../../Components/AdminVolunteerAndProgMgt_Components/ProgramsAdmin.jsx/AdminProgramEdit';
 
 function AdminProgramEditPage() {
   return (

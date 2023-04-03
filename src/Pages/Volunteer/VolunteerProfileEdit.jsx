@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useGlobalVolunteerContext } from '../../Context/VolunteerContext';
+import { useGlobalVolunteerContext } from '../../Context/Volunteer/VolunteerContext';
 import Swal from 'sweetalert2';
 
 function VolunteerProfileEdit() {

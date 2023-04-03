@@ -5,10 +5,10 @@ import Spinner from '../../Assets/Sample_images/spinner.gif';
 import VolunteerSearch from './VolunteerSearch';
 import VolunteerFilter from './VolunteerFilter';
 import Swal from 'sweetalert2';
+import { searchVolunteersByParams } from '../../Context/Admin/AdminApiActions';
 
 function VolunteerResults() {
-  const { toggle, searchVolunteersByParams, getAllVolunteers } =
-    useGlobalAdminContext();
+  const { getAllVolunteers } = useGlobalAdminContext();
   const [isLoading, setIsLoading] = useState(false);
   const [volunteersCopy, setVolunteersCopy] = useState(null);
   const [profiles, setProfiles] = useState([]);
@@ -83,7 +83,6 @@ function VolunteerResults() {
         <VolunteerSearch
           experience={filters.experience}
           handleChange={handleChange}
-          // volunteers={volunteers}
           clear={clear}
           search={search}
         />

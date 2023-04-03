@@ -4,19 +4,19 @@ import { useState, useEffect } from 'react';
 import Spinner from '../../Assets/Sample_images/spinner.gif';
 import Swal from 'sweetalert2';
 
+import {
+  enrolVolunteer,
+  editVolunteerAvail,
+  getAllPrograms,
+} from '../../Context/Admin/AdminApiActions';
+
 function VolunteerProgramsSelect() {
   const redirect = useNavigate();
-  const {
-    // enrolments,
-    profile,
-    enrolVolunteer,
-    editVolunteerAvail,
-    getAllPrograms,
-  } = useGlobalAdminContext();
+  const { profile } = useGlobalAdminContext();
   const [enrolments, setEnrolments] = useState(null);
   const [trigger, setTrigger] = useState(false);
   const [enrolmentsByDate, setEnrolmentsByDate] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+
   const { id, date, timeslot, name } = useParams();
 
   useEffect(() => {
@@ -24,7 +24,6 @@ function VolunteerProgramsSelect() {
       const { enrolments } = await getAllPrograms();
       setEnrolments(enrolments);
       setTrigger(true);
-      setIsLoading(false);
     };
     getApi();
   }, []);
@@ -83,16 +82,16 @@ function VolunteerProgramsSelect() {
 
   if (!enrolmentsByDate) {
     return (
-      <div className="flex justify-center items-center">
+      <div className="flex min-h-[70vh] justify-center items-center">
         <img className="h-[300px] w-[300px]" src={Spinner} alt="spinner" />
       </div>
     );
   }
 
   return (
-    <>
+    <div className="w-full h-auto md:h-screen mx-auto lg:w-10/12 px-16">
       {enrolmentsByDate.length === 0 ? (
-        <div className="w-full h-auto md:h-screen mx-auto flex flex-col items-center mt-32 px-12">
+        <div className="w-full min-h-[45vh] h-auto md:h-[45vh] mx-auto flex flex-col items-center mt-32 px-12">
           <h1 className="text-error font-bold text-lg w-[40%] text-center">
             There are no programs on {date} with matching timeslots for {name}
           </h1>
@@ -101,7 +100,7 @@ function VolunteerProgramsSelect() {
           </Link>
         </div>
       ) : (
-        <div className="w-full h-auto md:h-screen mx-auto flex flex-col items-center mt-10 px-12">
+        <div className="w-full h-auto md:h-auto mx-auto flex flex-col items-center mt-10 px-12">
           <div className="flex flex-col justify-center items-center p-4">
             <h1 className="text-2xl font-bold text-blue-700">
               Events on {date}
@@ -184,7 +183,7 @@ function VolunteerProgramsSelect() {
           </Link>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

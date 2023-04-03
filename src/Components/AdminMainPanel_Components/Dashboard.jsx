@@ -20,7 +20,7 @@ function Dashboard({ state, completedProfiles, completed }) {
         stats={completedProfiles}
         color={'bg-slate-100'}
         red={true}
-        text={'Incomplete profiles'}
+        text={'Pending profiles'}
         icon={<IoAccessibility size={80} color={'skyblue'} />}
       />
       <PanelItem

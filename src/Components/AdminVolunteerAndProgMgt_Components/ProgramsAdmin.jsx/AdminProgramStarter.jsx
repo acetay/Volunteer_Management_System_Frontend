@@ -1,39 +1,37 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalAdminContext } from '../../../Context/Admin/AdminContext';
+import Swal from 'sweetalert2';
 
-function AdminProgramEdit() {
-  const { id } = useParams();
-  const { editProgram, dispatch, tempEditForm, getAllPrograms } =
-    useGlobalAdminContext();
+import {
+  getAllPrograms,
+  addProgram,
+} from '../../../Context/Admin/AdminApiActions';
+
+function AdminProgramStarter() {
   const redirect = useNavigate();
   const [form, setForm] = useState({});
+  const { dispatch } = useGlobalAdminContext();
   const changeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const editProgramInfo = async () => {
-    const editedProgram = await editProgram(id, {
-      name: form.name,
-      date: form.date,
-      description: form.description,
-      photo: form.photo,
-      timeOfProgram: form.timeOfProgram,
-      volunteersRequired: form.volunteersRequired,
-      noOfVolunteers: 0,
+  const addNewProgram = async () => {
+    const program = await addProgram({ ...form, noOfVolunteers: 0 });
+    const getProgAndEnrols = await getAllPrograms();
+    dispatch({ type: 'ADD_NEW_PROGRAM', program: program });
+    dispatch({
+      type: 'GET_PROGRAMS_ENROLMENTS',
+      payload: getProgAndEnrols,
     });
-    dispatch({ type: 'EDIT_PROGRAM', id: id, program: editedProgram });
-    const programs = await getAllPrograms();
-    dispatch({ type: 'GET_PROGRAMS_ENROLMENTS', payload: programs });
-    redirect(`/admin/programs/${id}`);
+    setForm(() => {});
+    Swal.fire({
+      title: 'Successful Launch',
+      text: 'Program created!',
+      icon: 'success',
+    });
+    redirect('/admin/programs');
   };
-
-  useEffect(() => {
-    setForm({
-      ...tempEditForm,
-      date: tempEditForm?.date.split('-').reverse().join('-'),
-    });
-  }, []);
 
   return (
     <div>
@@ -100,7 +98,6 @@ function AdminProgramEdit() {
             </label>
             <select
               name="timeOfProgram"
-              value={form.timeOfProgram}
               onChange={changeHandler}
               className="select select-info w-full max-w-md w-[18vw] select-md text-md font-normal"
             >
@@ -139,7 +136,6 @@ function AdminProgramEdit() {
             <textarea
               name="description"
               id="description"
-              value={form.description}
               onChange={changeHandler}
               className="textarea textarea-info w-full textarea-md"
               placeholder="Program description."
@@ -147,15 +143,12 @@ function AdminProgramEdit() {
           </div>
         </div>
         <div className="flex justify-center items-center p-4 space-x-2">
-          <Link to={`/admin/programs/${id}`}>
+          <Link to="/admin/main">
             <button className="btn btn-info text-white btn-sm">Back</button>
           </Link>
 
-          <button
-            onClick={editProgramInfo}
-            className="btn btn-secondary btn-sm"
-          >
-            Change
+          <button onClick={addNewProgram} className="btn btn-secondary btn-sm">
+            Launch
           </button>
         </div>
       </div>
@@ -163,4 +156,4 @@ function AdminProgramEdit() {
   );
 }
 
-export default AdminProgramEdit;
+export default AdminProgramStarter;

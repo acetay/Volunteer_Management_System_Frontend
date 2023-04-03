@@ -1,4 +1,4 @@
-import AdminProgramsListing from '../../Components/AdminVolunteerMgt/ProgramsAdmin.jsx/AdminProgramsListing';
+import AdminProgramsListing from '../../Components/AdminVolunteerAndProgMgt_Components/ProgramsAdmin.jsx/AdminProgramsListing';
 import { BiAddToQueue } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 

@@ -2,7 +2,7 @@ import signupPhoto from '../../Assets/Sample_images/family.jpg';
 import { useState, useEffect } from 'react';
 import { BsFillSkipBackwardBtnFill } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
-import { useGlobalVolunteerContext } from '../../Context/VolunteerContext';
+import { useGlobalVolunteerContext } from '../../Context/Volunteer/VolunteerContext';
 import CubeLoader from '../../Assets/Sample_images/CubeLoader.gif';
 import Swal from 'sweetalert2';
 
@@ -61,7 +61,7 @@ function PasswordAndUsername() {
       );
       localStorage.setItem('uid', JSON.stringify(response.user.uid));
       setUid(response.user.uid);
-      // sendWelcomeEmail(); 
+      // sendWelcomeEmail();
     } catch (err) {
       console.log(err.message);
       Swal.fire({

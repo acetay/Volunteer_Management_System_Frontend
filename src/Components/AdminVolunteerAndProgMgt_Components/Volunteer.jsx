@@ -6,7 +6,11 @@ import { MdInterests } from 'react-icons/md';
 import { MdOutlineLanguage } from 'react-icons/md';
 import { IoBagHandleSharp } from 'react-icons/io5';
 import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
-import { useGlobalVolunteerContext } from '../../Context/VolunteerContext';
+import { useGlobalVolunteerContext } from '../../Context/Volunteer/VolunteerContext';
+import {
+  getProfile,
+  getVolunteerAvail,
+} from '../../Context/Admin/AdminApiActions';
 
 import Spinner from '../../Assets/Sample_images/spinner.gif';
 
@@ -18,11 +22,10 @@ function Volunteer() {
   const [isLoading, setIsLoading] = useState(true);
   const {
     dispatch,
-    getProfile,
+    // getProfile,
     profile,
     setTempEditForm,
-    // isLoading,
-    getVolunteerAvail,
+    // getVolunteerAvail,
     availabilities,
     volunteerEnrolments,
   } = useGlobalAdminContext();

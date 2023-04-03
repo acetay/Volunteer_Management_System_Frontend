@@ -1,8 +1,6 @@
 import { FaThumbsUp } from 'react-icons/fa';
 
 function AvailabilityModal({ availabilities }) {
-  console.log(availabilities);
-
   return (
     <>
       <input type="checkbox" id="my-modal-6" className="modal-toggle" />

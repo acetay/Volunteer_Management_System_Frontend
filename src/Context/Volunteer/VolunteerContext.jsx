@@ -3,7 +3,7 @@ import axios from 'axios';
 import { initialState } from './InitialStates';
 import Swal from 'sweetalert2';
 
-import { auth } from '../FirebaseConfiguration/Firebase';
+import { auth } from '../../FirebaseConfiguration/Firebase';
 
 import {
   createUserWithEmailAndPassword, // signup new user

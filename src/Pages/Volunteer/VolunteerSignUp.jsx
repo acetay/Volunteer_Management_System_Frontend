@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useGlobalVolunteerContext } from '../../Context/VolunteerContext';
+import { useGlobalVolunteerContext } from '../../Context/Volunteer/VolunteerContext';
 import Swal from 'sweetalert2';
 
 // TODO - BREAKUP AND TRANSFER TO COMPONENTS FOLDER

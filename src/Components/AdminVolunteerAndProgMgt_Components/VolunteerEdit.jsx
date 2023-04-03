@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
 import { useParams, useNavigate } from 'react-router-dom';
+import { editProfile } from '../../Context/Admin/AdminApiActions';
 
 function VolunteerEdit() {
-  const { tempEditForm, editProfile, toggle, dispatch } =
-    useGlobalAdminContext();
+  const { tempEditForm } = useGlobalAdminContext();
   const [form, setForm] = useState(tempEditForm);
   const { id } = useParams();
   const redirect = useNavigate();
@@ -14,14 +14,13 @@ function VolunteerEdit() {
   };
 
   const submitProfileEdit = async () => {
-    const profile = await editProfile(id, {
+    await editProfile(id, {
       interests: form.interests,
       hobbies: form.hobbies,
       professionalExperience: form.professionalExperience,
       profilePicture: form.profilePicture,
     });
 
-    dispatch({ type: 'EDIT_VOLUNTEER_PROFILE', profile: profile });
     redirect(`/admin/singlevolunteer/${id}`);
   };
 

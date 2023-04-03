@@ -1,4 +1,4 @@
-import VolunteerResults from '../../Components/AdminVolunteerMgt/VolunteerResults';
+import VolunteerResults from '../../Components/AdminVolunteerAndProgMgt_Components/VolunteerResults';
 
 function AdminVolunteerManagement() {
   return (

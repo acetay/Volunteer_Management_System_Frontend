@@ -1,4 +1,4 @@
-import AdminProgramInfo from '../../Components/AdminVolunteerMgt/ProgramsAdmin.jsx/AdminProgramInfo';
+import AdminProgramInfo from '../../Components/AdminVolunteerAndProgMgt_Components/ProgramsAdmin.jsx/AdminProgramInfo';
 
 function AdminProgramInfoPage() {
   return (

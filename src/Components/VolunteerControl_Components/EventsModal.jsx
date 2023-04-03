@@ -1,7 +1,6 @@
 function EventsModal({ enrolments }) {
   return (
     <>
-      {/* Put this part before </body> tag */}
       <input
         type="checkbox"
         id="my-modal-3"

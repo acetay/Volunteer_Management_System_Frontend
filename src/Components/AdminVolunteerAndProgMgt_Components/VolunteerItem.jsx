@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
+import { getProfile } from '../../Context/Admin/AdminApiActions';
 
 function VolunteerItem({ volunteer }) {
-  const { getProfile } = useGlobalAdminContext();
   const [volunteerProfile, setVolunteerProfile] = useState({});
 
   useEffect(() => {

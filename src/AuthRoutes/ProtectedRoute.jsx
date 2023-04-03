@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { useGlobalVolunteerContext } from '../Context/VolunteerContext';
+import { useGlobalVolunteerContext } from '../Context/Volunteer/VolunteerContext';
 
 function ProtectedRoute({ children }) {
   const { userStorage } = useGlobalVolunteerContext();

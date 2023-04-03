@@ -6,10 +6,12 @@ import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
 import Spinner from '../../Assets/Sample_images/spinner.gif';
 import ChartsContainer from '../../Components/AdminMainPanel_Components/ChartsContainer';
 
+// import { getAllPrograms } from '../../Context/Admin/AdminApiActions';
+
 function AdminMainPanel() {
   const [state, setState] = useState(null);
   const [completedProfiles, setCompletedProfiles] = useState(0);
-  const { getAllPrograms, getAllVolunteers } = useGlobalAdminContext();
+  const { getAllVolunteers, getAllPrograms } = useGlobalAdminContext();
 
   useEffect(() => {
     const apiCalls = async () => {
