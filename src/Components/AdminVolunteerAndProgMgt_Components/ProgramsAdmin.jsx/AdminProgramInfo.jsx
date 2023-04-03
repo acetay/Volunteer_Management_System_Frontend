@@ -40,13 +40,7 @@ function AdminProgramInfo() {
     (avail) => avail.date === enrolment?.date
   );
 
-  //   console.log(availsWithMatchDate);
-
   const availVolunteers = availsWithMatchDate.map((avail) => avail.volunteer);
-
-  //   console.log(availVolunteers);
-
-  //   console.log(volunteersEnrolled);
 
   function getDifference(array1, array2) {
     return array1.filter((object1) => {

@@ -75,6 +75,18 @@ function AdminContextProvider({ children }) {
     }
   };
 
+  // Get a volunteer's profile API
+  const getProfile = async (volunteerId) => {
+    try {
+      const profile = await api.get(
+        `/admin/volunteers/profiles/${volunteerId}`
+      );
+      return profile.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const ctx = {
     profile: state.profile,
     isLoading: state.isLoading,
@@ -91,6 +103,7 @@ function AdminContextProvider({ children }) {
     getAllPrograms,
     getAllVolunteersInEnrolment,
     getAllAvailabilities,
+    getProfile,
   };
 
   return <AdminContext.Provider value={ctx}>{children}</AdminContext.Provider>;
