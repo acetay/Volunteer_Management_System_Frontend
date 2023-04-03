@@ -98,6 +98,30 @@ function AdminContextProvider({ children }) {
     }
   };
 
+  const enrolVolunteer = async (volunteerId, programId) => {
+    try {
+      const response = await api.post(
+        `/admin/enrolments/volunteers?volunteer_id=${volunteerId}&program_id=${programId}`,
+        {}
+      );
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const editVolunteerAvail = async (volunteerId, date, isAvail) => {
+    try {
+      const response = await api.put(
+        `/volunteers/availability/${volunteerId}?date=${date}&isAvail=${isAvail}`,
+        {}
+      );
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const ctx = {
     profile: state.profile,
     isLoading: state.isLoading,
@@ -116,6 +140,8 @@ function AdminContextProvider({ children }) {
     getAllAvailabilities,
     getProfile,
     getVolunteerAvail,
+    enrolVolunteer,
+    editVolunteerAvail,
   };
 
   return <AdminContext.Provider value={ctx}>{children}</AdminContext.Provider>;

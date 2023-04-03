@@ -4,15 +4,10 @@ import { useState, useEffect } from 'react';
 import Spinner from '../../Assets/Sample_images/spinner.gif';
 import Swal from 'sweetalert2';
 
-import {
-  enrolVolunteer,
-  editVolunteerAvail,
-  getAllPrograms,
-} from '../../Context/Admin/AdminApiActions';
-
 function VolunteerProgramsSelect() {
   const redirect = useNavigate();
-  const { profile } = useGlobalAdminContext();
+  const { profile, getAllPrograms, enrolVolunteer, editVolunteerAvail } =
+    useGlobalAdminContext();
   const [enrolments, setEnrolments] = useState(null);
   const [trigger, setTrigger] = useState(false);
   const [enrolmentsByDate, setEnrolmentsByDate] = useState(null);
