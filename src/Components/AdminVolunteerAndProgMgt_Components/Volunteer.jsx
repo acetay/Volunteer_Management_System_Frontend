@@ -7,7 +7,7 @@ import { MdOutlineLanguage } from 'react-icons/md';
 import { IoBagHandleSharp } from 'react-icons/io5';
 import { useGlobalAdminContext } from '../../Context/Admin/AdminContext';
 import { useGlobalVolunteerContext } from '../../Context/Volunteer/VolunteerContext';
-import { getVolunteerAvail } from '../../Context/Admin/AdminApiActions';
+// import { getVolunteerAvail } from '../../Context/Admin/AdminApiActions';
 
 import Spinner from '../../Assets/Sample_images/spinner.gif';
 
@@ -22,7 +22,7 @@ function Volunteer() {
     getProfile,
     profile,
     setTempEditForm,
-    // getVolunteerAvail,
+    getVolunteerAvail,
     availabilities,
     volunteerEnrolments,
   } = useGlobalAdminContext();
@@ -79,6 +79,24 @@ function Volunteer() {
     };
     getPrograms();
   }, []);
+
+  // Helper to reformat date
+  const dateReformatter = (date) => {
+    return new Date(date.split('-').reverse().join('-'));
+  };
+  const today = new Date();
+
+  // Filter off all enrolments past today
+  let nonExpiredEnrolments =
+    volunteerEnrolments?.filter(
+      (enrolment) => dateReformatter(enrolment?.date) > today
+    ) || [];
+
+  // console.log(nonExpiredEnrolments);
+
+  let nonExpiredAvailabilities = availabilities?.filter(
+    (avail) => dateReformatter(avail?.date) > today
+  );
 
   if (isLoading) {
     return (
@@ -298,9 +316,9 @@ function Volunteer() {
           </div>
 
           {/* UPCOMING EVENTS TABLE */}
-          {volunteerEnrolments?.length !== 0 ? (
+          {nonExpiredEnrolments?.length !== 0 ? (
             <>
-              <VolunteerEvents volunteerEnrolments={volunteerEnrolments} />
+              <VolunteerEvents volunteerEnrolments={nonExpiredEnrolments} />
             </>
           ) : (
             <>
@@ -318,9 +336,11 @@ function Volunteer() {
           )}
 
           {/* AVAILABILITY TABLE */}
-          {availabilities && listOfConfirmAvails?.length !== 0 ? (
+          {availabilities &&
+          listOfConfirmAvails?.length !== 0 &&
+          nonExpiredAvailabilities.length !== 0 ? (
             <VolunteerAvailabilities
-              availabilities={availabilities}
+              availabilities={nonExpiredAvailabilities}
               name={volunteer?.name}
               id={id}
             />
