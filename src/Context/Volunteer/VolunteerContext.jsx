@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { initialState } from './InitialStates';
 import Swal from 'sweetalert2';
+// import Dexie from 'dexie';
 
 import { auth } from '../../FirebaseConfiguration/Firebase';
 
@@ -13,12 +14,15 @@ import {
   updatePassword,
 } from 'firebase/auth';
 
+const BASE_URL = process.env.REACT_APP_SPRING_URL;
+
 const VolunteerContext = createContext();
 
 function VolunteerContextProvider({ children }) {
   const [volunteers, setVolunteers] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  // const [token, setToken] = useState();
 
   // States created for testing only - to remove once stable
   const [authUser, setAuthUser] = useState({});
@@ -26,20 +30,53 @@ function VolunteerContextProvider({ children }) {
   const [editForm, setEditForm] = useState({});
   const [userUid, setUserUid] = useState('');
 
+  // Get Firebase Data from indexedDB and set it to
+  // const initateIndexedDb = () => {
+  //   const req = window.indexedDB.open('firebaseLocalStorageDb', 1);
+
+  //   req.onsuccess = (e) => {
+  //     const db = e.target.result;
+  //     const tx = db.transaction(['firebaseLocalStorage'], 'readonly');
+  //     const os = tx.objectStore('firebaseLocalStorage');
+  //     os.openCursor().onsuccess = (e) => {
+  //       const cursor = e.target.result;
+  //       if (cursor) {
+  //         // Copy the value (JSON) only dumped by console.log
+  //         setToken(cursor.value.value.stsTokenManager?.accessToken);
+  //         console.log(cursor.key, JSON.stringify(cursor.value));
+  //         cursor.continue();
+  //       }
+  //     };
+  //   };
+  // };
+
+  // useEffect(() => {
+  //   initateIndexedDb();
+  // }, []);
+
   // Temp signup Form - To be refactored
   const [tempForm, setTempForm] = useState(initialState);
 
   let userStorage = JSON.parse(localStorage.getItem('singleUser'));
   let credentials = JSON.parse(localStorage.getItem('userCredentials'));
   let role = credentials?.role;
+  const accessToken = JSON.parse(localStorage.getItem('authUser'))
+    ?.stsTokenManager.accessToken;
+  const api = axios.create({
+    baseURL: BASE_URL,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 
   // Get access Info from firebase
   useEffect(() => {
     const listenToAuth = onAuthStateChanged(auth, (currentUser) => {
       setAuthUser(currentUser);
       setUserUid(currentUser?.uid);
+
       localStorage.setItem('authUser', JSON.stringify(currentUser));
-      console.log(currentUser.accessToken);
+      // console.log(currentUser?.accessToken);
     });
     return () => {
       listenToAuth();
@@ -47,17 +84,20 @@ function VolunteerContextProvider({ children }) {
     // }
   }, [isLoggedIn]);
 
+  // Get volunteer by id
+  const getVolunteerById = async (id) => {
+    try {
+      const response = await api.get(`/admin/volunteers/${id}`);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // Edit a Volunteer
   const editVolunteer = async (id, volunteer) => {
     try {
-      const accessToken = JSON.parse(localStorage.getItem('authUser'))
-        .stsTokenManager.accessToken;
-
-      await axios.put(`http://localhost:8080/volunteers/${id}`, volunteer, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      await api.put(`http://localhost:8080/volunteers/${id}`, volunteer);
       const editedUser = { ...singleUser, volunteer: volunteer };
       setSingleUser({ ...singleUser, volunteer: volunteer });
       localStorage.setItem('singleUser', JSON.stringify(editedUser));
@@ -93,10 +133,10 @@ function VolunteerContextProvider({ children }) {
   const signOutVolunteer = async (uid) => {
     try {
       await axios.post(`http://localhost:8080/api/signout`, uid);
+      localStorage.clear();
       setSingleUser(null);
       setUserUid(() => null);
       setAuthUser(null);
-      localStorage.clear();
     } catch (err) {
       console.log(err);
     }
@@ -118,18 +158,21 @@ function VolunteerContextProvider({ children }) {
   // Get enrolments of a volunteer
   const getEnrolments = async (volunteerId) => {
     try {
-      const accessToken = JSON.parse(localStorage.getItem('authUser'))
-        .stsTokenManager.accessToken;
-      const enrolments = await axios.get(
-        `http://localhost:8080/volunteers/${volunteerId}/enrolments`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      const enrolments = await api.get(`/volunteers/${volunteerId}/enrolments`);
       console.log(enrolments.data);
       return enrolments.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Get Availabilities of a volunteer
+  const getAvailabilities = async (id) => {
+    try {
+      const response = await api.get(
+        `http://localhost:8080/volunteers/availabilities/${id}`
+      );
+      return response.data;
     } catch (err) {
       console.log(err);
     }
@@ -138,15 +181,8 @@ function VolunteerContextProvider({ children }) {
   // Change a volunteer's avail date
   const unmarkAvailDate = async (volunteerId, date) => {
     try {
-      const accessToken = JSON.parse(localStorage.getItem('authUser'))
-        .stsTokenManager.accessToken;
-      const response = await axios.delete(
-        `http://localhost:8080/volunteers/availability/${volunteerId}?date=${date}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
+      const response = await api.delete(
+        `/volunteers/availability/${volunteerId}?date=${date}`
       );
       console.log(response);
     } catch (err) {
@@ -177,9 +213,12 @@ function VolunteerContextProvider({ children }) {
   };
 
   const ctx = {
+    api,
     volunteers,
     setVolunteers,
     signupVolunteer,
+    getVolunteerById,
+    getAvailabilities,
     editVolunteer,
     setEditForm,
     editForm,
@@ -206,6 +245,7 @@ function VolunteerContextProvider({ children }) {
     unmarkAvailDate,
     passwordReset,
     role,
+    // token,
   };
 
   return (

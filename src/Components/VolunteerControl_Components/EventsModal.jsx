@@ -1,4 +1,14 @@
 function EventsModal({ enrolments }) {
+  // Helper to reformat date
+  const dateReformatter = (date) => {
+    return new Date(date.split('-').reverse().join('-'));
+  };
+  const today = new Date();
+
+  // Filter off all enrolments past today
+  let nonExpiredEvents =
+    enrolments?.filter((enrol) => dateReformatter(enrol?.date) > today) || [];
+  console.log(nonExpiredEvents);
   return (
     <>
       <input
@@ -14,11 +24,12 @@ function EventsModal({ enrolments }) {
           >
             ✕
           </label>
-          {enrolments?.length === 0 ? (
+          {nonExpiredEvents?.length === 0 ? (
             <>
               <p className="text-center pt-6 text-error font-bold">
                 {' '}
-                You are not enrolled in any programs
+                You are not enrolled in any programs, or the programs you've
+                enrolled have expired.
               </p>
             </>
           ) : (
@@ -43,7 +54,7 @@ function EventsModal({ enrolments }) {
                   </thead>
                   <tbody>
                     {/* row 1 */}
-                    {enrolments?.map((enrolment, index) => (
+                    {nonExpiredEvents?.map((enrolment, index) => (
                       <tr key={index}>
                         <th>{index + 1}</th>
                         <td className="text-blue-600 font-bold">

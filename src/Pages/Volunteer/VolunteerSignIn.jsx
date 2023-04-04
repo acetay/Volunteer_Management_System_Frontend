@@ -42,6 +42,7 @@ function VolunteerSignIn() {
   }, [isLoggedIn]);
 
   useEffect(() => {
+    // If change this, we need to change the auth routh condition which is also tied to singleUser
     if (singleUser?.volunteer) {
       setIsLoading(false);
       const id = singleUser?.volunteer.id;

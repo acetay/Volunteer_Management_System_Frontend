@@ -1,12 +1,23 @@
 import { FaThumbsUp } from 'react-icons/fa';
 
 function AvailabilityModal({ availabilities }) {
+  // Helper to reformat date
+  const dateReformatter = (date) => {
+    return new Date(date.split('-').reverse().join('-'));
+  };
+  const today = new Date();
+
+  // Filter off all enrolments past today
+  let nonExpiredAvails =
+    availabilities?.filter((avail) => dateReformatter(avail?.date) > today) ||
+    [];
+  console.log(nonExpiredAvails);
   return (
     <>
       <input type="checkbox" id="my-modal-6" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
-          {availabilities.length !== 0 ? (
+          {nonExpiredAvails?.length !== 0 ? (
             <>
               <h1 className="text-teal-700 text-md font-semibold p-2">
                 Your list of avail dates and timeslots
@@ -23,7 +34,7 @@ function AvailabilityModal({ availabilities }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {availabilities.map((avail, index) => (
+                    {availabilities?.map((avail, index) => (
                       <tr className="border-b-2" key={index + 1}>
                         <th>{index + 1}</th>
                         <td>{avail.date}</td>

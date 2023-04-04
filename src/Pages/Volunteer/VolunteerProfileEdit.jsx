@@ -1,16 +1,22 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useGlobalVolunteerContext } from '../../Context/Volunteer/VolunteerContext';
 import Swal from 'sweetalert2';
 
 function VolunteerProfileEdit() {
   // To remove edit Form - for testing only
-  const { editVolunteer, setEditForm } = useGlobalVolunteerContext();
+  const { editVolunteer, getVolunteerById } = useGlobalVolunteerContext();
   const redirect = useNavigate();
   const { id } = useParams();
-  const user = JSON.parse(localStorage.getItem('singleUser'))?.volunteer;
-  // Inject values from editForm via localstorage
-  const [form, setForm] = useState(user);
+  const [form, setForm] = useState({});
+
+  useEffect(() => {
+    const callApi = async () => {
+      const volunteer = await getVolunteerById(id);
+      setForm(volunteer);
+    };
+    callApi();
+  }, []);
 
   const changeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -19,7 +25,6 @@ function VolunteerProfileEdit() {
   const editHandler = () => {
     try {
       editVolunteer(id, form);
-      setEditForm({});
       Swal.fire({
         title: 'Success',
         text: 'Profile successfully edited!',
@@ -28,7 +33,7 @@ function VolunteerProfileEdit() {
       redirect(`/volunteers/profile/${id}`);
     } catch (err) {
       console.log(err.message);
-      setEditForm({});
+      // setEditForm({});
       Swal.fire({
         title: 'Something went wrong!',
         text: err.message,

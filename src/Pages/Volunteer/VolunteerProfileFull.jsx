@@ -13,25 +13,20 @@ import CalendarModal from '../../Components/VolunteerControl_Components/Calendar
 import EventsModal from '../../Components/VolunteerControl_Components/EventsModal';
 import AvailabilityModal from '../../Components/VolunteerControl_Components/AvailabilityModal';
 
-// TODO - BREAKUP AND TRANSFER TO COMPONENTS FOLDER
-
 function VolunteerProfileFull() {
   const jwtToken = JSON.parse(localStorage.getItem('authUser'))?.stsTokenManager
     .accessToken;
   const { id } = useParams();
   const redirect = useNavigate();
-  // To remove singleUser - for testing only
-  const { setEditForm, isLoading, getEnrolments, unmarkAvailDate } =
+  const { getEnrolments, unmarkAvailDate, getVolunteerById, token, authUser } =
     useGlobalVolunteerContext();
   const [enrolments, setEnrolments] = useState([]);
   const [availabilities, setAvailabilities] = useState([]);
+  const [volunteer, setVolunteer] = useState(null);
   const [date, setDate] = useState(new Date());
-  let volunteer = JSON.parse(localStorage.getItem('singleUser'))?.volunteer;
 
   const goToEdit = () => {
-    // To remove setEditForm - for testing only
-    setEditForm(volunteer);
-    redirect(`/volunteers/profile/${volunteer.id}/edit`);
+    redirect(`/volunteers/profile/${id}/edit`);
   };
 
   // Get Availabilities of a volunteer
@@ -53,18 +48,21 @@ function VolunteerProfileFull() {
 
   useEffect(() => {
     getAvailabilities(id);
-    const enrolledprograms = async () => {
+    const callApi = async () => {
       const programs = await getEnrolments(id);
+      const volunteerInfo = await getVolunteerById(id);
       setEnrolments(programs);
+      setVolunteer(volunteerInfo);
     };
-    enrolledprograms();
+
+    callApi();
   }, []);
 
   const goToReset = () => {
     redirect(`/volunteers/passwordreset/${id}`);
   };
 
-  if (isLoading) {
+  if (!volunteer) {
     return (
       <div className="flex flex-col h-auto md:h-screen p-8 justify-start items-center pt-32">
         <img className="h-[300px] w-[300px]" src={Spinner} alt="spinner" />
