@@ -45,6 +45,7 @@ function AdminContextProvider({ children }) {
     return { volunteers: volunteers.data, profiles: profiles.data };
   };
 
+  // Get all programs and enrolments
   const getAllPrograms = async () => {
     const [programs, enrolments] = await Promise.all([
       api.get('/admin/programs'),
@@ -53,6 +54,13 @@ function AdminContextProvider({ children }) {
     return { programs: programs.data, enrolments: enrolments.data };
   };
 
+  // Get a program by ID
+  const getProgramById = async (id) => {
+    const program = await api.get(`/admin/programs/${id}`);
+    return program.data;
+  };
+
+  // Get all volunteers in an enrolment
   const getAllVolunteersInEnrolment = async (id) => {
     try {
       const enroledVolunteers = await api.get(
@@ -64,6 +72,7 @@ function AdminContextProvider({ children }) {
     }
   };
 
+  // Get all availabilities
   const getAllAvailabilities = async () => {
     try {
       const getAllAvailabilities = await api.get(
@@ -75,6 +84,7 @@ function AdminContextProvider({ children }) {
     }
   };
 
+  // Get a volunteer's availability
   const getVolunteerAvail = async (volunteerId) => {
     try {
       const availability = await api.get(
@@ -86,7 +96,7 @@ function AdminContextProvider({ children }) {
     }
   };
 
-  // Get a volunteer's profile API
+  // Get a volunteer's profile
   const getProfile = async (volunteerId) => {
     try {
       const profile = await api.get(
@@ -98,6 +108,7 @@ function AdminContextProvider({ children }) {
     }
   };
 
+  // Enrol a volunteer into an enrolment
   const enrolVolunteer = async (volunteerId, programId) => {
     try {
       const response = await api.post(
@@ -110,6 +121,7 @@ function AdminContextProvider({ children }) {
     }
   };
 
+  // Edit a volunteer's availability
   const editVolunteerAvail = async (volunteerId, date, isAvail) => {
     try {
       const response = await api.put(
@@ -122,6 +134,7 @@ function AdminContextProvider({ children }) {
     }
   };
 
+  // Add a new program
   const addProgram = async (body) => {
     try {
       const response = await api.post(`/admin/newprogram`, body);
@@ -131,6 +144,7 @@ function AdminContextProvider({ children }) {
     }
   };
 
+  // Edit a program
   const editProgram = async (id, body) => {
     try {
       console.log(body);
@@ -141,6 +155,7 @@ function AdminContextProvider({ children }) {
     }
   };
 
+  // Edit a profile
   const editProfile = async (volunteerId, volunteerProfile) => {
     try {
       const profile = await api.put(
@@ -170,6 +185,7 @@ function AdminContextProvider({ children }) {
     getAllVolunteersInEnrolment,
     getAllAvailabilities,
     getProfile,
+    getProgramById,
     getVolunteerAvail,
     enrolVolunteer,
     editVolunteerAvail,

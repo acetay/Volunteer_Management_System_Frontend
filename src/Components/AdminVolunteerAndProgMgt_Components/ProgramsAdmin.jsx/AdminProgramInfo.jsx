@@ -7,11 +7,6 @@ import Spinner from '../../../Assets/Sample_images/spinner.gif';
 import AdminProgramVolunteerTable2 from './AdminProgramVolunteerTable2';
 import AdminProgramVolunteerTable1 from './AdminProgramVolunteerTable1';
 
-// import // getAllVolunteersInEnrolment,
-// // getAllAvailabilities,
-// // getAllPrograms,
-// '../../../Context/Admin/AdminApiActions';
-
 function AdminProgramInfo() {
   const { id } = useParams();
   const redirect = useNavigate();
@@ -20,7 +15,7 @@ function AdminProgramInfo() {
   const [enrolments, setEnrolments] = useState([]);
 
   const {
-    setTempEditForm,
+    // setTempEditForm,
     getAllVolunteersInEnrolment,
     allAvailabilitiesOfVolunteers,
     getAllAvailabilities,
@@ -52,8 +47,6 @@ function AdminProgramInfo() {
 
   const unique = getDifference(availVolunteers, volunteersEnrolled);
 
-  console.log(unique);
-
   useEffect(() => {
     const getVolunteers = async () => {
       const volunteers = await getAllVolunteersInEnrolment(id);
@@ -77,7 +70,7 @@ function AdminProgramInfo() {
   }, []);
 
   const toEditForm = () => {
-    setTempEditForm(enrolment.program);
+    // setTempEditForm(enrolment.program);
     redirect(`/admin/programs/edit/${id}`);
   };
 

@@ -8,7 +8,8 @@ import { useGlobalAdminContext } from '../../../Context/Admin/AdminContext';
 
 function AdminProgramEdit() {
   const { id } = useParams();
-  const { tempEditForm, editProgram, getAllPrograms } = useGlobalAdminContext();
+  const { editProgram, getAllPrograms, getProgramById } =
+    useGlobalAdminContext();
   const redirect = useNavigate();
   const [form, setForm] = useState({});
   const changeHandler = (e) => {
@@ -26,16 +27,20 @@ function AdminProgramEdit() {
       noOfVolunteers: 0,
     });
     // dispatch({ type: 'EDIT_PROGRAM', id: id, program: editedProgram });
-    const programs = await getAllPrograms();
+    await getAllPrograms();
     // dispatch({ type: 'GET_PROGRAMS_ENROLMENTS', payload: programs });
     redirect(`/admin/programs/${id}`);
   };
 
   useEffect(() => {
-    setForm({
-      ...tempEditForm,
-      date: tempEditForm?.date.split('-').reverse().join('-'),
-    });
+    const getProgramApi = async () => {
+      const programInfo = await getProgramById(id);
+      setForm({
+        ...programInfo,
+        date: programInfo?.date.split('-').reverse().join('-'),
+      });
+    };
+    getProgramApi();
   }, []);
 
   return (
